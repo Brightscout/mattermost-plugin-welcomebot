@@ -220,8 +220,7 @@ func (p *Plugin) ExecuteCommand(_ *plugin.Context, args *model.CommandArgs) (*mo
 	}
 	if !isSysadmin {
 		if action == commandTriggerSetChannelWelcome || action == commandTriggerGetChannelWelcome || action == commandTriggerDeleteChannelWelcome {
-			hasPermissionTo := p.API.HasPermissionToChannel(args.UserId, args.ChannelId, model.PermissionManageChannelRoles)
-			if !hasPermissionTo {
+			if hasPermissionTo := p.API.HasPermissionToChannel(args.UserId, args.ChannelId, model.PermissionManageChannelRoles); !hasPermissionTo {
 				p.postCommandResponse(args, "The `/welcomebot %s` command can only be executed by system admins and channel admins.", action)
 				return &model.CommandResponse{}, nil
 			}
