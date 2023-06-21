@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/channel_members_dropdown should match snapshot for channel_members_dropdown 1`] = `
+<div>
+  <FormattedMessage
+    defaultMessage="Channel Admin"
+    id="channel_members_dropdown.channel_admin"
+    values={Object {}}
+  />
+</div>
+`;
+
+exports[`components/channel_members_dropdown should match snapshot for group_constrained channel 1`] = `
+<div>
+  <FormattedMessage
+    defaultMessage="Channel Admin"
+    id="channel_members_dropdown.channel_admin"
+    values={Object {}}
+  />
+</div>
+`;
+
+exports[`components/channel_members_dropdown should match snapshot opening dropdown upwards 1`] = `
+<div>
+  <FormattedMessage
+    defaultMessage="Channel Admin"
+    id="channel_members_dropdown.channel_admin"
+    values={Object {}}
+  />
+</div>
+`;

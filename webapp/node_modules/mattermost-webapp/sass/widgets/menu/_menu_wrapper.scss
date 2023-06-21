@@ -1,0 +1,8 @@
+.MenuWrapper {
+    position: relative;
+
+    *:first-child {
+        @include unselectable;
+        cursor: pointer;
+    }
+}
