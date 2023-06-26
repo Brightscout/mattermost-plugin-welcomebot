@@ -9,6 +9,9 @@ import {GlobalState} from 'mattermost-redux/types/store';
 // Constants
 
 // Containers
+
+import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
+
 import ChannelHeaderButton from './containers/components/channelHeaderButton';
 import RHS from './containers/rhs';
 
@@ -19,7 +22,7 @@ import {PluginRegistry} from './types/mattermostWebapp';
 
 import pluginConstants from './pluginConstants';
 
-import {pluginId} from './manifest';
+import {id} from './manifest';
 
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
@@ -28,6 +31,7 @@ export default class Plugin {
         registry.registerReducer(reducers);
         const {showRHSPlugin} = registry.registerRightHandSidebarComponent(RHS, pluginConstants.common.RIGHT_SIDEBAR_HEADER);
         registry.registerChannelHeaderButtonAction(<ChannelHeaderButton/>, () => store.dispatch(showRHSPlugin), null, pluginConstants.common.CHANNEL_HEADER_BUTTON_TOOLTIP);
+        registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
     }
 }
 
@@ -37,4 +41,4 @@ declare global {
     }
 }
 
-window.registerPlugin(pluginId, new Plugin());
+window.registerPlugin(id, new Plugin());

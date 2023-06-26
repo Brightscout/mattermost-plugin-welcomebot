@@ -66,7 +66,7 @@ endif
 .PHONY: webapp/.npminstall
 webapp/.npminstall:
 ifneq ($(HAS_WEBAPP),)
-	cd webapp && $(NPM) install
+	cd webapp && $(NPM) install --legacy-peer-deps
 	touch $@
 endif
 
