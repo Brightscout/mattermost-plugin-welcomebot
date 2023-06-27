@@ -10,7 +10,11 @@ import {GlobalState} from 'mattermost-redux/types/store';
 
 // Containers
 
+import {PluginRegistry} from 'types/mattermostWebapp';
+
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
+
+import AttachmentMsgModal from 'containers/components/modals/attachmentMsgModal';
 
 import ChannelHeaderButton from './containers/components/channelHeaderButton';
 import RHS from './containers/rhs';
@@ -18,20 +22,20 @@ import RHS from './containers/rhs';
 // Reducer
 import reducers from './reducers';
 
-import {PluginRegistry} from './types/mattermostWebapp';
-
 import pluginConstants from './pluginConstants';
 
 import {id} from './manifest';
 
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
         // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
         registry.registerReducer(reducers);
         const {showRHSPlugin} = registry.registerRightHandSidebarComponent(RHS, pluginConstants.common.RIGHT_SIDEBAR_HEADER);
         registry.registerChannelHeaderButtonAction(<ChannelHeaderButton/>, () => store.dispatch(showRHSPlugin), null, pluginConstants.common.CHANNEL_HEADER_BUTTON_TOOLTIP);
         registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
+        registry.registerRootComponent(AttachmentMsgModal);
     }
 }
 

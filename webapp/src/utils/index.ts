@@ -1,7 +1,7 @@
 /**
  * Utils
 */
-import {pluginId} from 'manifest';
+import {id} from 'manifest';
 
 import getErrorMessage from './errorHandling';
 
@@ -9,7 +9,7 @@ import getErrorMessage from './errorHandling';
 const getBaseUrls = (): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
     const url = new URL(window.location.href);
     const baseUrl = `${url.protocol}//${url.host}`;
-    const pluginUrl = `${baseUrl}/plugins/${pluginId}`;
+    const pluginUrl = `${baseUrl}/plugins/${id}`;
     const pluginApiBaseUrl = `${pluginUrl}/api/v1`;
     const mattermostApiBaseUrl = `${baseUrl}/api/v4`;
 

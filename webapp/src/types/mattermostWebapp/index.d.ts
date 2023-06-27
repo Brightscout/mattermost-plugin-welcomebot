@@ -5,6 +5,7 @@ export interface PluginRegistry {
     registerChannelHeaderButtonAction(icon: JSX.Element, action: () => void, dropdownText: string | null, tooltipText: string | null);
     registerRightHandSidebarComponent(component: () => JSX.Element, title: string | JSX.Element);
     registerWebSocketEventHandler(event: string, handler: (msg: WebsocketEventParams) => void)
+    registerAdminConsoleCustomSetting(key: string, component: React.ElementType)
 
     // Add more if needed from https://developers.mattermost.com/extend/plugins/webapp/reference
 }

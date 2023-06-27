@@ -10,3 +10,7 @@ type GlobalModalState = {
 type WebsocketEventState = {
     isConnected: boolean;
 };
+
+type ViewConfigModalState = {
+    isVisible: boolean;
+};

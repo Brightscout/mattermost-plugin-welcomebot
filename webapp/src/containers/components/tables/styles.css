@@ -3,4 +3,25 @@
     justify-content: space-between;
     gap: 10px;
 }
+
+table.table tbody tr td,
+table.table thead tr th,
+table.table thead {
+  border: 2px solid #ddd;
+}
   
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+    vertical-align: bottom;
+} 
+
+table {
+    width: 100%;
+}
+.table thead tr th td{
+    white-space:nowrap
+}
