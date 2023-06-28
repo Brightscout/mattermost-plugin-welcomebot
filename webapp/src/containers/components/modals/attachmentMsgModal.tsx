@@ -29,7 +29,7 @@ const AttachmentMsgModal = () => {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <p>{'Attachment message body text goes here.'}</p>
+                        <p>{'Attachment messages body text goes here.'}</p>
                     </Modal.Body>
 
                     <Modal.Footer>
