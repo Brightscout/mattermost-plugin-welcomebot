@@ -36,6 +36,7 @@ export default class Plugin {
         registry.registerChannelHeaderButtonAction(<ChannelHeaderButton/>, () => store.dispatch(showRHSPlugin), null, pluginConstants.common.CHANNEL_HEADER_BUTTON_TOOLTIP);
         registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
         registry.registerRootComponent(AttachmentMsgModal);
+        registry.registerRootComponent(StaticExample);
     }
 }
 

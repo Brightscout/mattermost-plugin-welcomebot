@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 
 import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
@@ -29,7 +28,6 @@ type Props = {
 //TODO: Will remove this dummy data
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const dispatch = useDispatch();
-
     const handleView = () => {
         dispatch(showViewConfigModalState());
     };
