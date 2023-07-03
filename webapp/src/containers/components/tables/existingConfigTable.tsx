@@ -1,11 +1,11 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, {useState} from 'react';
 
 import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
 
 import './styles.css';
-import {useDispatch} from 'react-redux';
 
-import {showViewConfigModalState} from 'reducers/viewConfigModal';
+import AttachmentMsgModal from '../modals/attachmentMsgModal';
 
 type HelpText = {
     key: string | null;
@@ -25,15 +25,24 @@ type Props = {
     helpText: HelpText;
 }
 
-//TODO: Will remove this dummy data
 const ExistingConfigTable = ({label, helpText}: Props) => {
-    const dispatch = useDispatch();
+    const [vis, setVis] = useState(false);
+
     const handleView = () => {
-        dispatch(showViewConfigModalState());
+        console.log('vis from table ', vis);
+        setVis(true);
+        console.log('vis from table ', vis);
+    };
+    const handleViews = () => {
+        setVis(false);
     };
 
     return (
         <div>
+            {vis && <AttachmentMsgModal
+                visible={vis}
+                setVis={setVis}
+            />}
             <FormGroup>
                 <Col sm={4}>
                     {label}
@@ -67,7 +76,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>
                                     <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
-                                            <Button variant='primary'>{'Edit'}</Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleViews}
+                                            >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>

@@ -1,50 +1,50 @@
+/* eslint-disable react/jsx-no-literals */
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import usePluginApi from 'hooks/usePluginApi';
+import './styles.css';
 
-//TODO: render this modal when view button is clicked in Config table
-const AttachmentMsgModal = () => {
+interface Props {
+    visible: boolean;
+    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function AttachmentMsgModal(props: Props) {
     const [show, setShow] = useState(false);
-    const usePlugin = usePluginApi();
 
     useEffect(() => {
-        const visibility = usePlugin.state['plugins-com.mattermost.welcomebot'].viewConfigModalSlice.isVisible;
-        setShow(visibility);
-    }, []);
+        setShow(props.visible);
+    }, [props.visible]);
 
     const handleClose = () => {
         setShow(false);
+        props.setVis(false);
     };
     return (
         <>
-            <div
-                className='modal show'
-                style={{display: 'block', position: 'initial'}}
+            <Modal
+                show={show}
+                onHide={handleClose}
             >
-                <Modal show={show}>
-                    <Modal.Header closeButton={true}>
-                        <Modal.Title>{'Attachment Message'}</Modal.Title>
-                    </Modal.Header>
+                <Modal.Header closeButton={true}>
+                    <Modal.Title>Modal title</Modal.Title>
+                </Modal.Header>
 
-                    <Modal.Body>
-                        <p>{'Attachment message body text goes here.'}</p>
-                    </Modal.Body>
+                <Modal.Body>
+                    <p>Modal body text goes here.</p>
+                </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button
-                            variant='secondary'
-                            onClick={handleClose}
-                        >
-                            {'Close'}
-                        </Button>
-                        <Button variant='primary'>{'Save changes'}</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                <Modal.Footer>
+                    <Button
+                        variant='secondary'
+                        onClick={handleClose}
+                    >Close</Button>
+                    <Button variant='primary'>Save changes</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
-};
+}
 
 export default AttachmentMsgModal;
