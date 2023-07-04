@@ -5,7 +5,7 @@ import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
 
 import './styles.css';
 
-import AttachmentMsgModal from '../modals/attachmentMsgModal';
+import ViewActionsModal from '../modals/viewActionsModal';
 
 type HelpText = {
     key: string | null;
@@ -39,7 +39,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
 
     return (
         <div>
-            {vis && <AttachmentMsgModal
+            {vis && <ViewActionsModal
                 visible={vis}
                 setVis={setVis}
             />}

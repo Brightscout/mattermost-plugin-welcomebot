@@ -10,7 +10,7 @@ interface Props {
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function AttachmentMsgModal(props: Props) {
+function EditActionsModal(props: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -42,13 +42,12 @@ function AttachmentMsgModal(props: Props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>{'Action Type'}</Form.Label>
-                            <div className='dropdown'><Form.Select
-                                aria-label='Default select example'
-                                size='sm'>
-                                <option>{'Choose the type of your action'}</option>
-                                <option value='1'>{'Button'}</option>
-                                <option value='2'>{'Automatic'}</option>
-                            </Form.Select></div>
+                            <div className='dropdown'>
+                                <Form.Select aria-label='Default select example'>
+                                    <option>{'Choose the type of your action'}</option>
+                                    <option value='1'>{'Button'}</option>
+                                    <option value='2'>{'Automatic'}</option>
+                                </Form.Select></div>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>{'Action Display Name'}</Form.Label>
@@ -86,4 +85,4 @@ function AttachmentMsgModal(props: Props) {
     );
 }
 
-export default AttachmentMsgModal;
+export default EditActionsModal;
