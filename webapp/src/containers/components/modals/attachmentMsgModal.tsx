@@ -1,9 +1,9 @@
-/* eslint-disable react/jsx-no-literals */
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import './styles.css';
+import Form from 'react-bootstrap/Form';
 
 interface Props {
     visible: boolean;
@@ -27,20 +27,59 @@ function AttachmentMsgModal(props: Props) {
                 show={show}
                 onHide={handleClose}
             >
-                <Modal.Header closeButton={true}>
-                    <Modal.Title>Modal title</Modal.Title>
+                <Modal.Header closeButton={false}>
+                    <Modal.Title>{'Actions'}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>Modal body text goes here.</p>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>{'Attachment Message'}</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Enter your attachment message'
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>{'Action Type'}</Form.Label>
+                            <div className='dropdown'><Form.Select
+                                aria-label='Default select example'
+                                size='sm'>
+                                <option>{'Choose the type of your action'}</option>
+                                <option value='1'>{'Button'}</option>
+                                <option value='2'>{'Automatic'}</option>
+                            </Form.Select></div>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>{'Action Display Name'}</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Enter the display name of your action'
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>{'Channels Added to'}</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Enter the name of channels in which you want to add the new user'
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>{'Action Successfull message'}</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Enter the success message on completion of action'
+                            />
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Button
                         variant='secondary'
                         onClick={handleClose}
-                    >Close</Button>
-                    <Button variant='primary'>Save changes</Button>
+                    >{'Close'}</Button>
+                    <Button variant='primary'>{'Save changes'}</Button>
                 </Modal.Footer>
             </Modal>
         </>

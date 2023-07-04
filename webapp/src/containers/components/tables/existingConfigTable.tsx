@@ -52,10 +52,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                         <thead>
                             <tr>
                                 <th className='team-name single-line'>{'Team Name'}</th>
-                                <th className='delay'>{'Delay in seconds'}</th>
+                                <th className='delay'>{'Delay (in sec)'}</th>
                                 <th className='message'>{'Message'}</th>
-                                <th className='attachment-message  single-line'>{'Attachment message'}</th>
-                                <th className='options'>{'Options'}</th>
+                                <th className='include-guests'>{'Include Guests'}</th>
+                                <th className='options  single-line'>{'Options'}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,16 +66,17 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                     {'Hello to standup group sdhfvk.'}
                                 </td>
                                 <td>
-                                    <Button
-                                        variant='primary'
-                                        onClick={handleView}
-                                    >
-                                        {'View'}
-                                    </Button>
+                                    {'True'}
                                 </td>
                                 <td>
                                     <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleView}
+                                            >
+                                                {'View'}
+                                            </Button>
                                             <Button
                                                 variant='primary'
                                                 onClick={handleViews}
@@ -90,17 +91,22 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'5'}</td>
                                 <td>{'This group is to share overview'}</td>
                                 <td>
-                                    <Button
-                                        variant='primary'
-                                        onClick={handleView}
-                                    >
-                                        {'View'}
-                                    </Button>
+                                    {'True'}
                                 </td>
+
                                 <td>
-                                    <div>
+                                    <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
-                                            <Button variant='primary'>{'Edit'}</Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleView}
+                                            >
+                                                {'View'}
+                                            </Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleViews}
+                                            >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>
@@ -111,17 +117,22 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'2'}</td>
                                 <td>{'Share all your results here'}</td>
                                 <td>
-                                    <Button
-                                        variant='primary'
-                                        onClick={handleView}
-                                    >
-                                        {'View'}
-                                    </Button>
+                                    {'True'}
                                 </td>
+
                                 <td>
-                                    <div>
+                                    <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
-                                            <Button variant='primary'>{'Edit'}</Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleView}
+                                            >
+                                                {'View'}
+                                            </Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleViews}
+                                            >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>
@@ -132,17 +143,22 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'6'}</td>
                                 <td>{'Deployment details here'}</td>
                                 <td>
-                                    <Button
-                                        variant='primary'
-                                        onClick={handleView}
-                                    >
-                                        {'View'}
-                                    </Button>
+                                    {'True'}
                                 </td>
+
                                 <td>
-                                    <div>
+                                    <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
-                                            <Button variant='primary'>{'Edit'}</Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleView}
+                                            >
+                                                {'View'}
+                                            </Button>
+                                            <Button
+                                                variant='primary'
+                                                onClick={handleViews}
+                                            >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>
