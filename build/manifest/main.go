@@ -50,15 +50,11 @@ func main() {
 	case "has_server":
 		if manifest.HasServer() {
 			fmt.Printf("true")
-		} else {
-			fmt.Printf("false")
 		}
 
 	case "has_webapp":
 		if manifest.HasWebapp() {
 			fmt.Printf("true")
-		} else {
-			fmt.Printf("false")
 		}
 
 	case "apply":
@@ -118,11 +114,11 @@ func applyManifest(manifest *model.Manifest) error {
 
 	if manifest.HasWebapp() {
 		if err := ioutil.WriteFile(
-			"webapp/src/manifest.js",
+			"webapp/src/manifest.ts",
 			[]byte(fmt.Sprintf(pluginIDJSFileTemplate, manifest.Id, manifest.Version)),
 			0600,
 		); err != nil {
-			return errors.Wrap(err, "failed to open webapp/src/manifest.js")
+			return errors.Wrap(err, "failed to open webapp/src/manifest.ts")
 		}
 	}
 
