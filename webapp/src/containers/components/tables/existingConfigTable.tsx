@@ -6,6 +6,7 @@ import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
 import './styles.css';
 
 import ViewActionsModal from '../modals/viewActionsModal';
+import DeleteConfigModal from '../modals/deleteConfigModal';
 
 type HelpText = {
     key: string | null;
@@ -26,23 +27,27 @@ type Props = {
 }
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
-    const [vis, setVis] = useState(false);
+    const [viewVisible, setViewVisible] = useState(false);
+    const [deleteVisible, setDeleteVisible] = useState(false);
 
     const handleView = () => {
-        console.log('vis from table ', vis);
-        setVis(true);
-        console.log('vis from table ', vis);
+        setViewVisible(true);
     };
-    const handleViews = () => {
-        setVis(false);
+    const handleDelete = () => {
+        setDeleteVisible(true);
     };
 
     return (
         <div>
-            {vis && <ViewActionsModal
-                visible={vis}
-                setVis={setVis}
-            />}
+            {viewVisible && <ViewActionsModal
+                visible={viewVisible}
+                setVis={setViewVisible}
+                            />}
+            {deleteVisible && <DeleteConfigModal
+                visible={deleteVisible}
+                setVis={setDeleteVisible}
+                              />}
+
             <FormGroup>
                 <Col sm={4}>
                     {label}
@@ -79,9 +84,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
                                             >{'Edit'}</Button>
-                                            <Button variant='danger'>{'Delete'}</Button>
+                                            <Button
+                                                variant='danger'
+                                                onClick={handleDelete}
+                                            >{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>
                                 </td>
@@ -105,7 +112,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
@@ -131,7 +137,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
@@ -157,7 +162,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
