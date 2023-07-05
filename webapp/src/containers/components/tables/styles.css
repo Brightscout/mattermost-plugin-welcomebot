@@ -8,6 +8,7 @@ table.table tbody tr td,
 table.table thead tr th,
 table.table thead {
   border: 2px solid #ddd;
+  vertical-align: text-top;
 }
   
 .table td {
@@ -24,4 +25,19 @@ table {
 }
 .table thead tr th td{
     white-space:nowrap
+}
+
+.btn-group {
+    gap: 1px;
+}
+
+.btn-group .btn.btn-default {
+    background: none;
+    border-color: transparent;
+    border: transparent;
+}
+
+.btn-group .btn.btn-default:hover, .btn-group .btn.btn-default:focus {
+    background: transparent;
+    color: #000000;
 }

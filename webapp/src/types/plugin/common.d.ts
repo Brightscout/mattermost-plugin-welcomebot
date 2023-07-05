@@ -1,0 +1,4 @@
+type Config = {
+    ConfigValues: boolean,
+}
+

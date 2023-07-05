@@ -28,18 +28,11 @@ function EditActionsModal(props: Props) {
                 onHide={handleClose}
             >
                 <Modal.Header closeButton={false}>
-                    <Modal.Title>{'Actions'}</Modal.Title>
+                    <Modal.Title>{'Edit Actions'}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form>
-                        <Form.Group>
-                            <Form.Label>{'Attachment Message'}</Form.Label>
-                            <Form.Control
-                                type='text'
-                                placeholder='Enter your attachment message'
-                            />
-                        </Form.Group>
                         <Form.Group>
                             <Form.Label>{'Action Type'}</Form.Label>
                             <div className='dropdown'>

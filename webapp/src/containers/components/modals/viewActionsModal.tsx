@@ -83,10 +83,10 @@ function ViewActionsModal(props: Props) {
                         variant='secondary'
                         onClick={handleClose}
                     >{'Close'}</Button>
-                    <Button
+                    {/* <Button
                         variant='primary'
                         disabled={true}
-                    >{'Save changes'}</Button>
+                    >{'Save changes'}</Button> */}
                 </Modal.Footer>
             </Modal>
         </>

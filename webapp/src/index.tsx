@@ -6,7 +6,6 @@ import {GlobalState} from 'mattermost-redux/types/store';
 import {PluginRegistry} from 'types/mattermostWebapp';
 
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
-
 import ViewActionsModal from 'containers/components/modals/viewActionsModal';
 import DeleteConfigModal from 'containers/components/modals/deleteConfigModal';
 
