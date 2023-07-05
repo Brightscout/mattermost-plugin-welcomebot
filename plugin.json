@@ -29,14 +29,6 @@
             "help_text": "",
             "placeholder": "",
             "default": ""
-        },
-        {
-          "key": "AddConfigurationButton",
-          "display_name": "Add Configurations:",
-          "type": "custom",
-          "help_text": "",
-          "placeholder": "",
-          "default": ""
         }
     ]
   }

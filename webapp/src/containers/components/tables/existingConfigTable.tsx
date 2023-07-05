@@ -32,6 +32,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const [viewVisible, setViewVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
+    const [addVisible, setAddVisible] = useState(false);
 
     const myConfig: Config = {
         ConfigValues: true,
@@ -45,6 +46,9 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     };
     const handleEdit = () => {
         setEditVisible(true);
+    };
+    const handleAdd = () => {
+        setAddVisible(true);
     };
 
     return (
@@ -61,6 +65,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                 visible={editVisible}
                 setVis={setEditVisible}
                 config={myConfig}
+            />}
+            {addVisible && <ConfigModal
+                visible={addVisible}
+                setVis={setAddVisible}
+                config={null}
             />}
 
             <FormGroup>
@@ -442,6 +451,13 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             </tr>
                         </tbody>
                     </Table>
+                    <Button
+                        className='add-config-btn'
+                        variant='primary'
+                        onClick={handleAdd}
+                    >
+                        {'Add Config'}
+                    </Button>
                     <div className='help-text'>
                         <span>
                             {helpText?.props?.text}
