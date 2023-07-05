@@ -4,8 +4,11 @@ import {FormGroup, Col, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} fro
 
 import './styles.css';
 
+import {Config} from 'types/plugin/common';
+
 import ViewActionsModal from '../modals/viewActionsModal';
 import DeleteConfigModal from '../modals/deleteConfigModal';
+import ConfigModal from '../modals/configModal';
 
 type HelpText = {
     key: string | null;
@@ -28,12 +31,20 @@ type Props = {
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const [viewVisible, setViewVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
+    const [editVisible, setEditVisible] = useState(false);
+
+    const myConfig: Config = {
+        ConfigValues: true,
+    };
 
     const handleView = () => {
         setViewVisible(true);
     };
     const handleDelete = () => {
         setDeleteVisible(true);
+    };
+    const handleEdit = () => {
+        setEditVisible(true);
     };
 
     return (
@@ -45,6 +56,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {deleteVisible && <DeleteConfigModal
                 visible={deleteVisible}
                 setVis={setDeleteVisible}
+            />}
+            {editVisible && <ConfigModal
+                visible={editVisible}
+                setVis={setEditVisible}
+                config={myConfig}
             />}
 
             <FormGroup>
@@ -103,7 +119,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 placement='top'
                                                 overlay={<Tooltip>{'Edit config'}</Tooltip>}
                                             >
-                                                <Button>
+                                                <Button onClick={handleEdit}>
                                                     <svg
                                                         className='svg'
                                                         xmlns='http://www.w3.org/2000/svg'
@@ -193,7 +209,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 placement='top'
                                                 overlay={<Tooltip>{'Edit config'}</Tooltip>}
                                             >
-                                                <Button>
+                                                <Button onClick={handleEdit}>
                                                     <svg
                                                         className='svg'
                                                         xmlns='http://www.w3.org/2000/svg'
@@ -259,7 +275,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 placement='top'
                                                 overlay={<Tooltip>{'View actions'}</Tooltip>}
                                             >
-                                                <Button>
+                                                <Button onClick={handleView}>
                                                     <svg
                                                         xmlns='http://www.w3.org/2000/svg'
                                                         width='20'
@@ -282,7 +298,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 overlay={<Tooltip>{'Edit config'}</Tooltip>}
                                             >
                                                 <Button
-                                                    onClick={handleView}
+                                                    onClick={handleEdit}
                                                 >
                                                     <svg
                                                         className='svg'
@@ -373,7 +389,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 placement='top'
                                                 overlay={<Tooltip>{'Edit config'}</Tooltip>}
                                             >
-                                                <Button>
+                                                <Button onClick={handleEdit}>
                                                     <svg
                                                         className='svg'
                                                         xmlns='http://www.w3.org/2000/svg'
