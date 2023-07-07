@@ -8,11 +8,12 @@ table.table tbody tr td,
 table.table thead tr th,
 table.table thead {
   border: 2px solid #ddd;
-  vertical-align: text-top;
+  vertical-align: middle;
 }
   
 .table td {
     text-align: center;
+    vertical-align: middle;
 }
 
 .table th {

@@ -7,7 +7,8 @@ import './styles.css';
 import {Config} from 'types/plugin/common';
 
 import ViewActionsModal from '../modals/viewActionsModal';
-import DeleteConfigModal from '../modals/deleteConfigModal';
+import DeleteModal from '../modals/deleteModal';
+
 import ConfigModal from '../modals/configModal';
 
 type HelpText = {
@@ -57,9 +58,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                 visible={viewVisible}
                 setVis={setViewVisible}
             />}
-            {deleteVisible && <DeleteConfigModal
+            {deleteVisible && <DeleteModal
                 visible={deleteVisible}
                 setVis={setDeleteVisible}
+                teamName='xyz'
             />}
             {editVisible && <ConfigModal
                 visible={editVisible}

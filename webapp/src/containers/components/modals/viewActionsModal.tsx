@@ -33,7 +33,7 @@ function ViewActionsModal(props: Props) {
 
                 <Modal.Body>
                     <Form>
-                        <Form.Group>
+                        <Form.Group className='form-group'>
                             <Form.Label>{'Attachment Message'}</Form.Label>
                             <Form.Control
                                 type='long-text'
@@ -42,7 +42,7 @@ function ViewActionsModal(props: Props) {
                                 readOnly={true}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group className='action-group'>
                             <Form.Label>{'Actions'}</Form.Label>
                         </Form.Group>
                     </Form>

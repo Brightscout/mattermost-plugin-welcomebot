@@ -6,8 +6,6 @@ import {GlobalState} from 'mattermost-redux/types/store';
 import {PluginRegistry} from 'types/mattermostWebapp';
 
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
-import ViewActionsModal from 'containers/components/modals/viewActionsModal';
-import DeleteConfigModal from 'containers/components/modals/deleteConfigModal';
 
 import reducers from './reducers';
 
@@ -19,8 +17,6 @@ export default class Plugin {
         // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
         registry.registerReducer(reducers);
         registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
-        registry.registerRootComponent(ViewActionsModal);
-        registry.registerRootComponent(DeleteConfigModal);
     }
 }
 
