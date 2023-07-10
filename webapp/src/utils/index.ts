@@ -1,6 +1,5 @@
 import {id} from 'manifest';
 
-import getErrorMessage from './errorHandling';
 
 const getBaseUrls = (): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
     const url = new URL(window.location.href);
@@ -27,5 +26,4 @@ export const getCommandArgs = (command: string) => {
 
 export default {
     getBaseUrls,
-    getErrorMessage,
 };
