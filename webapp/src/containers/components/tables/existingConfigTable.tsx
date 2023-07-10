@@ -36,10 +36,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
 
     return (
         <div>
-            {vis && <ViewActionsModal
-                visible={vis}
-                setVis={setVis}
-            />
+            {vis &&
+                <ViewActionsModal
+                    visible={vis}
+                    setVis={setVis}
+                />
             }
             <FormGroup>
                 <Col sm={4}>
