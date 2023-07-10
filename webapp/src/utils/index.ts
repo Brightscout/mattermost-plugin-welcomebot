@@ -1,11 +1,7 @@
-/**
- * Utils
-*/
 import {id} from 'manifest';
 
 import getErrorMessage from './errorHandling';
 
-// TODO: Use Mattermost's site URL from the redux store
 const getBaseUrls = (): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
     const url = new URL(window.location.href);
     const baseUrl = `${url.protocol}//${url.host}`;
