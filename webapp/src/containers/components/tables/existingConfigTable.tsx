@@ -41,7 +41,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {viewVisible && (<ViewActionsModal
                 visible={viewVisible}
                 setVis={setViewVisible}
-            />
+                            />
             )
             }
             {deleteVisible && (<DeleteConfigModal
