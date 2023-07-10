@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, {useState} from 'react';
 
 import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
@@ -39,14 +38,18 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
 
     return (
         <div>
-            {viewVisible && <ViewActionsModal
+            {viewVisible && (<ViewActionsModal
                 visible={viewVisible}
                 setVis={setViewVisible}
-                            />}
-            {deleteVisible && <DeleteConfigModal
+            />
+            )
+            }
+            {deleteVisible && (<DeleteConfigModal
                 visible={deleteVisible}
                 setVis={setDeleteVisible}
-                              />}
+            />
+            )
+            }
 
             <FormGroup>
                 <Col sm={4}>
