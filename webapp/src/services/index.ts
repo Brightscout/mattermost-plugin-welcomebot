@@ -3,9 +3,9 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
 import {UserProfile} from 'mattermost-redux/types/users';
 
-import Constants from 'pluginConstants';
-
 import Utils from 'utils';
+
+import Constants from 'pluginConstants';
 
 // Service to make plugin API requests
 export const examplePluginApi = createApi({
