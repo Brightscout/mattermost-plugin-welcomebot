@@ -2,8 +2,6 @@ export interface PluginRegistry {
     registerRootComponent(component: ReactDOM)
     registerSlashCommandWillBePostedHook(hook: (message: string, args: MmHookArgTypes) => Promise<({message?: string, args?: MmHookArgTypes})>)
     registerReducer(reducer);
-    registerChannelHeaderButtonAction(icon: JSX.Element, action: () => void, dropdownText: string | null, tooltipText: string | null);
-    registerRightHandSidebarComponent(component: () => JSX.Element, title: string | JSX.Element);
     registerWebSocketEventHandler(event: string, handler: (msg: WebsocketEventParams) => void)
     registerAdminConsoleCustomSetting(key: string, component: React.ElementType)
 

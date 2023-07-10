@@ -24,7 +24,7 @@ const AttachmentMsgModal = () => {
                 style={{display: 'block', position: 'initial'}}
             >
                 <Modal show={show}>
-                    <Modal.Header closeButton={true}>
+                    <Modal.Header>
                         <Modal.Title>{'Attachment Message'}</Modal.Title>
                     </Modal.Header>
 
