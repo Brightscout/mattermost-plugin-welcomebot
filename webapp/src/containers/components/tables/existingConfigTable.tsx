@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, {useState} from 'react';
 
 import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
@@ -29,9 +28,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const [vis, setVis] = useState(false);
 
     const handleView = () => {
-        console.log('vis from table ', vis);
         setVis(true);
-        console.log('vis from table ', vis);
     };
     const handleViews = () => {
         setVis(false);
@@ -42,7 +39,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {vis && <ViewActionsModal
                 visible={vis}
                 setVis={setVis}
-                    />}
+            />}
             <FormGroup>
                 <Col sm={4}>
                     {label}
