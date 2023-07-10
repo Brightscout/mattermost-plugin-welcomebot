@@ -50,15 +50,11 @@ func main() {
 	case "has_server":
 		if manifest.HasServer() {
 			fmt.Printf("true")
-		} else {
-			fmt.Printf("false")
 		}
 
 	case "has_webapp":
 		if manifest.HasWebapp() {
 			fmt.Printf("true")
-		} else {
-			fmt.Printf("false")
 		}
 
 	case "apply":
