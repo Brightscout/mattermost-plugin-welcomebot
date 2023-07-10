@@ -1,6 +1,5 @@
 import {id} from 'manifest';
 
-
 const getBaseUrls = (): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
     const url = new URL(window.location.href);
     const baseUrl = `${url.protocol}//${url.host}`;
