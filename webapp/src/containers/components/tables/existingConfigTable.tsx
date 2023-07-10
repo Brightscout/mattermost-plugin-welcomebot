@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 
-import {FormGroup, Col, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import './styles.css';
 
 import {Config} from 'types/plugin/common';
 
-import ViewActionsModal from '../modals/viewActionsModal';
+import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 
 import ConfigModal from '../modals/configModal';
@@ -53,8 +53,8 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     };
 
     return (
-        <div>
-            {viewVisible && <ViewActionsModal
+        <div className='config'>
+            {viewVisible && <ActionModal
                 visible={viewVisible}
                 setVis={setViewVisible}
             />}
@@ -75,31 +75,34 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             />}
 
             <FormGroup>
-                <Col sm={4}>
+                <div className='name'>
                     {label}
-                </Col>
-                <Col sm={8}>
-                    <Table striped={true}>
+                </div>
+                <div>
+                    <Table
+                        striped={true}
+                        className='existing-config-table'
+                    >
                         <thead>
                             <tr>
-                                <th className='team-name single-line'>{'Team Name'}</th>
+                                <th className='teamName'>{'Team Name'}</th>
                                 <th className='delay'>{'Delay (in sec)'}</th>
                                 <th className='message'>{'Message'}</th>
-                                <th className='include-guests'>{'Include Guests'}</th>
-                                <th className='options  single-line'>{'Options'}</th>
+                                <th className='includeGuests'>{'Include Guests'}</th>
+                                <th className='option'>{'Options'}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{'Standup'}</td>
-                                <td>{'4'}</td>
-                                <td className='ellipsis'>
+                                <td className='teamName'>{'Standup'}</td>
+                                <td className='delay'>{'4'}</td>
+                                <td className='message'>
                                     {'Hello to standup group sdhfvk.'}
                                 </td>
-                                <td>
+                                <td className='includeGuests'>
                                     {'True'}
                                 </td>
-                                <td>
+                                <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
@@ -120,10 +123,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle
-                                                            cx='12'
-                                                            cy='12'
-                                                            r='3'
-                                                        /></svg>
+                                                        cx='12'
+                                                        cy='12'
+                                                        r='3'
+                                                                                                             /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -165,16 +168,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                            x1='10'
-                                                            y1='11'
-                                                            x2='10'
-                                                            y2='17'
-                                                        /><line
+                                                        x1='10'
+                                                        y1='11'
+                                                        x2='10'
+                                                        y2='17'
+                                                                                                                                                                                /><line
                                                             x1='14'
                                                             y1='11'
                                                             x2='14'
                                                             y2='17'
-                                                        /></svg>
+                                                          /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -182,14 +185,14 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td>{'Overview'}</td>
-                                <td>{'5'}</td>
-                                <td>{'This group is to share overview'}</td>
-                                <td>
+                                <td className='teamName'>{'Overview'}</td>
+                                <td className='delay'>{'5'}</td>
+                                <td className='message'>{'This group is to share overview'}</td>
+                                <td className='includeGuests'>
                                     {'True'}
                                 </td>
 
-                                <td>
+                                <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
@@ -210,10 +213,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle
-                                                            cx='12'
-                                                            cy='12'
-                                                            r='3'
-                                                        /></svg>
+                                                        cx='12'
+                                                        cy='12'
+                                                        r='3'
+                                                                                                             /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -255,16 +258,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                            x1='10'
-                                                            y1='11'
-                                                            x2='10'
-                                                            y2='17'
-                                                        /><line
+                                                        x1='10'
+                                                        y1='11'
+                                                        x2='10'
+                                                        y2='17'
+                                                                                                                                                                                /><line
                                                             x1='14'
                                                             y1='11'
                                                             x2='14'
                                                             y2='17'
-                                                        /></svg>
+                                                          /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -272,14 +275,14 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td>{'Result'}</td>
-                                <td>{'2'}</td>
-                                <td>{'Share all your results here'}</td>
-                                <td>
+                                <td className='teamName'>{'Result'}</td>
+                                <td className='delay'>{'2'}</td>
+                                <td className='message'>{'Share all your results here'}</td>
+                                <td className='includeGuests'>
                                     {'True'}
                                 </td>
 
-                                <td>
+                                <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
@@ -298,10 +301,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle
-                                                            cx='12'
-                                                            cy='12'
-                                                            r='3'
-                                                        /></svg>
+                                                        cx='12'
+                                                        cy='12'
+                                                        r='3'
+                                                                                                             /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -345,16 +348,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                            x1='10'
-                                                            y1='11'
-                                                            x2='10'
-                                                            y2='17'
-                                                        /><line
+                                                        x1='10'
+                                                        y1='11'
+                                                        x2='10'
+                                                        y2='17'
+                                                                                                                                                                                /><line
                                                             x1='14'
                                                             y1='11'
                                                             x2='14'
                                                             y2='17'
-                                                        /></svg>
+                                                          /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -362,14 +365,14 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td>{'Deploy'}</td>
-                                <td>{'6'}</td>
-                                <td>{'Deployment details here'}</td>
-                                <td>
+                                <td className='teamName'>{'Deploy'}</td>
+                                <td className='delay'>{'6'}</td>
+                                <td className='message'>{'Deployment details here'}</td>
+                                <td className='includeGuests'>
                                     {'True'}
                                 </td>
 
-                                <td>
+                                <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
@@ -390,10 +393,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle
-                                                            cx='12'
-                                                            cy='12'
-                                                            r='3'
-                                                        /></svg>
+                                                        cx='12'
+                                                        cy='12'
+                                                        r='3'
+                                                                                                             /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -435,16 +438,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
                                                     ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                            x1='10'
-                                                            y1='11'
-                                                            x2='10'
-                                                            y2='17'
-                                                        /><line
+                                                        x1='10'
+                                                        y1='11'
+                                                        x2='10'
+                                                        y2='17'
+                                                                                                                                                                                /><line
                                                             x1='14'
                                                             y1='11'
                                                             x2='14'
                                                             y2='17'
-                                                        /></svg>
+                                                          /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -465,7 +468,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             {helpText?.props?.text}
                         </span>
                     </div>
-                </Col>
+                </div>
             </FormGroup>
         </div>
     );

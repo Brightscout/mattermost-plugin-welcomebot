@@ -10,7 +10,7 @@ interface Props {
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ViewActionsModal(props: Props) {
+function ActionModal(props: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -46,7 +46,10 @@ function ViewActionsModal(props: Props) {
                             <Form.Label>{'Actions'}</Form.Label>
                         </Form.Group>
                     </Form>
-                    <Table striped={true}>
+                    <Table
+                        striped={true}
+                        className='listTable'
+                    >
                         <thead>
                             <tr>
                                 <th>{'Type'}</th>
@@ -93,4 +96,4 @@ function ViewActionsModal(props: Props) {
     );
 }
 
-export default ViewActionsModal;
+export default ActionModal;

@@ -60,6 +60,7 @@ function ConfigModal(props: Props) {
     return (
         <>
             <Modal
+                className='configModal'
                 show={show}
                 onHide={handleClose}
             >
@@ -69,7 +70,7 @@ function ConfigModal(props: Props) {
                     </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body className='configModalBody'>
                     {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group className='form-group'>
@@ -123,7 +124,10 @@ function ConfigModal(props: Props) {
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>
                         </Form>
-                        <Table striped={true}>
+                        <Table
+                            striped={true}
+                            className='listTable'
+                        >
                             <thead>
                                 <tr>
                                     <th>{'Type'}</th>
@@ -375,15 +379,37 @@ function ConfigModal(props: Props) {
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button
+                    {configVisible && <Button
                         variant='secondary'
                         onClick={handleClose}
-                    ><p>{configVisible && <p>{'Close'}</p>}{actionVisible && <p>{'Cancel'}</p>}{deleteVisible && <p>{'Cancel'}</p>}</p></Button>
-                    <Button
-                        variant={deleteVisible ? 'danger' : 'primary'}
-                    >
-                        {deleteVisible ? 'Delete action' : 'Save changes'}
-                    </Button>
+                                      >{'Close'}
+                    </Button>}
+                    {actionVisible && <Button
+                        variant='secondary'
+                        onClick={handleClose}
+                                      >{'Cancel'}
+                    </Button>}
+                    {deleteVisible && <Button
+                        variant='secondary'
+                        onClick={handleClose}
+                                      >{'Cancel'}
+                    </Button>}
+
+                    {configVisible && <Button
+                        variant='primary'
+                        onClick={handleClose}
+                                      >{'Save changes'}
+                    </Button>}
+                    {actionVisible && <Button
+                        variant='primary'
+                        onClick={handleClose}
+                                      >{'Add action'}
+                    </Button>}
+                    {deleteVisible && <Button
+                        variant='danger'
+                        onClick={handleClose}
+                                      >{'Delete action'}
+                    </Button>}
                 </Modal.Footer>
             </Modal>
         </>
