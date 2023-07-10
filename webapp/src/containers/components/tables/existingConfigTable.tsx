@@ -42,7 +42,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {vis && <ViewActionsModal
                 visible={vis}
                 setVis={setVis}
-            />}
+                    />}
             <FormGroup>
                 <Col sm={4}>
                     {label}
