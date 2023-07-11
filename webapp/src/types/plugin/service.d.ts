@@ -7,8 +7,6 @@ type ApiErrorResponse = {
     status: number,
 }
 
-type CustomErrorModules = 'getMe';
-
 type PluginApiService = {
     path: string,
     method: HttpMethod,

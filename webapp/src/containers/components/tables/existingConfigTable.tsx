@@ -38,14 +38,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
 
     return (
         <div>
-            {viewVisible && <ViewActionsModal
+            {viewVisible &&
+            (<ViewActionsModal
                 visible={viewVisible}
                 setVis={setViewVisible}
-            />}
-            {deleteVisible && <DeleteConfigModal
+            />)}
+            {deleteVisible &&
+            (<DeleteConfigModal
                 visible={deleteVisible}
                 setVis={setDeleteVisible}
-            />}
+            />)}
 
             <FormGroup>
                 <Col sm={4}>
@@ -143,11 +145,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                             x2='10'
                                                             y2='17'
                                                         /><line
-                                                            x1='14'
-                                                            y1='11'
-                                                            x2='14'
-                                                            y2='17'
-                                                        /></svg>
+                                                                                                                                                                                    x1='14'
+                                                                                                                                                                                    y1='11'
+                                                                                                                                                                                    x2='14'
+                                                                                                                                                                                    y2='17'
+                                                                                                                                                                                  /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -233,11 +235,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                             x2='10'
                                                             y2='17'
                                                         /><line
-                                                            x1='14'
-                                                            y1='11'
-                                                            x2='14'
-                                                            y2='17'
-                                                        /></svg>
+                                                                                                                                                                                    x1='14'
+                                                                                                                                                                                    y1='11'
+                                                                                                                                                                                    x2='14'
+                                                                                                                                                                                    y2='17'
+                                                                                                                                                                                  /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -323,11 +325,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                             x2='10'
                                                             y2='17'
                                                         /><line
-                                                            x1='14'
-                                                            y1='11'
-                                                            x2='14'
-                                                            y2='17'
-                                                        /></svg>
+                                                                                                                                                                                    x1='14'
+                                                                                                                                                                                    y1='11'
+                                                                                                                                                                                    x2='14'
+                                                                                                                                                                                    y2='17'
+                                                                                                                                                                                  /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -413,11 +415,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                             x2='10'
                                                             y2='17'
                                                         /><line
-                                                            x1='14'
-                                                            y1='11'
-                                                            x2='14'
-                                                            y2='17'
-                                                        /></svg>
+                                                                                                                                                                                    x1='14'
+                                                                                                                                                                                    y1='11'
+                                                                                                                                                                                    x2='14'
+                                                                                                                                                                                    y2='17'
+                                                                                                                                                                                  /></svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
