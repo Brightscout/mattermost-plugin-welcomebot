@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 const (
 	actionTypeAutomatic = "automatic"
 	actionTypeButton    = "button"
@@ -8,7 +10,7 @@ const (
 // ConfigMessageAction are actions that can be taken from the welcome message
 type ConfigMessageAction struct {
 	// The action type of button or automatic
-	ActionType string `json:"ActionType"`	
+	ActionType string `json:"ActionType"`
 
 	// The text on the button if a button type
 	ActionDisplayName string `json:"ActionDisplayName"`
@@ -45,13 +47,23 @@ type ConfigMessage struct {
 }
 
 // Configuration from config.json
-type Configuration struct {
-	WelcomeMessages []*ConfigMessage `json:"WelcomeMessages"`
+type ServerConfig struct {
+	ServerURL    string `json:"serverURL"`
+	ClientID     string `json:"clientID"`
+	ClientSecret string `json:"clientSecret"`
 }
 
-type ExistingConfig struct {
-	Config Configuration `json:"ExistingConfigTable"` 
+type externalConfig struct {
+	ConfluenceConfig []ServerConfig `json:"tokens"`
 }
+
+type Configuration struct {
+	externalConfig
+}
+
+// type ExistingConfig struct {
+// 	Config Configuration `json:"ExistingConfigTable"`
+// }
 
 // List of the welcome messages from the configuration
 func (p *Plugin) getWelcomeMessages() []*ConfigMessage {
@@ -60,14 +72,30 @@ func (p *Plugin) getWelcomeMessages() []*ConfigMessage {
 
 // OnConfigurationChange is invoked when configuration changes may have been made.
 func (p *Plugin) OnConfigurationChange() error {
-	var c Configuration
+	c := externalConfig{}
 
 	if err := p.API.LoadPluginConfiguration(&c); err != nil {
 		p.API.LogError(err.Error())
 		return err
 	}
 
-	p.welcomeMessages.Store(c.WelcomeMessages)
+	fmt.Printf("\n welcomebot configuration %+v", c)
+
+	p.updateConfig(func(conf *Configuration) {
+		conf.externalConfig = c
+	})
+
+	fmt.Printf("\n welcomebot configuration after %+v", c.ConfluenceConfig)
+
+	// p.welcomeMessages.Store(c.WelcomeMessages)
 
 	return nil
+}
+
+func (p *Plugin) updateConfig(f func(conf *Configuration)) Configuration {
+	p.confLock.Lock()
+	defer p.confLock.Unlock()
+
+	f(&p.conf)
+	return p.conf
 }

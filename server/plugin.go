@@ -1,6 +1,7 @@
 package main
 
 import (
+	"sync"
 	"sync/atomic"
 
 	pluginapi "github.com/mattermost/mattermost-plugin-api"
@@ -21,9 +22,13 @@ const (
 type Plugin struct {
 	plugin.MattermostPlugin
 
+	conf Configuration
+
 	client *pluginapi.Client
 
 	welcomeMessages atomic.Value
+
+	confLock sync.RWMutex
 
 	// botUserID of the created bot account.
 	botUserID string
@@ -43,6 +48,10 @@ func (p *Plugin) OnActivate() error {
 		return errors.Wrap(appErr, "failed to ensure bot user")
 	}
 	p.botUserID = botUserID
+
+	if err := p.OnConfigurationChange(); err != nil {
+		return err
+	}
 
 	err := p.API.RegisterCommand(getCommand())
 	if err != nil {
