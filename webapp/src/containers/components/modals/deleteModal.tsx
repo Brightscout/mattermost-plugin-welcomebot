@@ -1,12 +1,16 @@
+/* eslint-disable import/no-unresolved */
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './styles.css';
+import {Configs} from 'types/plugin/common';
 
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
-    teamName: string;
+    config: Configs[];
+    configIndex: number;
+    onChange: any;
 }
 
 function DeleteModal(props: Props) {
@@ -20,6 +24,11 @@ function DeleteModal(props: Props) {
         setShow(false);
         props.setVis(false);
     };
+    const handleDelete = (onChange: any, config: Configs[], configIndex: number) => {
+        config.splice(configIndex, 1);
+        onChange(config);
+        handleClose();
+    };
     return (
         <>
             <Modal
@@ -31,7 +40,7 @@ function DeleteModal(props: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>{`Are you sure you would like to delete the configs for the team ${props.teamName}`}</p>
+                    <p>{`Are you sure you would like to delete the configs for the team ${props.config[props.configIndex].TeamName}`}</p>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -39,7 +48,10 @@ function DeleteModal(props: Props) {
                         variant='secondary'
                         onClick={handleClose}
                     >{'Close'}</Button>
-                    <Button variant='danger'>{'Delete'}</Button>
+                    <Button
+                        variant='danger'
+                        onClick={() => handleDelete(props.onChange, props.config, props.configIndex)}
+                    >{'Delete'}</Button>
                 </Modal.Footer>
             </Modal>
         </>
