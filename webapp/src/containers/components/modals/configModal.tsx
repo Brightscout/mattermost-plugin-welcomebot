@@ -12,12 +12,11 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
 import {Configs, Actions} from 'types/plugin/common';
-import { restElement } from '@babel/types';
 
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
-    configIndex: number;
+    configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
@@ -42,7 +41,6 @@ function ConfigModal(props: Props) {
     const newAction: Actions[] = [
     ];
     const newConfig: Configs = {
-        ConfigValues: false,
         TeamName: '',
         DelayInSeconds: '',
         Message: [''],
@@ -55,7 +53,7 @@ function ConfigModal(props: Props) {
     const [configVisible, setConfigVisible] = useState(true);
     const [deleteVisible, setDeleteVisible] = useState(false);
 
-    const [existingConfig, setExistingConfig] = useState(props.configIndex >= 0 ? props.config[props.configIndex] : newConfig);
+    const [existingConfig, setExistingConfig] = useState(props.configIndex !== null ? props.config[props.configIndex] : newConfig);
 
     const [teamName, setTeamName] = useState(existingConfig.TeamName);
     const [delay, setDelay] = useState(existingConfig.DelayInSeconds);
@@ -67,7 +65,7 @@ function ConfigModal(props: Props) {
     const [actionDisplayName, setActionDisplayName] = useState('');
     const [actionChannelsAddedTo, setChannelsAddedTo] = useState(['']);
     const [actionSuccessfullMessage, setActionSuccessfullMessage] = useState(['']);
-    const [actionIndex, setActionIndex] = useState(-2);
+    const [actionIndex, setActionIndex] = useState<number | null>(0);
     const [actionName, setActionName] = useState('');
 
     const actionLength = existingConfig?.Actions?.length ?? 0;
@@ -91,7 +89,8 @@ function ConfigModal(props: Props) {
     }, [actionIndex]);
 
     useEffect(() => {
-        if (props.configIndex >= 0) {
+        if (props.configIndex !== null) {
+            console.log('Prefilling config form');
             setTeamName(existingConfig.TeamName);
             setDelay(existingConfig.DelayInSeconds);
             setMessage(existingConfig.Message);
@@ -101,12 +100,21 @@ function ConfigModal(props: Props) {
     }, []);
 
     useEffect(() => {
-        setExistingConfig(props.configIndex >= 0 ? props.config[props.configIndex] : newConfig);
+        console.log('syncing changes in existingConfig');
+        setExistingConfig(props.configIndex !== null ? props.config[props.configIndex] : newConfig);
     }, [props.config]);
 
     const preFillActions = () => {
-        if (existingConfig?.Actions) {
+        if (existingConfig?.Actions && actionIndex !== null) {
+            // if (actionIndex !== null) {
             const action = existingConfig?.Actions?.[actionIndex] ?? actionElement;
+            setActionTypesValue(action.ActionType);
+            setActionDisplayName(action.ActionDisplayName);
+            setChannelsAddedTo(action.ChannelsAddedTo);
+            setActionSuccessfullMessage(action.ActionSuccessfullMessage);
+            setActionName(action.ActionName);
+        } else {
+            const action = actionElement;
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
             setChannelsAddedTo(action.ChannelsAddedTo);
@@ -135,7 +143,7 @@ function ConfigModal(props: Props) {
 
     const handleAddActions = () => {
         resetActionElement();
-        setActionIndex(-1);
+        setActionIndex(null);
         preFillActions();
         setActionVisible(true);
         setConfigVisible(false);
@@ -147,16 +155,16 @@ function ConfigModal(props: Props) {
     };
 
     const structureConfig = () => {
-        props.config[props.configIndex].Message = message;
-        props.config[props.configIndex].ConfigValues = true;
-        props.config[props.configIndex].DelayInSeconds = delay;
-        props.config[props.configIndex].IncludeGuests = guestValue;
-        props.config[props.configIndex].AttachmentMessage = attachmentMessage;
-        props.config[props.configIndex].TeamName = teamName;
+        if (props.configIndex !== null) {
+            props.config[props.configIndex].Message = message;
+            props.config[props.configIndex].DelayInSeconds = delay;
+            props.config[props.configIndex].IncludeGuests = guestValue;
+            props.config[props.configIndex].AttachmentMessage = attachmentMessage;
+            props.config[props.configIndex].TeamName = teamName;
+        }
     };
     const structureNewConfig = () => {
         existingConfig.Message = message;
-        existingConfig.ConfigValues = true;
         existingConfig.DelayInSeconds = delay;
         existingConfig.IncludeGuests = guestValue;
         existingConfig.AttachmentMessage = attachmentMessage;
@@ -172,7 +180,7 @@ function ConfigModal(props: Props) {
     };
     const structureActions = () => {
         const actions = existingConfig?.Actions;
-        if (actions && actionIndex < actions.length) {
+        if (actions && actionIndex !== null) {
             const action = actions[actionIndex];
             action.ActionDisplayName = actionDisplayName;
             action.ActionName = actionName;
@@ -185,8 +193,8 @@ function ConfigModal(props: Props) {
 
     const handlePrimary = () => {
         if (actionVisible) {
-            if (props.configIndex >= 0) {
-                if (actionIndex < 0) {
+            if (props.configIndex !== null) {
+                if (!actionIndex) {
                     actionElement.ActionDisplayName = actionDisplayName;
                     actionElement.ActionName = actionName;
                     actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
@@ -200,8 +208,8 @@ function ConfigModal(props: Props) {
                 } else {
                     structureActions();
                 }
-            } else if (props.configIndex < 0) {
-                if (actionIndex < 0) {
+            } else if (!props.configIndex) {
+                if (!actionIndex) {
                     structureNewActions();
                 } else {
                     structureActions();
@@ -212,7 +220,7 @@ function ConfigModal(props: Props) {
             props.onChange(props.config);
         }
         if (configVisible) {
-            if (props.configIndex >= 0) { //for edit config modal
+            if (props.configIndex !== null) { //for edit config modal
                 structureConfig();
             } else {
                 structureNewConfig();
@@ -221,9 +229,9 @@ function ConfigModal(props: Props) {
             props.onChange(props.config);
             handleClose();
         }
-        if (deleteVisible) {
+        if (deleteVisible && actionIndex !== null) {
             const l = existingConfig.Actions?.splice(actionIndex, 1);
-            if (props.configIndex >= 0) {
+            if (props.configIndex !== null) {
                 props.config[props.configIndex] = existingConfig;
                 props.onChange(props.config);
             }
@@ -304,7 +312,7 @@ function ConfigModal(props: Props) {
                                     onChange={(e) => setAttachmentMessage([e.target.value])}
                                 />
                             </Form.Group>
-                            {props.configIndex >= 0 &&
+                            {props.configIndex !== null &&
                             <Form.Group className='action-table'>
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
@@ -399,7 +407,7 @@ function ConfigModal(props: Props) {
                                 </tbody>
                             </Table>
                         ) : (
-                            props.configIndex >= 0 && <p>{'No Action configured'}</p>
+                            props.configIndex !== null && <p>{'No Action configured'}</p>
                         )
                         }
                     </div>}
@@ -463,7 +471,7 @@ function ConfigModal(props: Props) {
                     </div>}
                     {!deleteVisible && !actionVisible && <div>
                         <Button
-                            className={props.configIndex >= 0 && actionLength > 0 ? 'add-actions' : ''}
+                            className={props.configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}

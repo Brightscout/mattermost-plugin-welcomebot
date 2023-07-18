@@ -7,7 +7,6 @@ export type Actions = {
 }
 
 export type Configs = {
-    ConfigValues: boolean,
     TeamName: string,
     DelayInSeconds: string,
     Message: string[],

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, {useState} from 'react';
 
 import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
@@ -17,25 +18,6 @@ type Props = {
 }
 
 const ExistingConfigTable = ({value, onChange}: Props) => {
-    //console.log('+++++++++++++++++++++++++');
-    //console.log(value);
-    //console.log('+++++++++++++++++++++++++');
-    //console.log('----------------------------------------------------------------------');
-    //console.log('AttachmentMessage', value[0].AttachmentMessage);
-    //console.log('DelayInSeconds', value[0].DelayInSeconds);
-    //console.log('IncludeGuests', value[0].IncludeGuests);
-    //console.log('Message', value[0].Message);
-    //console.log('TeamName', value[0].TeamName);
-    //console.log('Actions', value[0].Actions);
-    //console.log('ChannelsAddedTo', value[0].Actions[0].ChannelsAddedTo);
-    //console.log('ActionDisplayName', value[0].Actions[0].ActionDisplayName);
-    //console.log('ActionName', value[0].Actions[0].ActionName);
-    //console.log('ActionSuccessfullMessage', value[0].Actions[0].ActionSuccessfullMessage);
-    //console.log('ActionType', value[0].Actions[0].ActionType);
-    //console.log('ChannelsAddedTo', value[0].Actions[0].ChannelsAddedTo);
-    //console.log('----------------------------------------------------------------------');
-
-    // const [config, setConfig] = useState(initialconfig);
     const [viewVisible, setViewVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
@@ -96,7 +78,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                 <ConfigModal
                     visible={addVisible}
                     setVis={setAddVisible}
-                    configIndex={-1}
+                    configIndex={null}
                     config={value}
                     onChange={onChange}
                     modalHeader='Add Config'

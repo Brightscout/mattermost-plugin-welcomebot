@@ -1,10 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import {Store, Action} from 'redux';
 import {GlobalState} from 'mattermost-redux/types/store';
 
 import {PluginRegistry} from 'types/mattermostWebapp';
 
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
-
 
 import reducers from './reducers';
 
@@ -17,7 +17,7 @@ export default class Plugin {
         registry.registerReducer(reducers);
 
         // registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
-        registry.registerAdminConsoleCustomSetting('configuration', ExistingConfigTable);
+        registry.registerAdminConsoleCustomSetting('WelcomeMessages', ExistingConfigTable);
     }
 }
 

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sync"
 	"sync/atomic"
 
 	pluginapi "github.com/mattermost/mattermost-plugin-api"
@@ -22,13 +21,9 @@ const (
 type Plugin struct {
 	plugin.MattermostPlugin
 
-	conf Configuration
-
 	client *pluginapi.Client
 
 	welcomeMessages atomic.Value
-
-	confLock sync.RWMutex
 
 	// botUserID of the created bot account.
 	botUserID string

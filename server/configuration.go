@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 const (
 	actionTypeAutomatic = "automatic"
 	actionTypeButton    = "button"
@@ -54,12 +52,12 @@ type ConfigMessage struct {
 
 // }
 
-type externalConfig struct {
-	PluginConfig []*ConfigMessage `json:"configuration"`
-}
+// type externalConfig struct {
+// 	WelcomeMessages []*ConfigMessage `json:"configuration"`
+// }
 
 type Configuration struct {
-	externalConfig
+	WelcomeMessages []*ConfigMessage `json:"WelcomeMessages"`
 }
 
 // type ExistingConfig struct {
@@ -73,30 +71,22 @@ func (p *Plugin) getWelcomeMessages() []*ConfigMessage {
 
 // OnConfigurationChange is invoked when configuration changes may have been made.
 func (p *Plugin) OnConfigurationChange() error {
-	c := externalConfig{}
+	var c Configuration
 
 	if err := p.API.LoadPluginConfiguration(&c); err != nil {
 		p.API.LogError(err.Error())
 		return err
 	}
 
-	fmt.Printf("\n welcomebot configuration %+v", c)
-
-	p.updateConfig(func(conf *Configuration) {
-		conf.externalConfig = c
-	})
-
-	fmt.Printf("\n welcomebot configuration after %+v", c.PluginConfig)
-
-	// p.welcomeMessages.Store(c.WelcomeMessages)
+	p.welcomeMessages.Store(c.WelcomeMessages)
 
 	return nil
 }
 
-func (p *Plugin) updateConfig(f func(conf *Configuration)) Configuration {
-	p.confLock.Lock()
-	defer p.confLock.Unlock()
+// func (p *Plugin) updateConfig(f func(conf *Configuration)) Configuration {
+// 	p.confLock.Lock()
+// 	defer p.confLock.Unlock()
 
-	f(&p.conf)
-	return p.conf
-}
+// 	f(&p.conf)
+// 	return p.conf
+// }
