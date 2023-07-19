@@ -1,4 +1,110 @@
 .modal {
+  opacity: 1;
+  padding-top: 12%;
+}
+
+.configModal {
+  display: block;
+}
+
+.modal-dialog{
+  overflow-y: initial;
+}
+
+.configModalBody{
+  height: 80%;
+  overflow-y: auto;
+}
+
+.buttons {
+    padding-bottom: 0;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
     opacity: 1;
-    padding-top: 10%;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-enter {
+  opacity: 0;
+  animation: fade-in 300ms forwards;
+}
+
+.fade-exit {
+  opacity: 1;
+  animation: fade-out 300ms forwards;
+}
+ 
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+table.table tbody tr td,
+table.table thead tr th,
+table.table thead {
+  border: 2px solid #ddd;
+  vertical-align: middle;
+}
+  
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tale th {
+  text-align: center;
+  vertical-align: bottom;
+} 
+
+.table {
+  width: 100%;
+}
+.table thead tr th td{
+  white-space:nowrap
+}
+
+.btn-group .btn.btn-default {
+  background: none;
+  border-color: transparent;
+  border: transparent;
+}
+
+.btn-group .btn.btn-default:hover, .btn-group .btn.btn-default:focus {
+  background: transparent;
+  color: #000000;
+}
+
+.radio.btn-group {
+  justify-content: flex-start;
+}
+
+.options .btn.btn-primary {
+  background: transparent;
+}
+
+.radio {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.listTable {
+  margin-bottom: 0;
+}
+
+.add-actions {
+  margin-top: 15px;
 }

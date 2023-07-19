@@ -6,9 +6,10 @@ import './styles.css';
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    teamName: string;
 }
 
-function DeleteConfigModal(props: Props) {
+function DeleteModal(props: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -30,8 +31,7 @@ function DeleteConfigModal(props: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    {/* TODO: Add team name according to the team */}
-                    <p>{'Delete the configs for the team xyz'}</p>
+                    <p>{`Are you sure you would like to delete the configs for the team ${props.teamName}`}</p>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -46,4 +46,4 @@ function DeleteConfigModal(props: Props) {
     );
 }
 
-export default DeleteConfigModal;
+export default DeleteModal;
