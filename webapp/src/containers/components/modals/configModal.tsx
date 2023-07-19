@@ -1,6 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-console */
-/* eslint-disable no-negated-condition */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -11,6 +8,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
+// eslint-disable-next-line import/no-unresolved
 import {Configs, Actions} from 'types/plugin/common';
 
 interface Props {
@@ -22,7 +20,7 @@ interface Props {
     modalHeader: string;
 }
 
-function ConfigModal(props: Props) {
+function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeader}: Props) {
     const actionElement: Actions = {
         ActionType: '',
         ActionName: '',
@@ -31,7 +29,6 @@ function ConfigModal(props: Props) {
         ActionSuccessfullMessage: [''],
     };
     const resetActionElement = () => {
-        console.log('reset');
         actionElement.ActionType = '';
         actionElement.ActionName = '';
         actionElement.ActionDisplayName = '';
@@ -53,7 +50,7 @@ function ConfigModal(props: Props) {
     const [configVisible, setConfigVisible] = useState(true);
     const [deleteVisible, setDeleteVisible] = useState(false);
 
-    const [existingConfig, setExistingConfig] = useState(props.configIndex !== null ? props.config[props.configIndex] : newConfig);
+    const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
     const [teamName, setTeamName] = useState(existingConfig.TeamName);
     const [delay, setDelay] = useState(existingConfig.DelayInSeconds);
@@ -80,17 +77,16 @@ function ConfigModal(props: Props) {
     ];
 
     useEffect(() => {
-        setShow(props.visible);
-        setConfigVisible(props.visible);
-    }, [props.visible]);
+        setShow(visible);
+        setConfigVisible(visible);
+    }, [visible]);
 
     useEffect(() => {
         preFillActions();
     }, [actionIndex]);
 
     useEffect(() => {
-        if (props.configIndex !== null) {
-            console.log('Prefilling config form');
+        if (configIndex !== null) {
             setTeamName(existingConfig.TeamName);
             setDelay(existingConfig.DelayInSeconds);
             setMessage(existingConfig.Message);
@@ -100,9 +96,8 @@ function ConfigModal(props: Props) {
     }, []);
 
     useEffect(() => {
-        console.log('syncing changes in existingConfig');
-        setExistingConfig(props.configIndex !== null ? props.config[props.configIndex] : newConfig);
-    }, [props.config]);
+        setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
+    }, [config]);
 
     const preFillActions = () => {
         if (existingConfig?.Actions && actionIndex !== null) {
@@ -132,7 +127,7 @@ function ConfigModal(props: Props) {
             setConfigVisible(true);
         } else {
             setShow(false);
-            props.setVis(false);
+            setVis(false);
         }
     };
     const handleEditAction = (i: number) => {
@@ -155,12 +150,12 @@ function ConfigModal(props: Props) {
     };
 
     const structureConfig = () => {
-        if (props.configIndex !== null) {
-            props.config[props.configIndex].Message = message;
-            props.config[props.configIndex].DelayInSeconds = delay;
-            props.config[props.configIndex].IncludeGuests = guestValue;
-            props.config[props.configIndex].AttachmentMessage = attachmentMessage;
-            props.config[props.configIndex].TeamName = teamName;
+        if (configIndex !== null) {
+            config[configIndex].Message = message;
+            config[configIndex].DelayInSeconds = delay;
+            config[configIndex].IncludeGuests = guestValue;
+            config[configIndex].AttachmentMessage = attachmentMessage;
+            config[configIndex].TeamName = teamName;
         }
     };
     const structureNewConfig = () => {
@@ -193,8 +188,8 @@ function ConfigModal(props: Props) {
 
     const handlePrimary = () => {
         if (actionVisible) {
-            if (props.configIndex !== null) {
-                if (!actionIndex) {
+            if (configIndex !== null) {
+                if (actionIndex === null) {
                     actionElement.ActionDisplayName = actionDisplayName;
                     actionElement.ActionName = actionName;
                     actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
@@ -208,8 +203,8 @@ function ConfigModal(props: Props) {
                 } else {
                     structureActions();
                 }
-            } else if (!props.configIndex) {
-                if (!actionIndex) {
+            } else if (configIndex === null) {
+                if (actionIndex === null) {
                     structureNewActions();
                 } else {
                     structureActions();
@@ -217,23 +212,23 @@ function ConfigModal(props: Props) {
             }
             setActionVisible(false);
             setConfigVisible(true);
-            props.onChange(props.config);
+            onChange(config);
         }
         if (configVisible) {
-            if (props.configIndex !== null) { //for edit config modal
-                structureConfig();
-            } else {
+            if (configIndex === null) {
                 structureNewConfig();
-                props.config.push(existingConfig);
+                config.push(existingConfig);
+            } else {
+                structureConfig();
             }
-            props.onChange(props.config);
+            onChange(config);
             handleClose();
         }
         if (deleteVisible && actionIndex !== null) {
             const l = existingConfig.Actions?.splice(actionIndex, 1);
-            if (props.configIndex !== null) {
-                props.config[props.configIndex] = existingConfig;
-                props.onChange(props.config);
+            if (configIndex !== null) {
+                config[configIndex] = existingConfig;
+                onChange(config);
             }
             handleClose();
         }
@@ -252,7 +247,7 @@ function ConfigModal(props: Props) {
             >
                 <Modal.Header closeButton={false}>
                     <Modal.Title>
-                        {'Edit Config'}
+                        {modalHeader}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='configModalBody'>
@@ -312,7 +307,7 @@ function ConfigModal(props: Props) {
                                     onChange={(e) => setAttachmentMessage([e.target.value])}
                                 />
                             </Form.Group>
-                            {props.configIndex !== null &&
+                            {configIndex !== null &&
                             <Form.Group className='action-table'>
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
@@ -407,7 +402,7 @@ function ConfigModal(props: Props) {
                                 </tbody>
                             </Table>
                         ) : (
-                            props.configIndex !== null && <p>{'No Action configured'}</p>
+                            configIndex !== null && <p>{'No Action configured'}</p>
                         )
                         }
                     </div>}
@@ -471,7 +466,7 @@ function ConfigModal(props: Props) {
                     </div>}
                     {!deleteVisible && !actionVisible && <div>
                         <Button
-                            className={props.configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
+                            className={configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
