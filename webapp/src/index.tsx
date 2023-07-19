@@ -6,7 +6,6 @@ import {PluginRegistry} from 'types/mattermostWebapp';
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
 import AttachmentMsgModal from 'containers/components/modals/attachmentMsgModal';
 
-import reducers from './reducers';
 import {id} from './manifest';
 
 export default class Plugin {
@@ -14,7 +13,6 @@ export default class Plugin {
 
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
         // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
-        registry.registerReducer(reducers);
         registry.registerAdminConsoleCustomSetting('ExistingConfigurationTable', ExistingConfigTable);
         registry.registerRootComponent(AttachmentMsgModal);
     }
