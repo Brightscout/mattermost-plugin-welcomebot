@@ -5,21 +5,28 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import './styles.css';
 
+// eslint-disable-next-line import/no-unresolved
+import {Configs} from 'types/plugin/common';
+
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    config: Configs[];
+    configIndex: number;
 }
 
-function ActionModal(props: Props) {
+function ActionModal({visible, setVis, config, configIndex}: Props) {
+    const actionsLength = config[configIndex]?.Actions?.length ?? 0;
+    const attachmentMessageLength = config[configIndex]?.AttachmentMessage?.length ?? 0;
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
+        setShow(visible);
+    }, [visible]);
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        setVis(false);
     };
     return (
         <>
@@ -32,53 +39,62 @@ function ActionModal(props: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form>
-                        <Form.Group className='form-group'>
-                            <Form.Label>{'Attachment Message'}</Form.Label>
-                            <Form.Control
-                                type='long-text'
-                                placeholder='This is a example attachment message'
-                                aria-label='Disabled input example'
-                                readOnly={true}
-                            />
-                        </Form.Group>
-                        <Form.Group className='action-group'>
-                            <Form.Label>{'Actions'}</Form.Label>
-                        </Form.Group>
-                    </Form>
-                    <Table
-                        striped={true}
-                        className='listTable'
-                    >
-                        <thead>
-                            <tr>
-                                <th>{'Type'}</th>
-                                <th>{'Display Name'}</th>
-                                <th>{'Channels Added to'}</th>
-                                <th>{'Success Message'}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Import'}</td>
-                                <td>{'channel1, channel2, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Automatic'}</td>
-                                <td>{'Export'}</td>
-                                <td>{'channel1, channel2'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Deport'}</td>
-                                <td>{'channel1, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
+                    {(config[configIndex].AttachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.Actions && actionsLength > 0) ? (<>
+                        {config[configIndex].AttachmentMessage && attachmentMessageLength > 0 ? (
+                            <Form>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Attachment Message'}</Form.Label>
+                                    <Form.Control
+                                        type='long-text'
+                                        value={config[configIndex].AttachmentMessage ?? ''}
+                                        placeholder=''
+                                        aria-label='Disabled input example'
+                                        readOnly={true}
+                                    />
+                                </Form.Group>
+                            </Form>
+                        ) : (<p>{'No Attachment message configured'}</p>)
+                        }
+                        {config[configIndex]?.Actions && actionsLength > 0 ? (
+                            <div>
+                                <Form>
+                                    <Form.Group className='action-group'>
+                                        <Form.Label>{'Actions'}</Form.Label>
+                                    </Form.Group>
+                                </Form>
+                                <Table
+                                    striped={true}
+                                    className='listTable'
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>{'Type'}</th>
+                                            <th>{'Name'}</th>
+                                            <th>{'Display Name'}</th>
+                                            <th>{'Channels Added to'}</th>
+                                            <th>{'Success Message'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                    config[configIndex].Actions?.map((val, i) =>
+                                        (
+                                            <tr key={i.toString()}>
+                                                <td>{val.ActionType}</td>
+                                                <td>{val.ActionName}</td>
+                                                <td>{val.ActionDisplayName}</td>
+                                                <td>{val.ChannelsAddedTo}</td>
+                                                <td>{val.ActionSuccessfullMessage}</td>
+                                            </tr>
+                                        ),
+                                    )
+                                        }
+                                    </tbody>
+                                </Table>
+                            </div>
+                        ) : (<p>{'No Action configured'}</p>)
+                        }
+                    </>) : (<p>{'No Attachment message or Action configured'}</p>)}
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -86,10 +102,6 @@ function ActionModal(props: Props) {
                         variant='secondary'
                         onClick={handleClose}
                     >{'Close'}</Button>
-                    {/* <Button
-                        variant='primary'
-                        disabled={true}
-                    >{'Save changes'}</Button> */}
                 </Modal.Footer>
             </Modal>
         </>

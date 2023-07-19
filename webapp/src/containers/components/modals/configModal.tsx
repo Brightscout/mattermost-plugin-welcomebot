@@ -8,12 +8,17 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
-import {Config} from 'types/plugin/common';
+
+// eslint-disable-next-line import/no-unresolved
+import {Configs} from 'types/plugin/common';
 
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
-    config: Config
+    configIndex: number | null;
+    config: Configs[];
+    onChange: any;
+    modalHeader: string;
 }
 
 function ConfigModal(props: Props) {

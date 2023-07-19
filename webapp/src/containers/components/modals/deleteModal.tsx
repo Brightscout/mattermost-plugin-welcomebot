@@ -1,24 +1,33 @@
+/* eslint-disable import/no-unresolved */
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './styles.css';
+import {Configs} from 'types/plugin/common';
 
 interface Props {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
-    teamName: string;
+    config: Configs[];
+    configIndex: number;
+    onChange: any;
 }
 
-function DeleteModal(props: Props) {
+function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
+        setShow(visible);
+    }, [visible]);
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        setVis(false);
+    };
+    const handleDelete = () => {
+        config.splice(configIndex, 1);
+        onChange(config);
+        handleClose();
     };
     return (
         <>
@@ -31,7 +40,7 @@ function DeleteModal(props: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>{`Are you sure you would like to delete the configs for the team ${props.teamName}`}</p>
+                    <p>{`Are you sure you would like to delete the configs for the team ${config[configIndex].TeamName}`}</p>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -39,7 +48,10 @@ function DeleteModal(props: Props) {
                         variant='secondary'
                         onClick={handleClose}
                     >{'Close'}</Button>
-                    <Button variant='danger'>{'Delete'}</Button>
+                    <Button
+                        variant='danger'
+                        onClick={handleDelete}
+                    >{'Delete'}</Button>
                 </Modal.Footer>
             </Modal>
         </>
