@@ -40,7 +40,7 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>{`Are you sure you would like to delete the configs for the team ${config[configIndex].TeamName}`}</p>
+                    <p>{`Are you sure you would like to delete the configs for ${config[configIndex].TeamName}`}</p>
                 </Modal.Body>
 
                 <Modal.Footer>

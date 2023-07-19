@@ -85,6 +85,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     {'Existing Configs'}
                 </div>
                 <div>
+                    {value.length > 0 &&
                     <Table
                         striped={true}
                         className='existing-config-table'
@@ -199,7 +200,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                 )
                             }
                         </tbody>
-                    </Table>
+                    </Table>}
                     <Button
                         className='add-config-btn'
                         variant='primary'
