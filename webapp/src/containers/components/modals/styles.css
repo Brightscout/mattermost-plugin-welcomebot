@@ -108,3 +108,7 @@ table.table thead {
 .add-actions {
   margin-top: 15px;
 }
+
+.validation-warning {
+  color: red;
+}

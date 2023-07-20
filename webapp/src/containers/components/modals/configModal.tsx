@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -39,7 +40,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     ];
     const newConfig: Configs = {
         TeamName: '',
-        DelayInSeconds: '',
+        DelayInSeconds: 0,
         Message: [''],
         IncludeGuests: '',
         AttachmentMessage: [''],
@@ -58,12 +59,24 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     const [attachmentMessage, setAttachmentMessage] = useState(existingConfig.AttachmentMessage ?? ['']);
     const [guestValue, setGuestValue] = useState(existingConfig.IncludeGuests);
 
+    const [teamNameValid, setTeamNameValid] = useState(false);
+    const [messageValid, setMessageValid] = useState(false);
+    const [delayValid, setDelayValid] = useState(false);
     const [actionTypesValue, setActionTypesValue] = useState('');
     const [actionDisplayName, setActionDisplayName] = useState('');
-    const [actionChannelsAddedTo, setChannelsAddedTo] = useState(['']);
+    const [actionChannelsAddedTo, setActionChannelsAddedTo] = useState(['']);
     const [actionSuccessfullMessage, setActionSuccessfullMessage] = useState(['']);
-    const [actionIndex, setActionIndex] = useState<number | null>(0);
     const [actionName, setActionName] = useState('');
+
+    const [actionIndex, setActionIndex] = useState<number | null>(0);
+
+    const [actionTypesValueValid, setActionTypesValueValid] = useState(false);
+    const [actionDisplayNameValid, setActionDisplayNameValid] = useState(false);
+    const [actionChannelsAddedToValid, setActionChannelsAddedToValid] = useState(false);
+    const [actionSuccessfullMessageValid, setActionSuccessfullMessageValid] = useState(false);
+    const [actionNameValid, setActionNameValid] = useState(false);
+
+    const [validated, setValidated] = useState(false);
 
     const actionLength = existingConfig?.Actions?.length ?? 0;
 
@@ -86,6 +99,37 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     }, [actionIndex]);
 
     useEffect(() => {
+        setTeamNameValid(teamName.trim() !== '');
+        if (message.length === 0) {
+            setMessageValid(false);
+        } else if (message.length === 1) {
+            setMessageValid(message[0] !== '');
+        } else {
+            setMessageValid(true);
+        }
+        setDelayValid(delay >= 0);
+        setActionTypesValueValid(actionTypesValue !== '');
+        setActionDisplayNameValid(actionDisplayName !== '');
+        if (actionChannelsAddedTo.length === 0) {
+            setActionChannelsAddedToValid(false);
+        } else if (actionChannelsAddedTo.length === 1) {
+            setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
+        } else {
+            setActionChannelsAddedToValid(true);
+        }
+
+        if (actionSuccessfullMessage.length === 0) {
+            setActionSuccessfullMessageValid(false);
+        } else if (actionSuccessfullMessage.length === 1) {
+            setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
+        } else {
+            setActionSuccessfullMessageValid(true);
+        }
+
+        setActionNameValid(actionName !== '');
+    }, [teamName, delay, message, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
+
+    useEffect(() => {
         if (configIndex !== null) {
             setTeamName(existingConfig.TeamName);
             setDelay(existingConfig.DelayInSeconds);
@@ -105,14 +149,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
             const action = existingConfig?.Actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
-            setChannelsAddedTo(action.ChannelsAddedTo);
+            setActionChannelsAddedTo(action.ChannelsAddedTo);
             setActionSuccessfullMessage(action.ActionSuccessfullMessage);
             setActionName(action.ActionName);
         } else {
             const action = actionElement;
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
-            setChannelsAddedTo(action.ChannelsAddedTo);
+            setActionChannelsAddedTo(action.ChannelsAddedTo);
             setActionSuccessfullMessage(action.ActionSuccessfullMessage);
             setActionName(action.ActionName);
         }
@@ -120,12 +164,15 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
     const handleClose = () => {
         if (actionVisible) {
+            setValidated(false);
             setActionVisible(false);
             setConfigVisible(true);
         } else if (deleteVisible) {
+            setValidated(false);
             setDeleteVisible(false);
             setConfigVisible(true);
         } else {
+            setValidated(false);
             setShow(false);
             setVis(false);
         }
@@ -137,6 +184,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     };
 
     const handleAddActions = () => {
+        setValidated(false);
         resetActionElement();
         setActionIndex(null);
         preFillActions();
@@ -188,41 +236,51 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
     const handlePrimary = () => {
         if (actionVisible) {
-            if (configIndex !== null) {
-                if (actionIndex === null) {
-                    actionElement.ActionDisplayName = actionDisplayName;
-                    actionElement.ActionName = actionName;
-                    actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
-                    actionElement.ActionType = actionTypesValue;
-                    actionElement.ChannelsAddedTo = actionChannelsAddedTo;
-                    const actions = existingConfig?.Actions;
-                    if (actions) {
-                        actions.push(actionElement);
-                        existingConfig!.Actions = actions;
+            if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid) {
+                if (configIndex !== null) {
+                    if (actionIndex === null) {
+                        actionElement.ActionDisplayName = actionDisplayName;
+                        actionElement.ActionName = actionName;
+                        actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
+                        actionElement.ActionType = actionTypesValue;
+                        actionElement.ChannelsAddedTo = actionChannelsAddedTo;
+                        const actions = existingConfig?.Actions;
+                        if (actions) {
+                            actions.push(actionElement);
+                            existingConfig!.Actions = actions;
+                        }
+                    } else {
+                        structureActions();
                     }
-                } else {
-                    structureActions();
+                } else if (configIndex === null) {
+                    if (actionIndex === null) {
+                        structureNewActions();
+                    } else {
+                        structureActions();
+                    }
                 }
-            } else if (configIndex === null) {
-                if (actionIndex === null) {
-                    structureNewActions();
-                } else {
-                    structureActions();
-                }
+                setActionVisible(false);
+                setConfigVisible(true);
+                setValidated(false);
+                onChange(config);
+            } else {
+                setValidated(true);
             }
-            setActionVisible(false);
-            setConfigVisible(true);
-            onChange(config);
         }
         if (configVisible) {
-            if (configIndex === null) {
-                structureNewConfig();
-                config.push(existingConfig);
+            if (teamNameValid && messageValid) {
+                if (configIndex === null) {
+                    structureNewConfig();
+                    config.push(existingConfig);
+                } else {
+                    structureConfig();
+                }
+                onChange(config);
+                setValidated(false);
+                handleClose();
             } else {
-                structureConfig();
+                setValidated(true);
             }
-            onChange(config);
-            handleClose();
         }
         if (deleteVisible && actionIndex !== null) {
             const l = existingConfig.Actions?.splice(actionIndex, 1);
@@ -252,33 +310,62 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                 </Modal.Header>
                 <Modal.Body className='configModalBody'>
                     {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
-                        <Form>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Team name'}</Form.Label>
+                        <Form
+                            noValidate={true}
+                            validated={validated}
+                        >
+                            <Form.Group
+                                className='form-group'
+                                controlId='validationCustom02'
+                            >
+                                <Form.Label>{'TeamName*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter your team name'
                                     value={teamName}
                                     onChange={(e) => setTeamName(e.target.value)}
+                                    required={true}
                                 />
+                                {validated && !teamNameValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide a team name.'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Delay (in sec)'}</Form.Label>
+                                <Form.Label>{'Delay (in sec)*'}</Form.Label>
                                 <Form.Control
-                                    type='text'
+                                    type='number'
                                     placeholder='Enter the delay in seconds'
                                     value={delay}
-                                    onChange={(e) => setDelay(e.target.value)}
+                                    onChange={(e) => setDelay(parseInt(e.target.value, 10))}
+                                    required={true}
                                 />
+                                {validated && !delayValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Delay must be a positive number'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Message'}</Form.Label>
+                                <Form.Label>{'Message*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter the message for the new user'
                                     value={message}
                                     onChange={(e) => setMessage([e.target.value])}
                                 />
+                                {validated && !messageValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide some message'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Include guests'}</Form.Label>
@@ -410,7 +497,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                     {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group>
-                                <Form.Label className='radio-form'>{'Action Type'}</Form.Label>
+                                <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
                                 <ButtonGroup className='radio'>
                                     {actionTypes.map((radio, index) => (
                                         <ToggleButton
@@ -425,42 +512,77 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                         </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                {validated && !actionTypesValueValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide Action Type'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Action Display Name'}</Form.Label>
+                                <Form.Label>{'Action Display Name*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter the display name of your action'
                                     value={actionDisplayName}
                                     onChange={(e) => setActionDisplayName(e.target.value)}
                                 />
+                                {validated && !actionDisplayNameValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide Action display name'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Action Name'}</Form.Label>
+                                <Form.Label>{'Action Name*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter the name of your action'
                                     value={actionName}
                                     onChange={(e) => setActionName(e.target.value)}
                                 />
+                                {validated && !actionNameValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide Action name'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Channels Added to'}</Form.Label>
+                                <Form.Label>{'Channels Added to*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter the name of channels in which you want to add the new user'
                                     value={actionChannelsAddedTo}
-                                    onChange={(e) => setChannelsAddedTo([e.target.value])}
+                                    onChange={(e) => setActionChannelsAddedTo([e.target.value])}
                                 />
+                                {validated && !actionChannelsAddedToValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide Channels added to'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Action Successfull message'}</Form.Label>
+                                <Form.Label>{'Action Successfull message*'}</Form.Label>
                                 <Form.Control
                                     type='text'
                                     placeholder='Enter the success message on completion of action'
                                     value={actionSuccessfullMessage}
                                     onChange={(e) => setActionSuccessfullMessage([e.target.value])}
                                 />
+                                {validated && !actionSuccessfullMessageValid &&
+                                <Form.Control.Feedback
+                                    type='invalid'
+                                    className='validation-warning'
+                                >
+                                    {'Please provide some Action success message'}
+                                </Form.Control.Feedback>}
                             </Form.Group>
                         </Form>
                     </div>}
