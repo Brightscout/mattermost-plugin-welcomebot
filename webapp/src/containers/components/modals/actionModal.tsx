@@ -31,6 +31,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
     return (
         <>
             <Modal
+                className='actionModal'
                 show={show}
                 onHide={handleClose}
             >

@@ -32,6 +32,7 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
     return (
         <>
             <Modal
+                className='deleteModal'
                 show={show}
                 onHide={handleClose}
             >
