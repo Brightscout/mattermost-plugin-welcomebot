@@ -517,7 +517,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide Action Type'}
+                                    {'Please provide the action Type'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -533,7 +533,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide Action display name'}
+                                    {'Please provide the action display name'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -549,7 +549,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide Action name'}
+                                    {'Please provide the action name'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -565,7 +565,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide Channels added to'}
+                                    {'Please provide the channels new user should be added to'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -581,7 +581,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide some Action success message'}
+                                    {'Please provide some action success message'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                         </Form>
