@@ -91,3 +91,23 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.guestValue {
+    text-align: center;
+    vertical-align: middle;
+}
+.delayValue {
+    text-align: center;
+    vertical-align: middle;
+}
+.teamNameValue {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.existing-config-table.table .messageValue {
+    text-align: left;
+    vertical-align: middle;
+}
+.messageValue .td {
+    text-align: left;
+}
