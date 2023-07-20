@@ -3,13 +3,10 @@
   padding-top: 12%;
 }
 
-/* .configModal {
-  display: block;
-} */
-
-/* .modal-dialog{
-  overflow-y: initial;
-} */
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 
 .configModalBody{
   height: 80%;
