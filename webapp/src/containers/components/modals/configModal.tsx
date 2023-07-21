@@ -47,8 +47,8 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         Actions: newAction,
     };
     const [show, setShow] = useState(true);
-    const [actionVisible, setActionVisible] = useState(false);
     const [configVisible, setConfigVisible] = useState(true);
+    const [actionVisible, setActionVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
 
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
@@ -92,6 +92,16 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     ];
 
     useEffect(() => {
+        if (configIndex !== null) {
+            setTeamName(existingConfig.TeamName);
+            setDelay(existingConfig.DelayInSeconds);
+            setMessage(existingConfig.Message);
+            setGuestValue(existingConfig?.IncludeGuests ?? '');
+            setAttachmentMessage(existingConfig?.AttachmentMessage ?? []);
+        }
+    }, []);
+
+    useEffect(() => {
         setShow(visible);
         setConfigVisible(visible);
     }, [visible]);
@@ -130,16 +140,6 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
         setActionNameValid(actionName !== '');
     }, [teamName, delay, message, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
-
-    useEffect(() => {
-        if (configIndex !== null) {
-            setTeamName(existingConfig.TeamName);
-            setDelay(existingConfig.DelayInSeconds);
-            setMessage(existingConfig.Message);
-            setGuestValue(existingConfig?.IncludeGuests ?? '');
-            setAttachmentMessage(existingConfig?.AttachmentMessage ?? []);
-        }
-    }, []);
 
     useEffect(() => {
         setExistingConfig(configIndex === null ? newConfig : config[configIndex]);

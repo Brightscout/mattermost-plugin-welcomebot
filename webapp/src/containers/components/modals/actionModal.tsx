@@ -95,7 +95,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                             </div>
                         ) : (<p>{'No Action configured'}</p>)
                         }
-                    </>) : (<p>{'No Attachment message or Action configured'}</p>)}
+                    </>) : (<p>{'No Attachment message or action configured'}</p>)}
                 </Modal.Body>
 
                 <Modal.Footer>
