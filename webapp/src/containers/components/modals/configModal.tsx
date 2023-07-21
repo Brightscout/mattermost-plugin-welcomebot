@@ -147,7 +147,6 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
     const preFillActions = () => {
         if (existingConfig?.Actions && actionIndex !== null) {
-            // if (actionIndex !== null) {
             const action = existingConfig?.Actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
