@@ -3,17 +3,14 @@
   padding-top: 12%;
 }
 
-.modal-dialog{
-  overflow-y: initial;
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .configModalBody{
   height: 80%;
   overflow-y: auto;
-}
-
-.buttons {
-    padding-bottom: 0;
 }
 
 @keyframes fade-in {
@@ -107,4 +104,18 @@ table.table thead {
 
 .validation-warning {
   color: red;
+}
+
+.listTable th {
+  text-align: center;
+}
+
+.guestButton.active {
+  box-shadow: none;
+  outline: transparent;
+}
+
+.actionTypeButton.active {
+  box-shadow: none;
+  outline: transparent;
 }

@@ -103,10 +103,10 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                 value.map((val, i) =>
                                     (
                                         <tr key={i.toString()}>
-                                            <td>{val.TeamName}</td>
-                                            <td>{val.DelayInSeconds}</td>
-                                            <td>{val.Message}</td>
-                                            <td>{val.IncludeGuests ? val.IncludeGuests : '-'}</td>
+                                            <td className='teamNameValue'>{val.TeamName}</td>
+                                            <td className='delayValue'>{val.DelayInSeconds}</td>
+                                            <td className='messageValue'>{val.Message}</td>
+                                            <td className='guestValue'>{val.IncludeGuests ? val.IncludeGuests : '-'}</td>
                                             <td className='option'>
                                                 <div>
                                                     <ButtonGroup aria-label='Basic example'>
@@ -119,8 +119,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                             >
                                                                 <svg
                                                                     xmlns='http://www.w3.org/2000/svg'
-                                                                    width='20'
-                                                                    height='20'
+                                                                    width='16'
+                                                                    height='16'
                                                                     viewBox='0 0 24 24'
                                                                     fill='none'
                                                                     stroke='#333'
@@ -144,8 +144,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
-                                                                    width='20'
-                                                                    height='20'
+                                                                    width='16'
+                                                                    height='16'
                                                                     viewBox='0 0 24 24'
                                                                     fill='none'
                                                                     stroke='#333'
@@ -166,8 +166,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
-                                                                    width='20'
-                                                                    height='20'
+                                                                    width='16'
+                                                                    height='16'
                                                                     viewBox='0 0 24 24'
                                                                     fill='none'
                                                                     stroke='#333'

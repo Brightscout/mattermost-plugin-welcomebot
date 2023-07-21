@@ -78,6 +78,8 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
     const [validated, setValidated] = useState(false);
 
+    const [deleteAction, setDeleteAction] = useState('');
+
     const actionLength = existingConfig?.Actions?.length ?? 0;
 
     const guest = [
@@ -191,7 +193,8 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         setActionVisible(true);
         setConfigVisible(false);
     };
-    const handleDelete = (index: number) => {
+    const handleDelete = (index: number, action: string) => {
+        setDeleteAction(action);
         setActionIndex(index);
         setDeleteVisible(true);
         setConfigVisible(false);
@@ -372,6 +375,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 <ButtonGroup className='radio'>
                                     {guest.map((guests, index) => (
                                         <ToggleButton
+                                            className='guestButton'
                                             key={index.toString()}
                                             type='radio'
                                             name='radio'
@@ -452,7 +456,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                                             placement='top'
                                                             overlay={<Tooltip>{'Delete action'}</Tooltip>}
                                                         >
-                                                            <Button onClick={() => handleDelete(i)}>
+                                                            <Button onClick={() => handleDelete(i, val.ActionName)}>
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
@@ -501,6 +505,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 <ButtonGroup className='radio'>
                                     {actionTypes.map((radio, index) => (
                                         <ToggleButton
+                                            className='actionTypeButton'
                                             key={index.toString()}
                                             type='radio'
                                             name='radio'
@@ -594,7 +599,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                     </div>}
 
                     {deleteVisible && <div className={deleteVisible ? 'fade-enter' : 'fade-exit'}>
-                        <p>{'Are you sure you would like to delete the action ?'}</p>
+                        <p>{`Are you sure you would like to delete the action ${deleteAction} ?`}</p>
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
