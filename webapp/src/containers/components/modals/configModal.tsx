@@ -27,14 +27,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         ActionName: '',
         ActionDisplayName: '',
         ChannelsAddedTo: [''],
-        ActionSuccessfullMessage: [''],
+        ActionSuccessfulMessage: [''],
     };
     const resetActionElement = () => {
         actionElement.ActionType = '';
         actionElement.ActionName = '';
         actionElement.ActionDisplayName = '';
         actionElement.ChannelsAddedTo = [''];
-        actionElement.ActionSuccessfullMessage = [''];
+        actionElement.ActionSuccessfulMessage = [''];
     };
     const newAction: Actions[] = [
     ];
@@ -150,14 +150,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
             setActionChannelsAddedTo(action.ChannelsAddedTo);
-            setActionSuccessfullMessage(action.ActionSuccessfullMessage);
+            setActionSuccessfullMessage(action.ActionSuccessfulMessage);
             setActionName(action.ActionName);
         } else {
             const action = actionElement;
             setActionTypesValue(action.ActionType);
             setActionDisplayName(action.ActionDisplayName);
             setActionChannelsAddedTo(action.ChannelsAddedTo);
-            setActionSuccessfullMessage(action.ActionSuccessfullMessage);
+            setActionSuccessfullMessage(action.ActionSuccessfulMessage);
             setActionName(action.ActionName);
         }
     };
@@ -216,7 +216,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     const structureNewActions = () => {
         actionElement.ActionDisplayName = actionDisplayName;
         actionElement.ActionName = actionName;
-        actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
+        actionElement.ActionSuccessfulMessage = actionSuccessfullMessage;
         actionElement.ActionType = actionTypesValue;
         actionElement.ChannelsAddedTo = actionChannelsAddedTo;
         const l = existingConfig.Actions?.push(actionElement);
@@ -227,7 +227,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
             const action = actions[actionIndex];
             action.ActionDisplayName = actionDisplayName;
             action.ActionName = actionName;
-            action.ActionSuccessfullMessage = actionSuccessfullMessage;
+            action.ActionSuccessfulMessage = actionSuccessfullMessage;
             action.ActionType = actionTypesValue;
             action.ChannelsAddedTo = actionChannelsAddedTo;
             existingConfig!.Actions = [...actions];
@@ -241,7 +241,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                     if (actionIndex === null) {
                         actionElement.ActionDisplayName = actionDisplayName;
                         actionElement.ActionName = actionName;
-                        actionElement.ActionSuccessfullMessage = actionSuccessfullMessage;
+                        actionElement.ActionSuccessfulMessage = actionSuccessfullMessage;
                         actionElement.ActionType = actionTypesValue;
                         actionElement.ChannelsAddedTo = actionChannelsAddedTo;
                         const actions = existingConfig?.Actions;
@@ -423,7 +423,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                                 <td>{val.ActionDisplayName}</td>
                                                 <td>{val.ActionName}</td>
                                                 <td>{val.ChannelsAddedTo}</td>
-                                                <td>{val.ActionSuccessfullMessage}</td>
+                                                <td>{val.ActionSuccessfulMessage}</td>
                                                 <td>
                                                     <ButtonGroup
                                                         aria-label='Basic example'

@@ -3,7 +3,7 @@ export type Actions = {
     ActionName: string,
     ActionDisplayName: string,
     ChannelsAddedTo: string[],
-    ActionSuccessfullMessage: string[]
+    ActionSuccessfulMessage: string[]
 }
 
 export type Configs = {

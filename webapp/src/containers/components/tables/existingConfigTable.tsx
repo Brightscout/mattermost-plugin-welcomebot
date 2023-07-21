@@ -79,7 +79,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Add Config'
                 />
             }
-
             <FormGroup>
                 <div className='name'>
                     {'Existing Configs'}

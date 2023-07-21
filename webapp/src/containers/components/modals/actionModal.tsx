@@ -85,7 +85,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                                                 <td>{val.ActionName}</td>
                                                 <td>{val.ActionDisplayName}</td>
                                                 <td>{val.ChannelsAddedTo}</td>
-                                                <td>{val.ActionSuccessfullMessage}</td>
+                                                <td>{val.ActionSuccessfulMessage}</td>
                                             </tr>
                                         ),
                                     )
