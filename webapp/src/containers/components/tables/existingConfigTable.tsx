@@ -7,9 +7,13 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
+import {useDispatch} from 'react-redux';
+
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
+import {getChannels, getTeams} from 'api/api_wrapper';
+import {toggleIsConnected} from 'reducers/websocketEvent';
 
 type Props = {
     onChange: any
@@ -23,6 +27,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     const [addVisible, setAddVisible] = useState(false);
     const [configIndex, setConfigIndex] = useState(0);
 
+    const dispatch = useDispatch();
+
     const handleView = (index: number) => {
         setConfigIndex(index);
         setViewVisible(true);
@@ -35,8 +41,15 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         setConfigIndex(index);
         setEditVisible(true);
     };
-    const handleAdd = () => {
+    const getState = () => {
+        return (state: ReduxState) => state['plugins-mattermost-plugin-welcomebot'] || {};
+    };
+    const handleAdd = async () => {
+        const states = await getState();
+        console.log('old => ', states);
+        dispatch(toggleIsConnected(true));
         setAddVisible(true);
+        console.log('new => ', states);
     };
 
     return (
