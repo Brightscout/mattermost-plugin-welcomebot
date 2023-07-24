@@ -323,7 +323,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 <Form.Label>{'TeamName*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder='Enter your team name'
+                                    placeholder='Enter a team name'
                                     value={teamName}
                                     onChange={(e) => setTeamName(e.target.value)}
                                     required={true}
@@ -337,7 +337,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Delay (in sec)*'}</Form.Label>
+                                <Form.Label>{'Delay (in secs)*'}</Form.Label>
                                 <Form.Control
                                     type='number'
                                     placeholder='Enter the delay in seconds'
@@ -350,14 +350,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Delay must be a positive number'}
+                                    {'Please provide a positive number'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Message*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder='Enter the message for the new user'
+                                    placeholder=' Enter a message to post to a new user'
                                     value={message}
                                     onChange={(e) => setMessage([e.target.value])}
                                 />
@@ -366,7 +366,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide some message'}
+                                    {'Please provide a message'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group>
@@ -391,7 +391,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 <Form.Label>{'Attachment Message'}</Form.Label>
                                 <Form.Control
                                     type='long-text'
-                                    placeholder='This is a example attachment message'
+                                    placeholder='Enter the attachment messages'
                                     aria-label='Disabled input example'
                                     value={attachmentMessage}
                                     onChange={(e) => setAttachmentMessage([e.target.value])}
@@ -521,7 +521,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide the action type'}
+                                    {'Please select an action type'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -537,14 +537,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide the action display name'}
+                                    {'Please provide a display name for your action'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Action Name*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder='Enter the name of your action'
+                                    placeholder='Enter the display name of your action'
                                     value={actionName}
                                     onChange={(e) => setActionName(e.target.value)}
                                 />
@@ -553,14 +553,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide the action name'}
+                                    {'Please provide a name for your action'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Channels Added to*'}</Form.Label>
+                                <Form.Label>{'Add to Channels*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder='Enter the name of channels in which you want to add the new user'
+                                    placeholder='Enter the names of each channel the user should be added to'
                                     value={actionChannelsAddedTo}
                                     onChange={(e) => setActionChannelsAddedTo([e.target.value])}
                                 />
@@ -569,14 +569,14 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide the channels new user should be added to'}
+                                    {'Please provide at least one channel name '}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
-                                <Form.Label>{'Action Successfull message*'}</Form.Label>
+                                <Form.Label>{'Action Successfull Message*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder='Enter the success message on completion of action'
+                                    placeholder='Enter a message to post when a user completes an action'
                                     value={actionSuccessfullMessage}
                                     onChange={(e) => setActionSuccessfullMessage([e.target.value])}
                                 />
@@ -585,7 +585,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide some action success message'}
+                                    {'Please provide a message'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                         </Form>
