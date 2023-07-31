@@ -1,13 +1,9 @@
 import {combineReducers} from 'redux';
 
-import globalModalSlice from './globalModal';
-import apiRequestCompletionSlice from './apiRequest';
-import websocketEventSlice from './websocketEvent';
+import apiRequestCompletionSlice from './apiRequestEvent';
 
 const reducers = combineReducers({
     apiRequestCompletionSlice,
-    globalModalSlice,
-    websocketEventSlice,
 });
 
 export default reducers;

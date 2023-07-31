@@ -14,3 +14,11 @@ export type Configs = {
     AttachmentMessage: string[] | null,
     Actions: Actions[] | null
 }
+
+export type Teams = {
+    display_name: string
+}
+
+export type Channels = {
+    display_name: string
+}

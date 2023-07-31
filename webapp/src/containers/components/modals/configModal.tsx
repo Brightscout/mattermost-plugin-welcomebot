@@ -10,7 +10,26 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
 // eslint-disable-next-line import/no-unresolved
-import {Configs, Actions} from 'types/plugin/common';
+import {Configs, Actions, Teams, Channels} from 'types/plugin/common';
+
+import {useDispatch} from 'react-redux';
+
+import Select from 'react-select';
+
+import usePluginApi from 'hooks/usePluginApi';
+import {togglePendingState} from 'reducers/apiRequestEvent';
+import {getChannels, getTeams} from 'api/api_wrapper';
+import {getApiRequestPendingState} from 'selectors';
+
+type GroupType = {
+    label: string;
+    value: string; // If needed, add a value property for the group itself
+};
+
+  type OptionType = {
+      value: string;
+      label: string;
+  };
 
 interface Props {
     visible: boolean;
@@ -46,6 +65,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         AttachmentMessage: [''],
         Actions: newAction,
     };
+
     const [show, setShow] = useState(true);
     const [configVisible, setConfigVisible] = useState(true);
     const [actionVisible, setActionVisible] = useState(false);
@@ -81,7 +101,11 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
     const [deleteAction, setDeleteAction] = useState('');
 
     const actionLength = existingConfig?.Actions?.length ?? 0;
-
+    const options = [
+        {value: 'option1', label: 'Option 1'},
+        {value: 'option1', label: 'Option 1'},
+        {value: 'option1', label: 'Option 1'},
+    ];
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -90,6 +114,76 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         {name: 'button', value: 'button'},
         {name: 'automatic', value: 'automatic'},
     ];
+
+    const [teamData, setTeamData] = useState<Teams[]>();
+    const [channelData, setChannelData] = useState();
+    const state = usePluginApi();
+    const dispatch = useDispatch();
+    const [field, setField] = useState([]);
+
+    // const [selectedOptions, setSelectedOptions] = useState('');
+
+    const [teamOptionList, setTeamOptionList] = useState<OptionType[]>([]);
+    const [teamSelectedOptions, setTeamSelectedOptions] = useState<OptionType[]>([]);
+
+    const [channelOptionList, setChannelOptionList] = useState<OptionType[]>([]);
+    const [channelselectedOptions, setChannelSelectedOptions] = useState<OptionType[]>([]);
+    const [selectedTeamValues, setSelectedTeamValues] = useState<string[]>([]);
+
+    // const optionList = [
+    //     {value: 'red', label: 'Red'},
+    //     {value: 'green', label: 'Green'},
+    //     {value: 'yellow', label: 'Yellow'},
+    //     {value: 'blue', label: 'Blue'},
+    //     {value: 'white', label: 'White'},
+    // ];
+
+    // const ert = getApiRequestPendingState(state);
+
+    useEffect(() => {
+        // getTeam();
+        getTeams().
+            then((teams) => {
+                // Assuming the API response is an array of teams with properties 'id' and 'display_name'
+                const optionws = teams.map((team: any) => ({
+                    value: team.display_name,
+                    label: team.display_name,
+                }));
+                setTeamOptionList(optionws);
+            }).
+            catch((error) => {
+                console.error('Error fetching teams:', error);
+            });
+
+        // getChannel();
+
+        getChannels().
+            then((channels) => {
+                // Assuming the API response is an array of teams with properties 'id' and 'display_name'
+                const optionws = channels.map((channel: any) => ({
+                    value: channel.display_name,
+                    label: channel.display_name,
+                }));
+                setChannelOptionList(optionws);
+            }).
+            catch((error) => {
+                console.error('Error fetching channels:', error);
+            });
+    }, []);
+
+    // const optionListt: OptionType[] = [
+    // ];
+
+    // const optionList = (teamDatas: Teams[] | undefined) => {
+    //     console.log('teamDatassssssssss  => ', teamDatas);
+    //     if (teamDatas) {
+    //         let index = 0;
+    //         while (index < teamDatas.length) {
+    //             optionListt.push({value: teamDatas[index].display_name, label: teamDatas[index].display_name});
+    //             index++;
+    //         }
+    //     }
+    // };
 
     useEffect(() => {
         if (configIndex !== null) {
@@ -183,6 +277,20 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
         setActionIndex(i);
         setActionVisible(true);
         setConfigVisible(false);
+    };
+
+    const handleChannelSelect = (selectedOptions) => {
+        const selectedChannels = selectedOptions.map((option) => option.value);
+
+        setActionChannelsAddedTo(selectedChannels); // Set the selected channels to the state variable
+    };
+
+    const handleTeamSelect = (selectedOption: GroupType) => {
+        if (selectedOption === null) {
+            setTeamName('');
+        } else {
+            setTeamName(selectedOption.value);
+        }
     };
 
     const handleAddActions = () => {
@@ -322,13 +430,29 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                 controlId='validationCustom02'
                             >
                                 <Form.Label>{'TeamName*'}</Form.Label>
-                                <Form.Control
+                                {/* <Select
+                                    options={optionList}
+                                    placeholder='Select color'
+                                    onChange={handleSelect}
+                                    isSearchable={true}
+                                    isMulti={true}
+                                /> */}
+                                <Select
+                                    closeMenuOnSelect={true}
+                                    onChange={handleTeamSelect}
+                                    isMulti={false}
+                                    placeholder='Select color'
+                                    isSearchable={true}
+                                    options={teamOptionList}
+                                    value={teamOptionList.find((option) => option.value === teamName)}
+                                />
+                                {/* <Form.Control
                                     type='text'
                                     placeholder='Enter your team name'
                                     value={teamName}
                                     onChange={(e) => setTeamName(e.target.value)}
                                     required={true}
-                                />
+                                /> */}
                                 {validated && !teamNameValid &&
                                 <Form.Control.Feedback
                                     type='invalid'
@@ -559,12 +683,20 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Channels Added to*'}</Form.Label>
-                                <Form.Control
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    onChange={handleChannelSelect}
+                                    isMulti={true}
+                                    placeholder='Select the channels in which you want to add the new user'
+                                    isSearchable={true}
+                                    options={channelOptionList}
+                                />
+                                {/* <Form.Control
                                     type='text'
                                     placeholder='Enter the name of channels in which you want to add the new user'
                                     value={actionChannelsAddedTo}
                                     onChange={(e) => setActionChannelsAddedTo([e.target.value])}
-                                />
+                                /> */}
                                 {validated && !actionChannelsAddedToValid &&
                                 <Form.Control.Feedback
                                     type='invalid'

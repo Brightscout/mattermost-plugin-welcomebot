@@ -1,6 +1,6 @@
-export const getRhsState = (state: ReduxState): {isSidebarOpen: boolean} => state.views.rhs;
-
 // Plugin state
-const getPluginState = (state: ReduxState) => state['plugins-mattermost-plugin-welcomebot'];
+const getPluginState = (state: ReduxState) => state['plugins-com.mattermost.welcomebot'];
 
-export const getApiRequestCompletionState = (state: ReduxState): ApiRequestCompletionState => getPluginState(state).apiRequestCompletionSlice;
+const getApiRequestPendingState = (state: ReduxState): ApiRequestPendingState => getPluginState(state).apiRequestCompletionSlice;
+
+export {getPluginState, getApiRequestPendingState};
