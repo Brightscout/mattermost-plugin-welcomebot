@@ -537,7 +537,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide a display name for your action'}
+                                    {'Please provide the display name for your action'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
