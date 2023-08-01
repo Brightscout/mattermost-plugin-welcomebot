@@ -615,7 +615,7 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
                                     placeholder='Select the channels in which you want to add the new user'
                                     isSearchable={true}
                                     options={channelOptionList.filter(
-                                        (channel) => channel.label !== 'Off-Topic' && channel.label !== 'Town Square'
+                                        (channel) => channel.label !== 'Off-Topic' && channel.label !== 'Town Square',
                                     )
                                     }
                                     value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}

@@ -15,14 +15,6 @@ export type Configs = {
     Actions: Actions[] | null
 }
 
-export type Teams = {
-    display_name: string
-}
-
-export type Channels = {
-    display_name: string
-}
-
 type GroupType = {
     label: string;
     value: string;
