@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {FormGroup, Col, Table, ButtonGroup, Button} from 'react-bootstrap';
 
 import './styles.css';
-import {useDispatch} from 'react-redux';
-
-import {showViewConfigModalState} from 'reducers/viewConfigModal';
 
 type HelpText = {
     key: string | null;
@@ -25,13 +22,11 @@ type Props = {
     helpText: HelpText;
 }
 
-//TODO: Will remove this dummy data
 const ExistingConfigTable = ({label, helpText}: Props) => {
-    const dispatch = useDispatch();
+    const [visible, setVisible] = useState(false);
     const handleView = () => {
-        dispatch(showViewConfigModalState());
+        setVisible(true);
     };
-
     return (
         <div>
             <FormGroup>
