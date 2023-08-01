@@ -9,9 +9,7 @@ export const apiRequestEventSlice = createSlice({
     initialState,
     reducers: {
         togglePendingState: (state: ApiRequestPendingState) => {
-            console.log('dsfdf d ', state.pending);
             state.pending = !state.pending;
-            console.log('dsfdf d ', state.pending);
         },
     },
 });

@@ -22,3 +22,13 @@ export type Teams = {
 export type Channels = {
     display_name: string
 }
+
+type GroupType = {
+    label: string;
+    value: string;
+};
+
+type OptionType = {
+    value: string;
+    label: string;
+};
