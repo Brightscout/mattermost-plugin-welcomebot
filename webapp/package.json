@@ -69,9 +69,10 @@
     "js-cookie": "3.0.1",
     "mattermost-redux": "5.27.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-bootstrap": "2.8.0",
+    "react-dom": "18.2.0",
     "react-redux": "7.2.0",
+    "react-select": "5.7.4",
     "redux": "4.0.5",
     "typescript": "5.1.6"
   },
