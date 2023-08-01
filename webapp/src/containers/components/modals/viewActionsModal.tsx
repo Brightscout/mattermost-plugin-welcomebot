@@ -37,8 +37,6 @@ function ViewActionsModal(props: Props) {
                             <Form.Label>{'Attachment Message'}</Form.Label>
                             <Form.Control
                                 type='long-text'
-                                placeholder='This is a example attachment message'
-                                aria-label='Disabled input example'
                                 readOnly={true}
                             />
                         </Form.Group>

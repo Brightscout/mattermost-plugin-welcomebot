@@ -25,21 +25,21 @@ type Props = {
 }
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
-    const [vis, setVis] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     const handleView = () => {
-        setVis(true);
+        setVisible(true);
     };
     const handleViews = () => {
-        setVis(false);
+        setVisible(false);
     };
 
     return (
         <div>
-            {vis &&
+            {visible &&
                 <ViewActionsModal
-                    visible={vis}
-                    setVis={setVis}
+                    visible={visible}
+                    setVis={setVisible}
                 />
             }
             <FormGroup>
@@ -157,8 +157,12 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             <Button
                                                 variant='primary'
                                                 onClick={handleViews}
-                                            >{'Edit'}</Button>
-                                            <Button variant='danger'>{'Delete'}</Button>
+                                            >
+                                                {'Edit'}
+                                            </Button>
+                                            <Button variant='danger'>
+                                                {'Delete'}
+                                            </Button>
                                         </ButtonGroup>
                                     </div>
                                 </td>
