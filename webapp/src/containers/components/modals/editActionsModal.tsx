@@ -48,10 +48,17 @@ function EditActionsModal({visible, setVis}: Props) {
                             </Form.Label>
                             <div className='dropdown'>
                                 <Form.Select aria-label='Choose the action type'>
-                                    <option>{'Choose the type of action'}</option>
-                                    <option value='1'>{'Button'}</option>
-                                    <option value='2'>{'Automatic'}</option>
-                                </Form.Select></div>
+                                    <option>
+                                        {'Choose the type of action'}
+                                    </option>
+                                    <option value='1'>
+                                        {'Button'}
+                                    </option>
+                                    <option value='2'>
+                                        {'Automatic'}
+                                    </option>
+                                </Form.Select>
+                            </div>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
