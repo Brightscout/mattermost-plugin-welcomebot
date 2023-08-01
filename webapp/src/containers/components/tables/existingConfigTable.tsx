@@ -166,8 +166,13 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                            >{'Edit'}</Button>
-                                            <Button variant='danger'>{'Delete'}</Button>
+                                                onClick={handleViews}
+                                            >
+                                                {'Edit'}
+                                            </Button>
+                                            <Button variant='danger'>
+                                                {'Delete'}
+                                            </Button>
                                         </ButtonGroup>
                                     </div>
                                 </td>

@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+
+import './styles.css';
+
 const AttachmentMsgModal = () => {
     const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        setShow(true);
-    }, []);
 
     const handleClose = () => {
         setShow(false);
@@ -16,7 +15,6 @@ const AttachmentMsgModal = () => {
         <>
             <div
                 className='modal show'
-                style={{display: 'block', position: 'initial'}}
             >
                 <Modal show={show}>
                     <Modal.Header>
