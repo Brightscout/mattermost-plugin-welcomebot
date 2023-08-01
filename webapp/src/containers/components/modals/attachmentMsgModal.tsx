@@ -2,16 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import usePluginApi from 'hooks/usePluginApi';
-
-//TODO: render this modal when view button is clicked in Config table
 const AttachmentMsgModal = () => {
     const [show, setShow] = useState(false);
-    const usePlugin = usePluginApi();
 
     useEffect(() => {
-        const visibility = usePlugin.state['plugins-com.mattermost.welcomebot'].viewConfigModalSlice.isVisible;
-        setShow(visibility);
+        setShow(true);
     }, []);
 
     const handleClose = () => {
