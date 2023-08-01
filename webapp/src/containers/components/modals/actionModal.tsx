@@ -54,7 +54,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                                     />
                                 </Form.Group>
                             </Form>
-                        ) : (<p>{'No Attachment message configured'}</p>)
+                        ) : (<p>{'No attachment message configured'}</p>)
                         }
                         {config[configIndex]?.Actions && actionsLength > 0 ? (
                             <div>
