@@ -10,16 +10,16 @@ interface Props {
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditActionsModal(props: Props) {
+function EditActionsModal({visible, setVis}: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
+        setShow(visible);
+    }, [visible]);
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        setVis(false);
     };
     return (
         <>
@@ -34,37 +34,54 @@ function EditActionsModal(props: Props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>{'Attachment Message'}</Form.Label>
+                            <Form.Label>
+                                {'Attachment Message'}
+                            </Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter your attachment message'
+                                placeholder='Enter the attachment message'
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>{'Action Type'}</Form.Label>
+                            <Form.Label>
+                                {'Action Type'}
+                            </Form.Label>
                             <div className='dropdown'>
-                                <Form.Select aria-label='Default select example'>
-                                    <option>{'Choose the type of your action'}</option>
-                                    <option value='1'>{'Button'}</option>
-                                    <option value='2'>{'Automatic'}</option>
-                                </Form.Select></div>
+                                <Form.Select aria-label='Choose the action type'>
+                                    <option>
+                                        {'Choose the type of action'}
+                                    </option>
+                                    <option value='1'>
+                                        {'Button'}
+                                    </option>
+                                    <option value='2'>
+                                        {'Automatic'}
+                                    </option>
+                                </Form.Select>
+                            </div>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>{'Action Display Name'}</Form.Label>
+                            <Form.Label>
+                                {'Action Display Name'}
+                            </Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter the display name of your action'
+                                placeholder='Enter the display name of action'
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>{'Channels Added to'}</Form.Label>
+                            <Form.Label>
+                                {'Channels Added to'}
+                            </Form.Label>
                             <Form.Control
                                 type='text'
                                 placeholder='Enter the name of channels in which you want to add the new user'
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>{'Action Successfull message'}</Form.Label>
+                            <Form.Label>
+                                {'Action Successfull message'}
+                            </Form.Label>
                             <Form.Control
                                 type='text'
                                 placeholder='Enter the success message on completion of action'
