@@ -195,10 +195,8 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td className='includeGuests'>
                                     {'True'}
                                 </td>
-
                                 <td className='option'>
                                     <div>
-                                        <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
                                                 placement='top'
                                                 overlay={<Tooltip>{'View actions'}</Tooltip>}
@@ -375,7 +373,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td className='includeGuests'>
                                     {'True'}
                                 </td>
-
                                 <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
