@@ -1,10 +1,11 @@
-/* eslint-disable import/no-unresolved */
 import React, {useEffect, useState} from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import './styles.css';
 
+// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 interface Props {
