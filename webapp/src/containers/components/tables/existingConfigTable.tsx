@@ -26,14 +26,12 @@ type Props = {
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const [visible, setVisible] = useState(false);
-
     const handleView = () => {
         setVisible(true);
     };
     const handleViews = () => {
         setVisible(false);
     };
-
     return (
         <div>
             {visible &&
@@ -92,7 +90,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>
                                     {'True'}
                                 </td>
-
                                 <td>
                                     <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
@@ -144,7 +141,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>
                                     {'True'}
                                 </td>
-
                                 <td>
                                     <div className='options'>
                                         <ButtonGroup aria-label='Basic example'>
