@@ -40,7 +40,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     ];
     const newConfig: Configs = {
         teamName: '',
-        delayInSeconds: '',
+        delayInSeconds: 0,
         message: [''],
         includeGuests: '',
         attachmentMessage: [''],
@@ -79,8 +79,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const [deleteAction, setDeleteAction] = useState('');
 
-    const actionLength = existingConfig?.Actions?.length ?? 0;
-
     const actionLength = existingConfig?.actions?.length ?? 0;
     const handleCloseButton = (
         variant: string,
@@ -104,11 +102,11 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         if (configIndex !== null) {
-            setTeamName(existingConfig.TeamName);
-            setDelay(existingConfig.DelayInSeconds);
-            setMessage(existingConfig.Message);
-            setGuestValue(existingConfig?.IncludeGuests ?? '');
-            setAttachmentMessage(existingConfig?.AttachmentMessage ?? []);
+            setTeamName(existingConfig.teamName);
+            setDelay(existingConfig.delayInSeconds);
+            setMessage(existingConfig.message);
+            setGuestValue(existingConfig?.includeGuests ?? '');
+            setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
         }
     }, []);
 
@@ -139,23 +137,24 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
         } else {
             setActionChannelsAddedToValid(true);
-        if (configIndex !== null) {
-            setTeamName(existingConfig.teamName);
-            setDelay(existingConfig.delayInSeconds);
-            setMessage(existingConfig.message);
-            setGuestValue(existingConfig?.includeGuests ?? '');
-            setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
-        }
+            if (configIndex !== null) {
+                setTeamName(existingConfig.teamName);
+                setDelay(existingConfig.delayInSeconds);
+                setMessage(existingConfig.message);
+                setGuestValue(existingConfig?.includeGuests ?? '');
+                setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
+            }
 
-        if (actionSuccessfullMessage.length === 0) {
-            setActionSuccessfullMessageValid(false);
-        } else if (actionSuccessfullMessage.length === 1) {
-            setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
-        } else {
-            setActionSuccessfullMessageValid(true);
-        }
+            if (actionSuccessfullMessage.length === 0) {
+                setActionSuccessfullMessageValid(false);
+            } else if (actionSuccessfullMessage.length === 1) {
+                setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
+            } else {
+                setActionSuccessfullMessageValid(true);
+            }
 
-        setActionNameValid(actionName !== '');
+            setActionNameValid(actionName !== '');
+        }
     }, [teamName, delay, message, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
     useEffect(() => {
@@ -168,14 +167,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.actionType);
             setActionDisplayName(action.actionDisplayName);
-            setChannelsAddedTo(action.channelsAddedTo);
+            setActionChannelsAddedTo(action.channelsAddedTo);
             setActionSuccessfullMessage(action.actionSuccessfullMessage);
             setActionName(action.actionName);
         } else {
             const action = actionElement;
             setActionTypesValue(action.actionType);
             setActionDisplayName(action.actionDisplayName);
-            setChannelsAddedTo(action.channelsAddedTo);
+            setActionChannelsAddedTo(action.channelsAddedTo);
             setActionSuccessfullMessage(action.actionSuccessfullMessage);
             setActionName(action.actionName);
         }
@@ -256,7 +255,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const handlePrimary = () => {
         if (actionVisible) {
-            if (configIndex !== null) {
+            if (configIndex) {
                 if (actionIndex === null) {
                     actionElement.actionDisplayName = actionDisplayName;
                     actionElement.actionName = actionName;
@@ -459,7 +458,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                                             placement='top'
                                                             overlay={<Tooltip>{'Delete action'}</Tooltip>}
                                                         >
-                                                            <Button onClick={() => handleDelete(i, val.ActionName)}>
+                                                            <Button onClick={() => handleDelete(i, val.actionName)}>
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
@@ -606,12 +605,18 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    {configVisible && handleCloseButton('primary', 'Save changes')}
-                    {actionVisible && handleCloseButton('primary', 'Add action')}
-                    {configVisible && handleCloseButton('secondary', 'Close')}
-                    {actionVisible && handleCloseButton('secondary', 'Cancel')}
-                    {deleteVisible && handleCloseButton('secondary', 'Cancel')}
-                    {deleteVisible && handleCloseButton('danger', 'Delete action')}
+                    <Button
+                        variant='secondary'
+                        onClick={handleClose}
+                    >
+                        {'Close'}
+                    </Button>
+                    <Button
+                        variant='primary'
+                        onClick={handlePrimary}
+                    >
+                        {'Save changes'}
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>

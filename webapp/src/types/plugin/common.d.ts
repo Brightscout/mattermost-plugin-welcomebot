@@ -8,7 +8,7 @@ export type Actions = {
 
 export type Configs = {
     teamName: string,
-    delayInSeconds: string,
+    delayInSeconds: number,
     message: string[],
     includeGuests: string | null,
     attachmentMessage: string[] | null,
