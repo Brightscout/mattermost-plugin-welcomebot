@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 
-import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import './styles.css';
 
