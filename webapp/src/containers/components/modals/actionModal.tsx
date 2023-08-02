@@ -8,16 +8,16 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
 }
 
-function ActionModal({visible, setVis, config, configIndex}: Props) {
-    const actionsLength = config[configIndex]?.Actions?.length ?? 0;
-    const attachmentMessageLength = config[configIndex]?.AttachmentMessage?.length ?? 0;
+function ActionModal({visible, setVisible, config, configIndex}: Props) {
+    const actionsLength = config[configIndex]?.actions?.length ?? 0;
+    const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
 
     const handleClose = () => {
         setShow(false);
-        setVis(false);
+        setVisible(false);
     };
     return (
         <>
@@ -40,14 +40,14 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    {(config[configIndex].AttachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.Actions && actionsLength > 0) ? (<>
-                        {config[configIndex].AttachmentMessage && attachmentMessageLength > 0 ? (
+                    {(config[configIndex].attachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.actions && actionsLength > 0) ? (<>
+                        {config[configIndex].attachmentMessage && attachmentMessageLength > 0 ? (
                             <Form>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Attachment Message'}</Form.Label>
                                     <Form.Control
                                         type='long-text'
-                                        value={config[configIndex].AttachmentMessage ?? ''}
+                                        value={config[configIndex].attachmentMessage ?? ''}
                                         placeholder=''
                                         aria-label='Disabled input example'
                                         readOnly={true}
@@ -56,7 +56,7 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                             </Form>
                         ) : (<p>{'No Attachment message configured'}</p>)
                         }
-                        {config[configIndex]?.Actions && actionsLength > 0 ? (
+                        {config[configIndex]?.actions && actionsLength > 0 ? (
                             <div>
                                 <Form>
                                     <Form.Group className='action-group'>
@@ -78,14 +78,15 @@ function ActionModal({visible, setVis, config, configIndex}: Props) {
                                     </thead>
                                     <tbody>
                                         {
-                                    config[configIndex].Actions?.map((val, i) =>
+                                    config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-                                                <td>{val.ActionType}</td>
-                                                <td>{val.ActionName}</td>
-                                                <td>{val.ActionDisplayName}</td>
-                                                <td>{val.ChannelsAddedTo}</td>
-                                                <td>{val.ActionSuccessfulMessage}</td>
+
+                                                <td>{val.actionType}</td>
+                                                <td>{val.actionName}</td>
+                                                <td>{val.actionDisplayName}</td>
+                                                <td>{val.channelsAddedTo}</td>
+                                                <td>{val.actionSuccessfullMessage}</td>
                                             </tr>
                                         ),
                                     )
