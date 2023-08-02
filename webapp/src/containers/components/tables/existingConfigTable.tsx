@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-
+import Col from 'react-bootstrap/Col';
 import './styles.css';
 
 // eslint-disable-next-line import/no-unresolved
