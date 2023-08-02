@@ -4,11 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 
 const AttachmentMsgModal = () => {
     const [show, setShow] = useState(false);
-
     useEffect(() => {
         setShow(true);
     }, []);
-
     const handleClose = () => {
         setShow(false);
     };
