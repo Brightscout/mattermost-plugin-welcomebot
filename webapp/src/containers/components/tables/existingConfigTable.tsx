@@ -4,6 +4,7 @@ import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 're
 
 import './styles.css';
 
+// eslint-disable-next-line import/no-unresolved
 import {Config} from 'types/plugin/common';
 
 import ActionModal from '../modals/actionModal';
@@ -57,7 +58,8 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {viewVisible && <ActionModal
                 visible={viewVisible}
                 setVis={setViewVisible}
-            />}
+            />
+            }
             {deleteVisible && <DeleteModal
                 visible={deleteVisible}
                 setVis={setDeleteVisible}

@@ -8,6 +8,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
+
+// eslint-disable-next-line import/no-unresolved
 import {Config} from 'types/plugin/common';
 
 interface Props {
@@ -164,7 +166,10 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
+                                                    >
+                                                        <path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/>
+                                                        <polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/>
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -183,17 +188,22 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                        x1='10'
-                                                        y1='11'
-                                                        x2='10'
-                                                        y2='17'
-                                                        /><line
-                                                                                                                                                                                    x1='14'
-                                                                                                                                                                                    y1='11'
-                                                                                                                                                                                    x2='14'
-                                                                                                                                                                                    y2='17'
-                                                                                                                                                                                  /></svg>
+                                                    >
+                                                        <polyline points='3 6 5 6 21 6'/>
+                                                        <path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
+                                                        <line
+                                                            x1='10'
+                                                            y1='11'
+                                                            x2='10'
+                                                            y2='17'
+                                                        />
+                                                        <line
+                                                            x1='14'
+                                                            y1='11'
+                                                            x2='14'
+                                                            y2='17'
+                                                        />
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -225,7 +235,10 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
+                                                    >
+                                                        <path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/>
+                                                        <polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/>
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -244,17 +257,21 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                        x1='10'
-                                                        y1='11'
-                                                        x2='10'
-                                                        y2='17'
-                                                                                                                                                                                /><line
+                                                    ><polyline points='3 6 5 6 21 6'/>
+                                                        <path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
+                                                        <line
+                                                            x1='10'
+                                                            y1='11'
+                                                            x2='10'
+                                                            y2='17'
+                                                        />
+                                                        <line
                                                             x1='14'
                                                             y1='11'
                                                             x2='14'
                                                             y2='17'
-                                                          /></svg>
+                                                        />
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -286,7 +303,10 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
+                                                    >
+                                                        <path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/>
+                                                        <polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/>
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                             <OverlayTrigger
@@ -305,17 +325,21 @@ function ConfigModal(props: Props) {
                                                         strokeWidth='1.65'
                                                         strokeLinecap='round'
                                                         strokeLinejoin='round'
-                                                    ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line
-                                                        x1='10'
-                                                        y1='11'
-                                                        x2='10'
-                                                        y2='17'
-                                                        /><line
-                                                                                                                                                                                    x1='14'
-                                                                                                                                                                                    y1='11'
-                                                                                                                                                                                    x2='14'
-                                                                                                                                                                                    y2='17'
-                                                                                                                                                                                  /></svg>
+                                                    ><polyline points='3 6 5 6 21 6'/>
+                                                        <path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
+                                                        <line
+                                                            x1='10'
+                                                            y1='11'
+                                                            x2='10'
+                                                            y2='17'
+                                                        />
+                                                        <line
+                                                            x1='14'
+                                                            y1='11'
+                                                            x2='14'
+                                                            y2='17'
+                                                        />
+                                                    </svg>
                                                 </Button>
                                             </OverlayTrigger>
                                         </ButtonGroup>
@@ -379,41 +403,51 @@ function ConfigModal(props: Props) {
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    {configVisible && <Button
+                    {configVisible &&
+                    <Button
                         variant='secondary'
                         onClick={handleClose}
-                                      >{'Close'}
+                    >
+                        {'Close'}
                     </Button>}
-                    {actionVisible && <Button
+                    {actionVisible &&
+                    <Button
                         variant='secondary'
                         onClick={handleClose}
-                                      >{'Cancel'}
+                    >
+                        {'Cancel'}
                     </Button>}
-                    {deleteVisible && <Button
+                    {deleteVisible &&
+                    <Button
                         variant='secondary'
                         onClick={handleClose}
-                                      >{'Cancel'}
+                    >
+                        {'Cancel'}
                     </Button>}
-
-                    {configVisible && <Button
+                    {configVisible &&
+                    <Button
                         variant='primary'
                         onClick={handleClose}
-                                      >{'Save changes'}
+                    >
+                        {'Save changes'}
                     </Button>}
-                    {actionVisible && <Button
+                    {actionVisible &&
+                    <Button
                         variant='primary'
                         onClick={handleClose}
-                                      >{'Add action'}
+                    >
+                        {'Add action'}
                     </Button>}
-                    {deleteVisible && <Button
+                    {deleteVisible &&
+                    <Button
                         variant='danger'
                         onClick={handleClose}
-                                      >{'Delete action'}
+                    >
+                        {'Delete action'}
                     </Button>}
                 </Modal.Footer>
             </Modal>
         </>
-
     );
 }
 

@@ -1,5 +1,7 @@
 import {Store, Action} from 'redux';
+
 import {GlobalState} from 'mattermost-redux/types/store';
+
 // eslint-disable-next-line import/no-unresolved
 import {PluginRegistry} from 'types/mattermostWebapp';
 
