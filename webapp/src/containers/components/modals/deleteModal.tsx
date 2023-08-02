@@ -2,18 +2,20 @@
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 import './styles.css';
+
 import {Configs} from 'types/plugin/common';
 
 type Props = {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
     onChange: any;
 }
 
-function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
+function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -22,7 +24,7 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
 
     const handleClose = () => {
         setShow(false);
-        setVis(false);
+        setVisible(false);
     };
 
     const handleDelete: () => void = () => {
@@ -42,7 +44,7 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>{`Are you sure you would like to delete the configs for team ${config[configIndex].TeamName}`}</p>
+                    <p>{`Are you sure you would like to delete the configs for ${config[configIndex].teamName}?`}</p>
                 </Modal.Body>
 
                 <Modal.Footer>
