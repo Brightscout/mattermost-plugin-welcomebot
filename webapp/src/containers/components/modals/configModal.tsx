@@ -27,7 +27,17 @@ function ConfigModal(props: Props) {
     const [configVisible, setConfigVisible] = useState(false);
     const [radioValue, setRadioValue] = useState('');
     const [deleteVisible, setDeleteVisible] = useState(false);
-
+    const handleCloseButton = (
+        variant: string,
+        text: string,
+    ) => (
+        <Button
+            variant={variant}
+            onClick={handleClose}
+        >
+            {text}
+        </Button>
+    );
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -393,7 +403,13 @@ function ConfigModal(props: Props) {
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    {configVisible &&
+                    {configVisible && handleCloseButton('primary', 'Save changes')}
+                    {actionVisible && handleCloseButton('primary', 'Add action')}
+                    {configVisible && handleCloseButton('secondary', 'Close')}
+                    {actionVisible && handleCloseButton('secondary', 'Cancel')}
+                    {deleteVisible && handleCloseButton('secondary', 'Cancel')}
+                    {deleteVisible && handleCloseButton('danger', 'Delete action')}
+                    {/* {configVisible &&
                         <Button
                             variant='secondary'
                             onClick={handleClose}
@@ -433,7 +449,7 @@ function ConfigModal(props: Props) {
                             onClick={handleClose}
                         >
                             {'Delete action'}
-                        </Button>}
+                        </Button>} */}
                 </Modal.Footer>
             </Modal>
         </>
