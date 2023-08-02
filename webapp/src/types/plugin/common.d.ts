@@ -1,16 +1,16 @@
 export type Actions = {
-    ActionType: string,
-    ActionName: string,
-    ActionDisplayName: string,
-    ChannelsAddedTo: string[],
-    ActionSuccessfullMessage: string[]
+    actionType: string,
+    actionName: string,
+    actionDisplayName: string,
+    channelsAddedTo: string[],
+    actionSuccessfullMessage: string[]
 }
 
 export type Configs = {
-    TeamName: string,
-    DelayInSeconds: string,
-    Message: string[],
-    IncludeGuests: string | null,
-    AttachmentMessage: string[] | null,
-    Actions: Actions[] | null
+    teamName: string,
+    delayInSeconds: string,
+    message: string[],
+    includeGuests: string | null,
+    attachmentMessage: string[] | null,
+    actions: Actions[] | null
 }

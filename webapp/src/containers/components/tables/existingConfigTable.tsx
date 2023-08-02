@@ -45,7 +45,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                 viewVisible &&
                     <ActionModal
                         visible={viewVisible}
-                        setVis={setViewVisible}
+                        setVisible={setViewVisible}
                         config={value}
                         configIndex={configIndex}
                     />
@@ -53,7 +53,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             {deleteVisible &&
                 <DeleteModal
                     visible={deleteVisible}
-                    setVis={setDeleteVisible}
+                    setVisible={setDeleteVisible}
                     config={value}
                     configIndex={configIndex}
                     onChange={onChange}
@@ -62,7 +62,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             {editVisible &&
                 <ConfigModal
                     visible={editVisible}
-                    setVis={setEditVisible}
+                    setVisible={setEditVisible}
                     configIndex={configIndex}
                     config={value}
                     onChange={onChange}
@@ -72,7 +72,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             {addVisible &&
                 <ConfigModal
                     visible={addVisible}
-                    setVis={setAddVisible}
+                    setVisible={setAddVisible}
                     configIndex={null}
                     config={value}
                     onChange={onChange}
@@ -104,10 +104,10 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                 value.map((val, i) =>
                                     (
                                         <tr key={i.toString()}>
-                                            <td>{val.TeamName}</td>
-                                            <td>{val.DelayInSeconds}</td>
-                                            <td>{val.Message}</td>
-                                            <td>{val.IncludeGuests ? val.IncludeGuests : '-'}</td>
+                                            <td>{val.teamName}</td>
+                                            <td>{val.delayInSeconds}</td>
+                                            <td>{val.message}</td>
+                                            <td>{val.includeGuests ? val.includeGuests : '-'}</td>
                                             <td className='option'>
                                                 <div>
                                                     <ButtonGroup aria-label='Basic example'>
