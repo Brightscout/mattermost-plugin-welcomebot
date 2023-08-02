@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 
-import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 
 import './styles.css';
 
@@ -193,10 +197,8 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td className='includeGuests'>
                                     {'True'}
                                 </td>
-
                                 <td className='option'>
                                     <div>
-                                        <ButtonGroup aria-label='Basic example'>
                                             <OverlayTrigger
                                                 placement='top'
                                                 overlay={<Tooltip>{'View actions'}</Tooltip>}
@@ -373,7 +375,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td className='includeGuests'>
                                     {'True'}
                                 </td>
-
                                 <td className='option'>
                                     <div>
                                         <ButtonGroup aria-label='Basic example'>
