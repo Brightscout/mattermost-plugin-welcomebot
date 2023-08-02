@@ -115,7 +115,6 @@ function ConfigModal({visible, setVis, configIndex, config, onChange, modalHeade
 
         getChannels().
             then((channels) => {
-                // Assuming the API response is an array of teams with properties 'id' and 'display_name'
                 const optionws = channels.map((channel: any) => ({
                     value: channel.display_name,
                     label: channel.display_name,

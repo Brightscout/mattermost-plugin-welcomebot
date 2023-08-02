@@ -8,7 +8,7 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];

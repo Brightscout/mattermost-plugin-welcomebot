@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import './styles.css';
 import {Configs} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
@@ -24,7 +24,8 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
         setShow(false);
         setVis(false);
     };
-    const handleDelete = () => {
+
+    const handleDelete: () => void = () => {
         config.splice(configIndex, 1);
         onChange(config);
         handleClose();
