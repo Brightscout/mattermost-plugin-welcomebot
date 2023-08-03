@@ -9,10 +9,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
-// eslint-disable-next-line import/no-unresolved
-import {Configs, Actions, GroupType, OptionType} from 'types/plugin/common';
 
 import Select from 'react-select';
+
+import {Configs, Actions, GroupType, OptionType} from 'types/plugin/common';
 
 import {getChannels, getTeams} from 'api/api_wrapper';
 
@@ -292,17 +292,27 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const handlePrimary = () => {
         if (actionVisible) {
-            if (configIndex) {
-                if (actionIndex === null) {
-                    actionElement.actionDisplayName = actionDisplayName;
-                    actionElement.actionName = actionName;
-                    actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
-                    actionElement.actionType = actionTypesValue;
-                    actionElement.channelsAddedTo = actionChannelsAddedTo;
-                    const actions = existingConfig?.actions;
-                    if (actions) {
-                        actions.push(actionElement);
-                        existingConfig!.actions = actions;
+            if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid) {
+                if (configIndex !== null) {
+                    if (actionIndex === null) {
+                        actionElement.actionDisplayName = actionDisplayName;
+                        actionElement.actionName = actionName;
+                        actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
+                        actionElement.actionType = actionTypesValue;
+                        actionElement.channelsAddedTo = actionChannelsAddedTo;
+                        const actions = existingConfig?.actions;
+                        if (actions) {
+                            actions.push(actionElement);
+                            existingConfig!.actions = actions;
+                        }
+                    } else {
+                        structureActions();
+                    }
+                } else if (configIndex === null) {
+                    if (actionIndex === null) {
+                        structureNewActions();
+                    } else {
+                        structureActions();
                     }
                 }
                 setActionVisible(false);
