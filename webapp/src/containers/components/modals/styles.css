@@ -104,6 +104,7 @@ table.table thead {
 
 .validation-warning {
   color: red;
+  font-size: 12px;
 }
 
 .listTable th {
@@ -118,4 +119,22 @@ table.table thead {
 .actionTypeButton.active {
   box-shadow: none;
   outline: transparent;
+}
+
+.warning {
+  margin-bottom: 27px;
+  color: #000000;
+}
+
+.gapping {
+  margin-bottom: 25px;
+}
+
+.warning.form-group {
+  position: relative;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 10px;
 }

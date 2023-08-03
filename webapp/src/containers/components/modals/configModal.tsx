@@ -366,89 +366,99 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             noValidate={true}
                             validated={validated}
                         >
-                            <Form.Group
-                                className='form-group'
-                                controlId='validationCustom02'
-                            >
-                                <Form.Label>{'TeamName*'}</Form.Label>
-                                <Select
-                                    closeMenuOnSelect={true}
-                                    onChange={handleTeamSelect}
-                                    isMulti={false}
-                                    placeholder='Select your team'
-                                    isSearchable={true}
-                                    options={teamOptionList}
-                                    value={teamOptionList.find((option) => option.value === teamName)}
-                                />
-                                {validated && !teamNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
+                            <div className={validated && !teamNameValid ? '' : 'warning'}>
+                                <Form.Group
+                                    className='form-group'
+                                    controlId='validationCustom02'
                                 >
-                                    {'Please provide a team name.'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Delay (in secs)*'}</Form.Label>
-                                <Form.Control
-                                    type='number'
-                                    placeholder='Enter the delay in seconds'
-                                    value={delay}
-                                    onChange={(e) => setDelay(parseInt(e.target.value, 10))}
-                                    required={true}
-                                />
-                                {validated && !delayValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a positive number'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Message*'}</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder=' Enter a message to post to a new user'
-                                    value={message}
-                                    onChange={(e) => setMessage([e.target.value])}
-                                />
-                                {validated && !messageValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a message'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label className='radio-form'>{'Include guests'}</Form.Label>
-                                <ButtonGroup className='radio'>
-                                    {guest.map((guests, index) => (
-                                        <ToggleButton
-                                            className='guestButton'
-                                            key={index.toString()}
-                                            type='radio'
-                                            name='radio'
-                                            value={guests.value}
-                                            checked={guestValue === guests.value}
-                                            onChange={(e) => setGuestValue(e.currentTarget.value)}
-                                        >
-                                            {guests.name}
-                                        </ToggleButton>
-                                    ))}
-                                </ButtonGroup>
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Attachment Message'}</Form.Label>
-                                <Form.Control
-                                    type='long-text'
-                                    placeholder='Enter the attachment messages'
-                                    aria-label='Disabled input example'
-                                    value={attachmentMessage}
-                                    onChange={(e) => setAttachmentMessage([e.target.value])}
-                                />
-                            </Form.Group>
+                                    <Form.Label>{'TeamName*'}</Form.Label>
+                                    <Select
+                                        closeMenuOnSelect={true}
+                                        onChange={handleTeamSelect}
+                                        isMulti={false}
+                                        placeholder='Select your team'
+                                        isSearchable={true}
+                                        options={teamOptionList}
+                                        value={teamOptionList.find((option) => option.value === teamName)}
+                                    />
+                                    {validated && !teamNameValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a team name.'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !delayValid ? '' : 'warning'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Delay (in secs)*'}</Form.Label>
+                                    <Form.Control
+                                        type='number'
+                                        placeholder='Enter the delay in seconds'
+                                        value={delay}
+                                        onChange={(e) => setDelay(parseInt(e.target.value, 10))}
+                                        required={true}
+                                    />
+                                    {validated && !delayValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a positive number'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !messageValid ? '' : 'warning'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Message*'}</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder=' Enter a message to post to a new user'
+                                        value={message}
+                                        onChange={(e) => setMessage([e.target.value])}
+                                    />
+                                    {validated && !messageValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a message'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className='gapping'>
+                                <Form.Group>
+                                    <Form.Label className='radio-form'>{'Include guests'}</Form.Label>
+                                    <ButtonGroup className='radio'>
+                                        {guest.map((guests, index) => (
+                                            <ToggleButton
+                                                className='guestButton'
+                                                key={index.toString()}
+                                                type='radio'
+                                                name='radio'
+                                                value={guests.value}
+                                                checked={guestValue === guests.value}
+                                                onChange={(e) => setGuestValue(e.currentTarget.value)}
+                                            >
+                                                {guests.name}
+                                            </ToggleButton>
+                                        ))}
+                                    </ButtonGroup>
+                                </Form.Group>
+                            </div>
+                            <div className='gapping'>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Attachment Message'}</Form.Label>
+                                    <Form.Control
+                                        type='long-text'
+                                        placeholder='Enter the attachment messages'
+                                        aria-label='Disabled input example'
+                                        value={attachmentMessage}
+                                        onChange={(e) => setAttachmentMessage([e.target.value])}
+                                    />
+                                </Form.Group>
+                            </div>
                             {configIndex !== null &&
                             <Form.Group className='action-table'>
                                 <Form.Label>{'Actions'}</Form.Label>
