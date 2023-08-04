@@ -130,11 +130,20 @@ table.table thead {
   margin-bottom: 25px;
 }
 
-.warning.form-group {
+.warning .form-group {
   position: relative;
 }
 
 .form-group {
   position: relative;
   margin-bottom: 10px;
+}
+
+.warnings {
+  margin-bottom: 25.25px;
+  color: #000000;
+}
+
+.warnings .form-group {
+  position: relative;
 }

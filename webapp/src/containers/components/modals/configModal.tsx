@@ -84,6 +84,10 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const [deleteAction, setDeleteAction] = useState('');
 
+    const [selectedTeam, setSelectedTeam] = useState('');
+    const [teamSelectionWarning, setTeamSelectionWarning] = useState(false);
+    const [actionClicked, setActionClicked] = useState(false);
+
     const actionLength = existingConfig?.actions?.length ?? 0;
     const guest = [
         {name: 'true', value: 'true'},
@@ -95,7 +99,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     ];
 
     const [teamOptionList, setTeamOptionList] = useState<OptionType[]>([]);
-
     const [channelOptionList, setChannelOptionList] = useState<OptionType[]>([]);
     useEffect(() => {
         getTeam();
@@ -103,6 +106,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     }, []);
     useEffect(() => {
         if (configIndex !== null) {
+            setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
             setDelay(existingConfig.delayInSeconds);
             setMessage(existingConfig.message);
@@ -122,6 +126,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         setTeamNameValid(teamName.trim() !== '');
+        setTeamSelectionWarning(teamName.trim() !== '');
         if (message.length === 0) {
             setMessageValid(false);
         } else if (message.length === 1) {
@@ -132,6 +137,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         setDelayValid(delay >= 0);
         setActionTypesValueValid(actionTypesValue !== '');
         setActionDisplayNameValid(actionDisplayName !== '');
+        setActionNameValid(actionName !== '');
         if (actionChannelsAddedTo.length === 0) {
             setActionChannelsAddedToValid(false);
         } else if (actionChannelsAddedTo.length === 1) {
@@ -153,8 +159,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             } else {
                 setActionSuccessfullMessageValid(true);
             }
-
-            setActionNameValid(actionName !== '');
         }
     }, [teamName, delay, message, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
@@ -178,6 +182,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 const optionws = channels.map((channel: Channels) => ({
                     value: channel.display_name,
                     label: channel.display_name,
+                    data: channel.team_name,
                 }));
                 setChannelOptionList(optionws);
             });
@@ -207,6 +212,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setValidated(false);
             setActionVisible(false);
             setConfigVisible(true);
+            setActionClicked(false);
         } else if (deleteVisible) {
             setValidated(false);
             setDeleteVisible(false);
@@ -233,16 +239,23 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setTeamName('');
         } else {
             setTeamName(selectedOption.value);
+            setSelectedTeam(selectedOption.value); //aaaaaaaaaaaaaaaaaaaaaaaaa
         }
     };
 
     const handleAddActions = () => {
-        setValidated(false);
-        resetActionElement();
-        setActionIndex(null);
-        preFillActions();
-        setActionVisible(true);
-        setConfigVisible(false);
+        setActionClicked(true);
+        if (selectedTeam === '') {
+            setTeamSelectionWarning(false);
+        } else {
+            setTeamSelectionWarning(true);
+            setValidated(false);
+            resetActionElement();
+            setActionIndex(null);
+            preFillActions();
+            setActionVisible(true);
+            setConfigVisible(false);
+        }
     };
     const handleDelete = (index: number, action: string) => {
         setDeleteAction(action);
@@ -317,6 +330,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 setConfigVisible(true);
                 setValidated(false);
                 onChange(config);
+                setActionClicked(false);
             } else {
                 setValidated(true);
             }
@@ -364,7 +378,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             noValidate={true}
                             validated={validated}
                         >
-                            <div className={validated && !teamNameValid ? '' : 'warning'}>
+                            <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning)) ? '' : 'warning'}>
                                 <Form.Group
                                     className='form-group'
                                     controlId='validationCustom02'
@@ -379,7 +393,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                         options={teamOptionList}
                                         value={teamOptionList.find((option) => option.value === teamName)}
                                     />
-                                    {validated && !teamNameValid &&
+                                    {((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning)) &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -562,101 +576,112 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
                     {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
-                            <Form.Group>
-                                <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
-                                <ButtonGroup className='radio'>
-                                    {actionTypes.map((radio, index) => (
-                                        <ToggleButton
-                                            className='actionTypeButton'
-                                            key={index.toString()}
-                                            type='radio'
-                                            name='radio'
-                                            value={radio.value}
-                                            checked={actionTypesValue === radio.value}
-                                            onChange={(e) => setActionTypesValue(e.currentTarget.value)}
-                                        >
-                                            {radio.name}
-                                        </ToggleButton>
-                                    ))}
-                                </ButtonGroup>
-                                {validated && !actionTypesValueValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please select an action type'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Action Display Name*'}</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder='Enter the display name of your action'
-                                    value={actionDisplayName}
-                                    onChange={(e) => setActionDisplayName(e.target.value)}
-                                />
-                                {validated && !actionDisplayNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide the display name for your action'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Action Name*'}</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder='Enter the display name of your action'
-                                    value={actionName}
-                                    onChange={(e) => setActionName(e.target.value)}
-                                />
-                                {validated && !actionNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a name for your action'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Channels Added to*'}</Form.Label>
-                                <Select
-                                    closeMenuOnSelect={false}
-                                    onChange={handleChannelSelect}
-                                    isMulti={true}
-                                    placeholder='Select the channels in which you want to add the new user'
-                                    isSearchable={true}
-                                    options={channelOptionList.filter(
-                                        (channel) => channel.label !== 'Off-Topic' && channel.label !== 'Town Square',
-                                    )
-                                    }
-                                    value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
-                                />
-                                {validated && !actionChannelsAddedToValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide at least one channel name '}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
-                            <Form.Group className='form-group'>
-                                <Form.Label>{'Action Successfull Message*'}</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder='Enter a message to post when a user completes an action'
-                                    value={actionSuccessfullMessage}
-                                    onChange={(e) => setActionSuccessfullMessage([e.target.value])}
-                                />
-                                {validated && !actionSuccessfullMessageValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a message'}
-                                </Form.Control.Feedback>}
-                            </Form.Group>
+                            <div className={validated && !actionTypesValueValid ? '' : 'warnings'}>
+                                <Form.Group>
+                                    <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
+                                    <ButtonGroup className='radio'>
+                                        {actionTypes.map((radio, index) => (
+                                            <ToggleButton
+                                                className='actionTypeButton'
+                                                key={index.toString()}
+                                                type='radio'
+                                                name='radio'
+                                                value={radio.value}
+                                                checked={actionTypesValue === radio.value}
+                                                onChange={(e) => setActionTypesValue(e.currentTarget.value)}
+                                            >
+                                                {radio.name}
+                                            </ToggleButton>
+                                        ))}
+                                    </ButtonGroup>
+                                    {validated && !actionTypesValueValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please select an action type'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !actionDisplayNameValid ? '' : 'warnings'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Action Display Name*'}</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder='Enter the display name of your action'
+                                        value={actionDisplayName}
+                                        onChange={(e) => setActionDisplayName(e.target.value)}
+                                    />
+                                    {validated && !actionDisplayNameValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide the display name for your action'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !actionNameValid ? '' : 'warnings'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Action Name*'}</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder='Enter the display name of your action'
+                                        value={actionName}
+                                        onChange={(e) => setActionName(e.target.value)}
+                                    />
+                                    {validated && !actionNameValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a name for your action'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !actionChannelsAddedToValid ? '' : 'warnings'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Channels Added to*'}</Form.Label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        onChange={handleChannelSelect}
+                                        isMulti={true}
+                                        placeholder='Select the channels in which you want to add the new user'
+                                        isSearchable={true}
+                                        options={channelOptionList.filter(
+                                            (channel) => channel.label !== 'Off-Topic' && channel.label !== 'Town Square',
+                                        ).filter(
+                                            (channel) => channel.data === selectedTeam,
+                                        )}
+                                        value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
+                                    />
+                                    {validated && !actionChannelsAddedToValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide at least one channel name '}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
+                            <div className={validated && !actionSuccessfullMessageValid ? '' : 'warnings'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Action Successfull Message*'}</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder='Enter a message to post when a user completes an action'
+                                        value={actionSuccessfullMessage}
+                                        onChange={(e) => setActionSuccessfullMessage([e.target.value])}
+                                    />
+                                    {validated && !actionSuccessfullMessageValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a message'}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
                         </Form>
                     </div>}
                     {!deleteVisible && !actionVisible && <div>
