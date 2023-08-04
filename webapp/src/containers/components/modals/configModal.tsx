@@ -12,7 +12,7 @@ import './styles.css';
 
 import Select from 'react-select';
 
-import {Configs, Actions, GroupType, OptionType} from 'types/plugin/common';
+import {Configs, Actions, GroupType, OptionType, Teams, Channels} from 'types/plugin/common';
 
 import {getChannels, getTeams} from 'api/api_wrapper';
 
@@ -97,32 +97,9 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [teamOptionList, setTeamOptionList] = useState<OptionType[]>([]);
 
     const [channelOptionList, setChannelOptionList] = useState<OptionType[]>([]);
-
     useEffect(() => {
-        // getTeam();
-        getTeams().
-            then((teams) => {
-                const optionws = teams.map((team: any) => ({
-                    value: team.display_name,
-                    label: team.display_name,
-                }));
-                setTeamOptionList(optionws);
-            }).
-            catch((error) => {
-                console.error('Error fetching teams:', error);
-            });
-
-        getChannels().
-            then((channels) => {
-                const optionws = channels.map((channel: any) => ({
-                    value: channel.display_name,
-                    label: channel.display_name,
-                }));
-                setChannelOptionList(optionws);
-            }).
-            catch((error) => {
-                console.error('Error fetching channels:', error);
-            });
+        getTeam();
+        getChannel();
     }, []);
     useEffect(() => {
         if (configIndex !== null) {
@@ -184,6 +161,27 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     useEffect(() => {
         setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
     }, [config]);
+
+    const getTeam = () => {
+        getTeams().
+            then((teams) => {
+                const optionws = teams.map((team: Teams) => ({
+                    value: team.display_name,
+                    label: team.display_name,
+                }));
+                setTeamOptionList(optionws);
+            });
+    };
+    const getChannel = () => {
+        getChannels().
+            then((channels) => {
+                const optionws = channels.map((channel: Channels) => ({
+                    value: channel.display_name,
+                    label: channel.display_name,
+                }));
+                setChannelOptionList(optionws);
+            });
+    };
 
     const preFillActions = () => {
         if (existingConfig?.actions && actionIndex !== null) {
@@ -459,10 +457,12 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     />
                                 </Form.Group>
                             </div>
-                            {configIndex !== null &&
-                            <Form.Group className='action-table'>
-                                <Form.Label>{'Actions'}</Form.Label>
-                            </Form.Group>}
+                            <div className='gapping'>
+                                {(configIndex !== null || actionElement.actionName !== '') &&
+                                <Form.Group className='action-table'>
+                                    <Form.Label>{'Actions'}</Form.Label>
+                                </Form.Group>}
+                            </div>
                         </Form>
                         {existingConfig?.actions && actionLength > 0 ? (
                             <Table
@@ -488,7 +488,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                                 <td>{val.actionType}</td>
                                                 <td>{val.actionDisplayName}</td>
                                                 <td>{val.actionName}</td>
-                                                <td>{val.channelsAddedTo}</td>
+                                                <td>{val.channelsAddedTo.join(', ')}</td>
                                                 <td>{val.actionSuccessfullMessage}</td>
                                                 <td>
                                                     <ButtonGroup

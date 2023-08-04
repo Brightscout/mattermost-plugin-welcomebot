@@ -15,12 +15,20 @@ export type Configs = {
     actions: Actions[] | null
 }
 
-type GroupType = {
+export type GroupType = {
     label: string;
     value: string;
 };
 
-type OptionType = {
+export type OptionType = {
     value: string;
     label: string;
+};
+
+export type Teams = {
+    display_name: string;
+};
+
+export type Channels = {
+    display_name: string;
 };

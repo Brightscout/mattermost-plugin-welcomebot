@@ -83,12 +83,10 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                     config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-
-
                                                 <td>{val.actionType}</td>
                                                 <td>{val.actionName}</td>
                                                 <td>{val.actionDisplayName}</td>
-                                                <td>{val.channelsAddedTo}</td>
+                                                <td>{val.channelsAddedTo.join(', ')}</td>
                                                 <td>{val.actionSuccessfullMessage}</td>
                                             </tr>
                                         ),
