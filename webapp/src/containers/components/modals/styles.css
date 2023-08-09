@@ -8,6 +8,22 @@
   overflow-y: hidden;
 }
 
+.modal-dialog .modal-header {
+  display: flex;
+}
+
+.modal-dialog .modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.configModal .modal-dialog {
+  width: 615px;
+  max-width: 615px;
+}
+
 .configModalBody{
   height: 80%;
   overflow-y: auto;
@@ -46,30 +62,6 @@
   justify-content: space-between;
 }
 
-table.table tbody tr td,
-table.table thead tr th,
-table.table thead {
-  border: 2px solid #ddd;
-  vertical-align: middle;
-}
-  
-.table td {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.tale th {
-  text-align: center;
-  vertical-align: bottom;
-} 
-
-.table {
-  width: 100%;
-}
-.table thead tr th td{
-  white-space:nowrap
-}
-
 .btn-group .btn.btn-default {
   background: none;
   border-color: transparent;
@@ -94,9 +86,7 @@ table.table thead {
   margin-bottom: 0;
 }
 
-.listTable {
-  margin-bottom: 0;
-}
+
 
 .add-actions {
   margin-top: 15px;
@@ -107,8 +97,12 @@ table.table thead {
   font-size: 12px;
 }
 
-.listTable th {
-  text-align: center;
+.config-form {
+  width: 100%;
+}
+
+.add-action-button {
+  display: block;
 }
 
 .guestButton.active {
@@ -141,9 +135,161 @@ table.table thead {
 
 .warnings {
   margin-bottom: 25.25px;
-  color: #000000;
 }
 
 .warnings .form-group {
   position: relative;
+}
+
+.form-label {
+  color: #000000;
+}
+
+.type {
+  width: 15%;
+}
+
+.successfull-message {
+  width: 19%;
+}
+
+.successfull-message-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.channels-added {
+  width: 19%;
+  display: flex;
+}
+
+.channels-added-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.action-name {
+  width: 15%;
+}
+
+.action-name-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-name {
+  width: 15%;
+}
+
+.display-name-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* asdasdsadasd */
+
+
+.type-action {
+  width: 15%;
+}
+
+.successfull-message-action {
+  width: 19%;
+}
+
+.successfull-message-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.channels-added-action {
+  width: 30%;
+  display: flex;
+}
+
+.channels-added-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name-action {
+  width: 15%;
+}
+
+.action-name-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-name-action {
+  width: 21%;
+}
+
+.display-name-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* asdsadasddasdsa */
+
+.option-buttons {
+  width: 17%;
+}
+
+.listTable .table tbody tr td,
+.listTable .table thead tr th,
+.listTable .table thead {
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+  
+.listTable .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.listTable .table th {
+  text-align: center;
+  vertical-align: bottom;
+} 
+
+.listTable .table thead tr th td{
+  white-space:nowrap
+}
+
+.listTable .table {
+  width: 100%;
+  /* display: block; */
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+.listTable .table thead {
+  width: 100%;
+}
+
+.listTable .table tr {
+  display: flex;
+  width: 100%; 
+}
+
+.listTable th {
+  text-align: center;
+}
+
+.teamName-dropdown {
+  color: black;
+}
+
+.guestButton:focus {
+  outline: none;
+  box-shadow: none 
 }

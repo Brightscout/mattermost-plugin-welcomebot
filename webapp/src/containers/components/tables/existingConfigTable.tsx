@@ -98,14 +98,32 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                 <th className='option'>{'Options'}</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='table-body'>
                             {
                                 value.map((val, i) =>
                                     (
                                         <tr key={i.toString()}>
-                                            <td>{val.teamName}</td>
+                                            <td>
+                                                <OverlayTrigger
+                                                    placement='top'
+                                                    overlay={<Tooltip>{val.teamName}</Tooltip>}
+                                                >
+                                                    <p>
+                                                        {val.teamName}
+                                                    </p>
+                                                </OverlayTrigger>
+                                            </td>
                                             <td>{val.delayInSeconds}</td>
-                                            <td>{val.message}</td>
+                                            <td className='message'>
+                                                <OverlayTrigger
+                                                    placement='top'
+                                                    overlay={<Tooltip>{val.message}</Tooltip>}
+                                                >
+                                                    <p className='message-content'>
+                                                        {val.message}
+                                                    </p>
+                                                </OverlayTrigger>
+                                            </td>
                                             <td>{val.includeGuests ? val.includeGuests : '-'}</td>
                                             <td className='option'>
                                                 <div>
@@ -115,6 +133,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                             overlay={<Tooltip>{'View actions'}</Tooltip>}
                                                         >
                                                             <Button
+                                                                className='svg-buttons'
                                                                 onClick={() => handleView(i)}
                                                             >
                                                                 <svg
@@ -140,7 +159,10 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                             placement='top'
                                                             overlay={<Tooltip>{'Edit config'}</Tooltip>}
                                                         >
-                                                            <Button onClick={() => handleEdit(i)}>
+                                                            <Button
+                                                                className='svg-buttons'
+                                                                onClick={() => handleEdit(i)}
+                                                            >
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
@@ -160,7 +182,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                             overlay={<Tooltip>{'Delete Config'}</Tooltip>}
                                                         >
                                                             <Button
-                                                                variant='light'
+                                                                className='svg-buttons'
                                                                 onClick={() => handleDelete(i)}
                                                             >
                                                                 <svg

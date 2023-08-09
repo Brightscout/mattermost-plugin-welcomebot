@@ -14,6 +14,9 @@
 .existing-config-table.table td {
     text-align: center;
     vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .existing-config-table.table th {
@@ -22,7 +25,12 @@
 } 
 
 .existing-config-table.table {
-    max-width: 100%;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.existing-config-table.table-body {
+    width: 100%;
 }
 .existing-config-table.table thead tr th td{
     white-space:nowrap
@@ -47,8 +55,8 @@
     margin: 1em 0 0 0;
 }
 
-.config {
-    padding-left: 15px;
+.config .form-group{
+    margin-left: 0px;
 }
 
 .name {
@@ -65,28 +73,25 @@
 }
 
 .delay {
-    width: 10%;
+    width: 12%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .message {
-    width: 55%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 45%;
 }
 
 .includeGuests {
-    width: 10%;
+    width: 13%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .option {
-    width: 10%;
+    width: 15%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -108,6 +113,15 @@
     text-align: left;
     vertical-align: middle;
 }
-.messageValue .td {
+.message-content {
     text-align: left;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.svg-buttons:focus,
+.svg-buttons:active {
+    outline: none;
+    box-shadow: none;
 }

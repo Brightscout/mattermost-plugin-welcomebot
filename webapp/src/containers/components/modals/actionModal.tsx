@@ -7,7 +7,8 @@ import Form from 'react-bootstrap/Form';
 
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+
 import {Configs} from 'types/plugin/common';
 
 type Props = {
@@ -19,7 +20,6 @@ type Props = {
 
 function ActionModal({visible, setVisible, config, configIndex}: Props) {
     const actionsLength = config[configIndex]?.actions?.length ?? 0;
-    const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
     const [show, setShow] = useState(false);
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
 
@@ -43,7 +43,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
         setVisible(false);
     };
     return (
-        <>
+        <div className='configModal'>
             <Modal
                 className='actionModal'
                 show={show}
@@ -77,35 +77,83 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                         <Form.Label>{'Actions'}</Form.Label>
                                     </Form.Group>
                                 </Form>
-                                <Table
-                                    striped={true}
-                                    className='listTable'
-                                >
-                                    <thead>
-                                        <tr>
-                                            <th>{'Type'}</th>
-                                            <th>{'Name'}</th>
-                                            <th>{'Display Name'}</th>
-                                            <th>{'Channels Added to'}</th>
-                                            <th>{'Success Message'}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
+                                <div className='listTable'>
+                                    <Table
+                                        striped={true}
+                                        className='listTable'
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th className='type-action'>{'Type'}</th>
+                                                <th className='display-name-action'>{'Display Name'}</th>
+                                                <th className='name-action'>{'Name'}</th>
+                                                <th className='channels-added-action'>{'Channels Added to'}</th>
+                                                <th className='successfull-message-action'>{'Success Message'}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
                                     config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-                                                <td>{val.actionType}</td>
-                                                <td>{val.actionName}</td>
-                                                <td>{val.actionDisplayName}</td>
-                                                <td>{val.channelsAddedTo.join(', ')}</td>
-                                                <td>{val.actionSuccessfullMessage}</td>
+                                                {/* <td>{val.actionType}</td> */}
+                                                <td className='type-action'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionType}</Tooltip>}
+                                                    >
+                                                        <p>
+                                                            {val.actionType}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='display-name-action'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionDisplayName}</Tooltip>}
+                                                    >
+                                                        <p className='display-name-content'>
+                                                            {val.actionDisplayName}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='name-action'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionName}</Tooltip>}
+                                                    >
+                                                        <p className='action-name-content'>
+                                                            {val.actionName}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='channels-added-action'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.channelsAddedTo.join(', ')}</Tooltip>}
+                                                    >
+                                                        <p className='channels-added-content'>
+                                                            {val.channelsAddedTo.join(', ')}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='successfull-message-action'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionSuccessfullMessage}</Tooltip>}
+                                                    >
+                                                        <p className='successfull-message-content'>
+                                                            {val.actionSuccessfullMessage}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
                                             </tr>
                                         ),
                                     )
-                                        }
-                                    </tbody>
-                                </Table>
+                                            }
+                                        </tbody>
+                                    </Table>
+                                </div>
                             </div>
                         ) : (<p>{'No Action configured'}</p>)
                         }
@@ -119,7 +167,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                     >{'Close'}</Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 }
 

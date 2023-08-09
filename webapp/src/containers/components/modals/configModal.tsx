@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -7,12 +6,11 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
+import Select, {MultiValue, SingleValue} from 'react-select';
 
 import './styles.css';
 
-import Select from 'react-select';
-
-import {Configs, Actions, GroupType, OptionType, Teams, Channels} from 'types/plugin/common';
+import {Configs, Actions, GroupType, OptionTypes, Teams, Channels} from 'types/plugin/common';
 
 import {getChannels, getTeams} from 'api/api_wrapper';
 
@@ -98,12 +96,18 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         {name: 'automatic', value: 'automatic'},
     ];
 
-    const [teamOptionList, setTeamOptionList] = useState<OptionType[]>([]);
-    const [channelOptionList, setChannelOptionList] = useState<OptionType[]>([]);
+    const [teamOptionList, setTeamOptionList] = useState<OptionTypes[]>([]);
+    const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
+
     useEffect(() => {
         getTeam();
         getChannel();
     }, []);
+
+    useEffect(() => {
+        setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
+    }, [config]);
+
     useEffect(() => {
         if (configIndex !== null) {
             setSelectedTeam(existingConfig.teamName);
@@ -144,27 +148,15 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
         } else {
             setActionChannelsAddedToValid(true);
-            if (configIndex !== null) {
-                setTeamName(existingConfig.teamName);
-                setDelay(existingConfig.delayInSeconds);
-                setMessage(existingConfig.message);
-                setGuestValue(existingConfig?.includeGuests ?? '');
-                setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
-            }
-
-            if (actionSuccessfullMessage.length === 0) {
-                setActionSuccessfullMessageValid(false);
-            } else if (actionSuccessfullMessage.length === 1) {
-                setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
-            } else {
-                setActionSuccessfullMessageValid(true);
-            }
         }
-    }, [teamName, delay, message, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
-
-    useEffect(() => {
-        setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
-    }, [config]);
+        if (actionSuccessfullMessage.length === 0) {
+            setActionSuccessfullMessageValid(false);
+        } else if (actionSuccessfullMessage.length === 1) {
+            setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
+        } else {
+            setActionSuccessfullMessageValid(true);
+        }
+    }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
     const getTeam = () => {
         getTeams().
@@ -190,7 +182,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const preFillActions = () => {
         if (existingConfig?.actions && actionIndex !== null) {
-            // if (actionIndex !== null) {
             const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.actionType);
             setActionDisplayName(action.actionDisplayName);
@@ -229,17 +220,19 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         setConfigVisible(false);
     };
 
-    const handleChannelSelect = (selectedOptions: OptionType[]) => {
-        const selectedChannels = selectedOptions.map((option) => option.value);
-        setActionChannelsAddedTo(selectedChannels);
+    const handleChannelSelect = (newValue: MultiValue<OptionTypes>) => {
+        if (Array.isArray(newValue)) {
+            const selectedChannels = newValue.map((option) => option.value);
+            setActionChannelsAddedTo(selectedChannels);
+        }
     };
 
-    const handleTeamSelect = (selectedOption: GroupType) => {
-        if (selectedOption === null) {
+    const handleTeamSelect = (newValue: SingleValue<GroupType>) => {
+        if (newValue === null) {
             setTeamName('');
         } else {
-            setTeamName(selectedOption.value);
-            setSelectedTeam(selectedOption.value); //aaaaaaaaaaaaaaaaaaaaaaaaa
+            setTeamName(newValue.value);
+            setSelectedTeam(newValue.value);
         }
     };
 
@@ -361,7 +354,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     return (
-        <>
+        <div className='configModal'>
             <Modal
                 className='configModal'
                 show={show}
@@ -375,12 +368,13 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 <Modal.Body className='configModalBody'>
                     {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
+                            className='config-form'
                             noValidate={true}
                             validated={validated}
                         >
                             <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning)) ? '' : 'warning'}>
                                 <Form.Group
-                                    className='form-group'
+                                    className='form-group teamName-dropdown'
                                     controlId='validationCustom02'
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
@@ -428,7 +422,10 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                         type='text'
                                         placeholder=' Enter a message to post to a new user'
                                         value={message}
-                                        onChange={(e) => setMessage([e.target.value])}
+                                        onChange={(e) => {
+                                            setMessage([e.target.value]);
+                                        }
+                                        }
                                     />
                                     {validated && !messageValid &&
                                     <Form.Control.Feedback
@@ -472,39 +469,85 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 </Form.Group>
                             </div>
                             <div className='gapping'>
-                                {(configIndex !== null || actionElement.actionName !== '') &&
+                                {(existingConfig?.actions && actionLength > 0) &&
                                 <Form.Group className='action-table'>
                                     <Form.Label>{'Actions'}</Form.Label>
                                 </Form.Group>}
                             </div>
                         </Form>
                         {existingConfig?.actions && actionLength > 0 ? (
-                            <Table
-                                striped={true}
-                                className='listTable'
-                            >
-                                <thead>
-                                    <tr>
-                                        <th>{'Type'}</th>
-                                        <th>{'Display Name'}</th>
-                                        <th>{'Name'}</th>
-                                        <th>{'Channels Added to'}</th>
-                                        <th>{'Success Message'}</th>
-                                        <th>{'Options'}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
+                            <div className='listTable'>
+                                <Table
+                                    className='gapping'
+                                    striped={true}
+                                >
+                                    <thead className='tableHead'>
+                                        <tr>
+                                            <th className='type'>{'Type'}</th>
+                                            <th className='display-name'>{'Display Name'}</th>
+                                            <th className='action-name'>{'Name'}</th>
+                                            <th className='channels-added'>{'Channels Added to'}</th>
+                                            <th className='successfull-message'>{'Success Message'}</th>
+                                            <th className='option-buttons'>{'Options'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
                                     existingConfig?.actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
 
-                                                <td>{val.actionType}</td>
-                                                <td>{val.actionDisplayName}</td>
-                                                <td>{val.actionName}</td>
-                                                <td>{val.channelsAddedTo.join(', ')}</td>
-                                                <td>{val.actionSuccessfullMessage}</td>
-                                                <td>
+                                                <td className='type'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionType}</Tooltip>}
+                                                    >
+                                                        <p>
+                                                            {val.actionType}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='display-name'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionDisplayName}</Tooltip>}
+                                                    >
+                                                        <p className='display-name-content'>
+                                                            {val.actionDisplayName}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='action-name'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionName}</Tooltip>}
+                                                    >
+                                                        <p className='action-name-content'>
+                                                            {val.actionName}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='channels-added'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.channelsAddedTo.join(', ')}</Tooltip>}
+                                                    >
+                                                        <p className='channels-added-content'>
+                                                            {val.channelsAddedTo.join(', ')}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='successfull-message'>
+                                                    <OverlayTrigger
+                                                        placement='top'
+                                                        overlay={<Tooltip>{val.actionSuccessfullMessage}</Tooltip>}
+                                                    >
+                                                        <p className='successfull-message-content'>
+                                                            {val.actionSuccessfullMessage}
+                                                        </p>
+                                                    </OverlayTrigger>
+                                                </td>
+                                                <td className='option-buttons'>
                                                     <ButtonGroup
                                                         aria-label='Basic example'
                                                         className='options'
@@ -565,11 +608,12 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                             </tr>
                                         ),
                                     )
-                                    }
-                                </tbody>
-                            </Table>
+                                        }
+                                    </tbody>
+                                </Table>
+                            </div>
                         ) : (
-                            configIndex !== null && <p>{'No Action configured'}</p>
+                            configIndex !== null && <p className='gapping'>{'No Action configured'}</p>
                         )
                         }
                     </div>}
@@ -684,9 +728,9 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             </div>
                         </Form>
                     </div>}
-                    {!deleteVisible && !actionVisible && <div>
+                    {!deleteVisible && !actionVisible && <div className='add-action-button'>
                         <Button
-                            className={configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
+                            className={actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
@@ -710,7 +754,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
 
     );
 }
