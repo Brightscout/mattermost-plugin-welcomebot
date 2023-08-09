@@ -15,10 +15,10 @@ export type Configs = {
     actions: Actions[] | null
 }
 
-    export type GroupType = {
-        label: string;
-        value: string;
-    };
+export type GroupTypes = {
+    label: string;
+    value: string;
+};
 
 export type OptionTypes = {
     value: string;

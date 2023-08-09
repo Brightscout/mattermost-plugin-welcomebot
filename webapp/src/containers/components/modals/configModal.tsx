@@ -10,9 +10,9 @@ import Select, {MultiValue, SingleValue} from 'react-select';
 
 import './styles.css';
 
-import {Configs, Actions, GroupType, OptionTypes, Teams, Channels} from 'types/plugin/common';
+import {Configs, Actions, OptionTypes, Teams, Channels, GroupTypes} from 'types/plugin/common';
 
-import {getChannels, getTeams} from 'api/api_wrapper';
+import {fetchChannelsAndTeams} from 'api/api_wrapper';
 
 interface Props {
     visible: boolean;
@@ -96,12 +96,11 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         {name: 'automatic', value: 'automatic'},
     ];
 
-    const [teamOptionList, setTeamOptionList] = useState<OptionTypes[]>([]);
+    const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
     const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
 
     useEffect(() => {
-        getTeam();
-        getChannel();
+        getTeamAndChannel();
     }, []);
 
     useEffect(() => {
@@ -158,26 +157,21 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         }
     }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
-    const getTeam = () => {
-        getTeams().
-            then((teams) => {
-                const optionws = teams.map((team: Teams) => ({
-                    value: team.display_name,
-                    label: team.display_name,
-                }));
-                setTeamOptionList(optionws);
-            });
-    };
-    const getChannel = () => {
-        getChannels().
-            then((channels) => {
-                const optionws = channels.map((channel: Channels) => ({
-                    value: channel.display_name,
-                    label: channel.display_name,
-                    data: channel.team_name,
-                }));
-                setChannelOptionList(optionws);
-            });
+    const getTeamAndChannel = async () => {
+        const apiResponse = await fetchChannelsAndTeams();
+        const teamData = apiResponse.teams;
+        const channelData = apiResponse.channels;
+        const TeamOptions = teamData.map((team: Teams) => ({
+            value: team.display_name,
+            label: team.display_name,
+        }));
+        setTeamOptionList(TeamOptions);
+        const channelOptions = channelData.map((channel: Channels) => ({
+            value: channel.display_name,
+            label: channel.display_name,
+            data: channel.team_name,
+        }));
+        setChannelOptionList(channelOptions);
     };
 
     const preFillActions = () => {
@@ -227,7 +221,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         }
     };
 
-    const handleTeamSelect = (newValue: SingleValue<GroupType>) => {
+    const handleTeamSelect = (newValue: SingleValue<GroupTypes>) => {
         if (newValue === null) {
             setTeamName('');
         } else {
@@ -693,8 +687,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                         placeholder='Select the channels in which you want to add the new user'
                                         isSearchable={true}
                                         options={channelOptionList.filter(
-                                            (channel) => channel.label !== 'Off-Topic' && channel.label !== 'Town Square',
-                                        ).filter(
                                             (channel) => channel.data === selectedTeam,
                                         )}
                                         value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
