@@ -7,7 +7,7 @@ import './styles.css';
 
 interface Props {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     teamName: string;
 }
 
@@ -20,7 +20,7 @@ function DeleteModal(props: Props) {
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        props.setVisibility(false);
     };
     return (
         <>
