@@ -470,12 +470,12 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     />
                                 </Form.Group>
                             </div>
-                            {(existingConfig?.actions && actionLength) &&
+                            {(existingConfig?.actions && actionLength > 0) &&
                             <Form.Group className='action-table'>
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
                         </Form>
-                        {existingConfig?.actions && actionLength ? (
+                        {existingConfig?.actions && actionLength > 0 ? (
                             <div className='listTable gapping'>
                                 <Table
                                     striped={true}
