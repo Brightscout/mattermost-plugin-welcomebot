@@ -1,18 +1,18 @@
-.customModal .modal {
+.modal {
   opacity: 1;
   padding-top: 12%;
 }
 
-.customModal .modal-open .modal {
+.modal-open .modal {
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
-.customModal .modal-dialog .modal-header {
+.modal-dialog .modal-header {
   display: flex;
 }
 
-.configModal .modal-dialog .modal-body {
+.customModal .modal-dialog .modal-body {
   display: flex;
   flex-direction: column;
 }
