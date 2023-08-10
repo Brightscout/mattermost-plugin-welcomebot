@@ -4,7 +4,6 @@ import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 're
 
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 import ActionModal from '../modals/actionModal';

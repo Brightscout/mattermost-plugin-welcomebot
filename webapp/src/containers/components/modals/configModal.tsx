@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -6,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
+
 import Select, {MultiValue, SingleValue} from 'react-select';
 
 import './styles.css';
@@ -14,7 +16,7 @@ import {Configs, Actions, OptionTypes, Teams, Channels, GroupTypes} from 'types/
 
 import {fetchChannelsAndTeams} from 'api/api_wrapper';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
@@ -53,6 +55,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [configVisible, setConfigVisible] = useState(true);
     const [actionVisible, setActionVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
+
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
     const [teamName, setTeamName] = useState(existingConfig.teamName);
@@ -61,16 +64,16 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [attachmentMessage, setAttachmentMessage] = useState(existingConfig.attachmentMessage ?? ['']);
     const [guestValue, setGuestValue] = useState(existingConfig.includeGuests);
 
-    const [teamNameValid, setTeamNameValid] = useState(false);
-    const [messageValid, setMessageValid] = useState(false);
-    const [delayValid, setDelayValid] = useState(false);
     const [actionTypesValue, setActionTypesValue] = useState('');
     const [actionDisplayName, setActionDisplayName] = useState('');
     const [actionChannelsAddedTo, setActionChannelsAddedTo] = useState(['']);
     const [actionSuccessfullMessage, setActionSuccessfullMessage] = useState(['']);
     const [actionName, setActionName] = useState('');
-
     const [actionIndex, setActionIndex] = useState<number | null>(0);
+
+    const [teamNameValid, setTeamNameValid] = useState(false);
+    const [messageValid, setMessageValid] = useState(false);
+    const [delayValid, setDelayValid] = useState(false);
 
     const [actionTypesValueValid, setActionTypesValueValid] = useState(false);
     const [actionDisplayNameValid, setActionDisplayNameValid] = useState(false);
@@ -83,10 +86,16 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [deleteAction, setDeleteAction] = useState('');
 
     const [selectedTeam, setSelectedTeam] = useState('');
+
     const [teamSelectionWarning, setTeamSelectionWarning] = useState(false);
+
     const [actionClicked, setActionClicked] = useState(false);
 
+    const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
+    const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
+
     const actionLength = existingConfig?.actions?.length ?? 0;
+
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -96,19 +105,19 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         {name: 'automatic', value: 'automatic'},
     ];
 
-    const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
-    const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
-
     useEffect(() => {
-        getTeamAndChannel();
-    }, []);
+        setShow(visible);
+        setConfigVisible(visible);
+    }, [visible]);
 
     useEffect(() => {
         setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
     }, [config]);
 
     useEffect(() => {
-        if (configIndex !== null) {
+        getTeamAndChannel();
+
+        if (configIndex) {
             setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
             setDelay(existingConfig.delayInSeconds);
@@ -117,11 +126,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
         }
     }, []);
-
-    useEffect(() => {
-        setShow(visible);
-        setConfigVisible(visible);
-    }, [visible]);
 
     useEffect(() => {
         preFillActions();
@@ -156,137 +160,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             setActionSuccessfullMessageValid(true);
         }
     }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
-
-    const getTeamAndChannel = async () => {
-        const apiResponse = await fetchChannelsAndTeams();
-        const teamData = apiResponse.teams;
-        const channelData = apiResponse.channels;
-        const TeamOptions = teamData.map((team: Teams) => ({
-            value: team.display_name,
-            label: team.display_name,
-        }));
-        setTeamOptionList(TeamOptions);
-        const channelOptions = channelData.map((channel: Channels) => ({
-            value: channel.display_name,
-            label: channel.display_name,
-            data: channel.team_name,
-        }));
-        setChannelOptionList(channelOptions);
-    };
-
-    const preFillActions = () => {
-        if (existingConfig?.actions && actionIndex !== null) {
-            const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
-            setActionTypesValue(action.actionType);
-            setActionDisplayName(action.actionDisplayName);
-            setActionChannelsAddedTo(action.channelsAddedTo);
-            setActionSuccessfullMessage(action.actionSuccessfullMessage);
-            setActionName(action.actionName);
-        } else {
-            const action = actionElement;
-            setActionTypesValue(action.actionType);
-            setActionDisplayName(action.actionDisplayName);
-            setActionChannelsAddedTo(action.channelsAddedTo);
-            setActionSuccessfullMessage(action.actionSuccessfullMessage);
-            setActionName(action.actionName);
-        }
-    };
-
-    const handleClose = () => {
-        if (actionVisible) {
-            setValidated(false);
-            setActionVisible(false);
-            setConfigVisible(true);
-            setActionClicked(false);
-        } else if (deleteVisible) {
-            setValidated(false);
-            setDeleteVisible(false);
-            setConfigVisible(true);
-        } else {
-            setValidated(false);
-            setShow(false);
-            setVisible(false);
-        }
-    };
-    const handleEditAction = (i: number) => {
-        setActionIndex(i);
-        setActionVisible(true);
-        setConfigVisible(false);
-    };
-
-    const handleChannelSelect = (newValue: MultiValue<OptionTypes>) => {
-        if (Array.isArray(newValue)) {
-            const selectedChannels = newValue.map((option) => option.value);
-            setActionChannelsAddedTo(selectedChannels);
-        }
-    };
-
-    const handleTeamSelect = (newValue: SingleValue<GroupTypes>) => {
-        if (newValue === null) {
-            setTeamName('');
-        } else {
-            setTeamName(newValue.value);
-            setSelectedTeam(newValue.value);
-        }
-    };
-
-    const handleAddActions = () => {
-        setActionClicked(true);
-        if (selectedTeam === '') {
-            setTeamSelectionWarning(false);
-        } else {
-            setTeamSelectionWarning(true);
-            setValidated(false);
-            resetActionElement();
-            setActionIndex(null);
-            preFillActions();
-            setActionVisible(true);
-            setConfigVisible(false);
-        }
-    };
-    const handleDelete = (index: number, action: string) => {
-        setDeleteAction(action);
-        setActionIndex(index);
-        setDeleteVisible(true);
-        setConfigVisible(false);
-    };
-
-    const structureConfig = () => {
-        if (configIndex !== null) {
-            config[configIndex].message = message;
-            config[configIndex].delayInSeconds = delay;
-            config[configIndex].includeGuests = guestValue;
-            config[configIndex].attachmentMessage = attachmentMessage;
-            config[configIndex].teamName = teamName;
-        }
-    };
-    const structureNewConfig = () => {
-        existingConfig.message = message;
-        existingConfig.delayInSeconds = delay;
-        existingConfig.includeGuests = guestValue;
-        existingConfig.attachmentMessage = attachmentMessage;
-        existingConfig.teamName = teamName;
-    };
-    const structureNewActions = () => {
-        actionElement.actionDisplayName = actionDisplayName;
-        actionElement.actionName = actionName;
-        actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
-        actionElement.actionType = actionTypesValue;
-        actionElement.channelsAddedTo = actionChannelsAddedTo;
-        const l = existingConfig.actions?.push(actionElement);
-    };
-    const structureActions = () => {
-        const actions = existingConfig?.actions;
-        if (actions && actionIndex !== null) {
-            const action = actions[actionIndex];
-            action.actionDisplayName = actionDisplayName;
-            action.actionName = actionName;
-            action.actionSuccessfullMessage = actionSuccessfullMessage;
-            action.actionType = actionTypesValue;
-            action.channelsAddedTo = actionChannelsAddedTo;
-            existingConfig!.actions = [...actions];
-        }
-    };
 
     const handlePrimary = () => {
         if (actionVisible) {
@@ -332,7 +205,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 }
                 onChange(config);
                 setValidated(false);
-                handleClose();
+                handleSecondary();
             } else {
                 setValidated(true);
             }
@@ -343,23 +216,154 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 config[configIndex] = existingConfig;
                 onChange(config);
             }
-            handleClose();
+            handleSecondary();
         }
     };
 
+    const handleSecondary = () => {
+        if (actionVisible) {
+            setValidated(false);
+            setActionVisible(false);
+            setConfigVisible(true);
+            setActionClicked(false);
+        } else if (deleteVisible) {
+            setValidated(false);
+            setDeleteVisible(false);
+            setConfigVisible(true);
+        } else {
+            setValidated(false);
+            setShow(false);
+            setVisible(false);
+        }
+    };
+
+    const handleEditAction = (i: number) => {
+        setActionIndex(i);
+        setActionVisible(true);
+        setConfigVisible(false);
+    };
+
+    const handleChannelSelect = (channels: MultiValue<OptionTypes>) => {
+        const selectedChannels = channels.map((option) => option.value);
+        setActionChannelsAddedTo(selectedChannels);
+    };
+
+    const handleTeamSelect = (teams: SingleValue<GroupTypes>) => {
+        if (teams === null) {
+            setTeamName('');
+        } else {
+            setTeamName(teams.value);
+            setSelectedTeam(teams.value);
+        }
+    };
+
+    const handleAddActions = () => {
+        setActionClicked(true);
+        if (selectedTeam === '') {
+            setTeamSelectionWarning(false);
+        } else {
+            setTeamSelectionWarning(true);
+            setValidated(false);
+            resetActionElement();
+            setActionIndex(null);
+            preFillActions();
+            setActionVisible(true);
+            setConfigVisible(false);
+        }
+    };
+
+    const handleActionDelete = (index: number, action: string) => {
+        setDeleteAction(action);
+        setActionIndex(index);
+        setDeleteVisible(true);
+        setConfigVisible(false);
+    };
+
+    const getTeamAndChannel = async () => {
+        const apiResponse = await fetchChannelsAndTeams();
+        const teamData = apiResponse.teams;
+        const channelData = apiResponse.channels;
+        const TeamOptions = teamData.map((team: Teams) => ({
+            value: team.display_name,
+            label: team.display_name,
+        }));
+        setTeamOptionList(TeamOptions);
+        const channelOptions = channelData.map((channel: Channels) => ({
+            value: channel.display_name,
+            label: channel.display_name,
+            data: channel.team_name,
+        }));
+        setChannelOptionList(channelOptions);
+    };
+
+    const preFillActions = () => {
+        if (existingConfig?.actions && actionIndex !== null) {
+            const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
+            setActionTypesValue(action.actionType);
+            setActionDisplayName(action.actionDisplayName);
+            setActionChannelsAddedTo(action.channelsAddedTo);
+            setActionSuccessfullMessage(action.actionSuccessfullMessage);
+            setActionName(action.actionName);
+        } else {
+            setActionTypesValue(actionElement.actionType);
+            setActionDisplayName(actionElement.actionDisplayName);
+            setActionChannelsAddedTo(actionElement.channelsAddedTo);
+            setActionSuccessfullMessage(actionElement.actionSuccessfullMessage);
+            setActionName(actionElement.actionName);
+        }
+    };
+
+    const structureConfig = () => {
+        if (configIndex !== null) {
+            config[configIndex].message = message;
+            config[configIndex].delayInSeconds = delay;
+            config[configIndex].includeGuests = guestValue;
+            config[configIndex].attachmentMessage = attachmentMessage;
+            config[configIndex].teamName = teamName;
+        }
+    };
+    const structureNewConfig = () => {
+        existingConfig.message = message;
+        existingConfig.delayInSeconds = delay;
+        existingConfig.includeGuests = guestValue;
+        existingConfig.attachmentMessage = attachmentMessage;
+        existingConfig.teamName = teamName;
+    };
+
+    const structureActions = () => {
+        const actions = existingConfig?.actions;
+        if (actions && actionIndex !== null) {
+            const action = actions[actionIndex];
+            action.actionDisplayName = actionDisplayName;
+            action.actionName = actionName;
+            action.actionSuccessfullMessage = actionSuccessfullMessage;
+            action.actionType = actionTypesValue;
+            action.channelsAddedTo = actionChannelsAddedTo;
+            existingConfig!.actions = [...actions];
+        }
+    };
+    const structureNewActions = () => {
+        actionElement.actionDisplayName = actionDisplayName;
+        actionElement.actionName = actionName;
+        actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
+        actionElement.actionType = actionTypesValue;
+        actionElement.channelsAddedTo = actionChannelsAddedTo;
+        const l = existingConfig.actions?.push(actionElement);
+    };
+
     return (
-        <div className='configModal'>
+        <div>
             <Modal
-                className='configModal'
+                className='customModal'
                 show={show}
-                onHide={handleClose}
+                onHide={handleSecondary}
             >
                 <Modal.Header closeButton={false}>
                     <Modal.Title>
                         {modalHeader}
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='configModalBody'>
+                <Modal.Body className='customModalBody'>
                     {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             className='config-form'
@@ -462,17 +466,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     />
                                 </Form.Group>
                             </div>
-                            <div className='gapping'>
-                                {(existingConfig?.actions && actionLength > 0) &&
-                                <Form.Group className='action-table'>
-                                    <Form.Label>{'Actions'}</Form.Label>
-                                </Form.Group>}
-                            </div>
+                            {(existingConfig?.actions && actionLength > 0) &&
+                            <Form.Group className='action-table'>
+                                <Form.Label>{'Actions'}</Form.Label>
+                            </Form.Group>}
                         </Form>
                         {existingConfig?.actions && actionLength > 0 ? (
-                            <div className='listTable'>
+                            <div className='listTable gapping'>
                                 <Table
-                                    className='gapping'
                                     striped={true}
                                 >
                                     <thead className='tableHead'>
@@ -569,7 +570,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                                             placement='top'
                                                             overlay={<Tooltip>{'Delete action'}</Tooltip>}
                                                         >
-                                                            <Button onClick={() => handleDelete(i, val.actionName)}>
+                                                            <Button onClick={() => handleActionDelete(i, val.actionName)}>
                                                                 <svg
                                                                     className='svg'
                                                                     xmlns='http://www.w3.org/2000/svg'
@@ -614,6 +615,29 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
                     {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
+                            <div className={validated && !actionChannelsAddedToValid ? '' : 'warnings'}>
+                                <Form.Group className='form-group'>
+                                    <Form.Label>{'Channels Added to*'}</Form.Label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        onChange={handleChannelSelect}
+                                        isMulti={true}
+                                        placeholder='Select the channels in which you want to add the new user'
+                                        isSearchable={true}
+                                        options={channelOptionList.filter(
+                                            (channel) => channel.data === selectedTeam,
+                                        )}
+                                        value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
+                                    />
+                                    {validated && !actionChannelsAddedToValid &&
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide at least one channel name '}
+                                    </Form.Control.Feedback>}
+                                </Form.Group>
+                            </div>
                             <div className={validated && !actionTypesValueValid ? '' : 'warnings'}>
                                 <Form.Group>
                                     <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
@@ -677,29 +701,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !actionChannelsAddedToValid ? '' : 'warnings'}>
-                                <Form.Group className='form-group'>
-                                    <Form.Label>{'Channels Added to*'}</Form.Label>
-                                    <Select
-                                        closeMenuOnSelect={false}
-                                        onChange={handleChannelSelect}
-                                        isMulti={true}
-                                        placeholder='Select the channels in which you want to add the new user'
-                                        isSearchable={true}
-                                        options={channelOptionList.filter(
-                                            (channel) => channel.data === selectedTeam,
-                                        )}
-                                        value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
-                                    />
-                                    {validated && !actionChannelsAddedToValid &&
-                                    <Form.Control.Feedback
-                                        type='invalid'
-                                        className='validation-warning'
-                                    >
-                                        {'Please provide at least one channel name '}
-                                    </Form.Control.Feedback>}
-                                </Form.Group>
-                            </div>
                             <div className={validated && !actionSuccessfullMessageValid ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Action Successfull Message*'}</Form.Label>
@@ -734,7 +735,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 <Modal.Footer>
                     <Button
                         variant='secondary'
-                        onClick={handleClose}
+                        onClick={handleSecondary}
                     >
                         {'Close'}
                     </Button>

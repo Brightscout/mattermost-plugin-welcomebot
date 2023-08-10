@@ -22,20 +22,21 @@ function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props
         setShow(visible);
     }, [visible]);
 
-    const handleClose = () => {
-        setShow(false);
-        setVisible(false);
-    };
-
     const handleDelete: () => void = () => {
         config.splice(configIndex, 1);
         onChange(config);
         handleClose();
     };
+
+    const handleClose = () => {
+        setShow(false);
+        setVisible(false);
+    };
+
     return (
         <>
             <Modal
-                className='deleteModal'
+                className='customModal'
                 show={show}
                 onHide={handleClose}
             >

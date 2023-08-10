@@ -1,30 +1,28 @@
-.modal {
+.customModal .modal {
   opacity: 1;
   padding-top: 12%;
 }
 
-.modal-open .modal {
+.customModal .modal-open .modal {
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
-.modal-dialog .modal-header {
+.customModal .modal-dialog .modal-header {
   display: flex;
 }
 
-.modal-dialog .modal-body {
+.configModal .modal-dialog .modal-body {
   display: flex;
   flex-direction: column;
 }
 
-
-
-.configModal .modal-dialog {
+.customModal .modal-dialog {
   width: 615px;
   max-width: 615px;
 }
 
-.configModalBody{
+.customModalBody {
   height: 80%;
   overflow-y: auto;
 }
@@ -86,7 +84,9 @@
   margin-bottom: 0;
 }
 
-
+.radio-form {
+  margin-bottom: 0px;
+}
 
 .add-actions {
   margin-top: 15px;
@@ -190,9 +190,6 @@
   white-space: nowrap;
 }
 
-/* asdasdsadasd */
-
-
 .type-action {
   width: 15%;
 }
@@ -238,8 +235,6 @@
   white-space: nowrap;
 }
 
-/* asdsadasddasdsa */
-
 .option-buttons {
   width: 17%;
 }
@@ -267,7 +262,7 @@
 
 .listTable .table {
   width: 100%;
-  /* display: block; */
+  margin-top: 0;
   margin-bottom: 0;
   table-layout: fixed;
 }

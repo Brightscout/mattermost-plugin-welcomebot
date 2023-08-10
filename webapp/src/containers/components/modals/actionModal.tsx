@@ -19,9 +19,11 @@ type Props = {
 }
 
 function ActionModal({visible, setVisible, config, configIndex}: Props) {
-    const actionsLength = config[configIndex]?.actions?.length ?? 0;
     const [show, setShow] = useState(false);
+
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
+
+    const actionsLength = config[configIndex]?.actions?.length ?? 0;
 
     const checkAttachmentMessage = () => {
         if (config[configIndex]?.attachmentMessage) {
@@ -43,9 +45,9 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
         setVisible(false);
     };
     return (
-        <div className='configModal'>
+        <div>
             <Modal
-                className='actionModal'
+                className='customModal'
                 show={show}
                 onHide={handleClose}
             >
@@ -53,7 +55,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                     <Modal.Title>{'Actions'}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body className='customModalBody'>
                     {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength > 0) ? (<>
                         {attachmentMessageAvailable ? (
                             <Form>
@@ -96,7 +98,6 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                     config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-                                                {/* <td>{val.actionType}</td> */}
                                                 <td className='type-action'>
                                                     <OverlayTrigger
                                                         placement='top'
