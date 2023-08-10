@@ -6,15 +6,12 @@ import {PluginRegistry} from 'types/mattermostWebapp';
 
 import ExistingConfigTable from 'containers/components/tables/existingConfigTable';
 
-import reducer from './reducers';
-
 import {id} from './manifest';
 
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
         // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
-        registry.registerReducer(reducer);
         registry.registerAdminConsoleCustomSetting('WelcomeMessages', ExistingConfigTable);
     }
 }

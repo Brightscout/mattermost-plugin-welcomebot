@@ -89,7 +89,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                                 <th className='type-action'>{'Type'}</th>
                                                 <th className='display-name-action'>{'Display Name'}</th>
                                                 <th className='name-action'>{'Name'}</th>
-                                                <th className='channels-added-action'>{'Channels Added to'}</th>
+                                                <th className='channels-added-action'>{'Add to Channels'}</th>
                                                 <th className='successfull-message-action'>{'Success Message'}</th>
                                             </tr>
                                         </thead>
@@ -156,9 +156,9 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                     </Table>
                                 </div>
                             </div>
-                        ) : (<p>{'No Action configured'}</p>)
+                        ) : (<p>{'No action configured'}</p>)
                         }
-                    </>) : (<p>{'No Attachment message or action configured'}</p>)}
+                    </>) : (<p>{'No attachment message or action configured'}</p>)}
                 </Modal.Body>
 
                 <Modal.Footer>

@@ -12,12 +12,12 @@
   display: flex;
 }
 
-.customModal .modal-dialog .modal-body {
+.modal-dialog .modal-body {
   display: flex;
   flex-direction: column;
 }
 
-.customModal .modal-dialog {
+.modal-dialog {
   width: 615px;
   max-width: 615px;
 }

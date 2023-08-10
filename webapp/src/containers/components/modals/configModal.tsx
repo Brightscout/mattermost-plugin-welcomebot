@@ -16,6 +16,8 @@ import {Configs, Actions, OptionTypes, Teams, Channels, GroupTypes} from 'types/
 
 import {fetchChannelsAndTeams} from 'api/api_wrapper';
 
+import {DeleteSvg, EditSvg} from '../svgIcons/svg';
+
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +28,15 @@ type Props = {
 }
 
 function ConfigModal({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) {
+    const guest = [
+        {name: 'true', value: 'true'},
+        {name: 'false', value: 'false'},
+    ];
+    const actionTypes = [
+        {name: 'button', value: 'button'},
+        {name: 'automatic', value: 'automatic'},
+    ];
+
     const actionElement: Actions = {
         actionType: '',
         actionName: '',
@@ -33,15 +44,9 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         channelsAddedTo: [''],
         actionSuccessfullMessage: [''],
     };
-    const resetActionElement = () => {
-        actionElement.actionType = '';
-        actionElement.actionName = '';
-        actionElement.actionDisplayName = '';
-        actionElement.channelsAddedTo = [''];
-        actionElement.actionSuccessfullMessage = [''];
-    };
     const newAction: Actions[] = [
     ];
+
     const newConfig: Configs = {
         teamName: '',
         delayInSeconds: 0,
@@ -52,9 +57,9 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const [show, setShow] = useState(true);
-    const [configVisible, setConfigVisible] = useState(true);
-    const [actionVisible, setActionVisible] = useState(false);
-    const [deleteVisible, setDeleteVisible] = useState(false);
+    const [isConfigVisible, setIsConfigVisible] = useState(true);
+    const [isActionVisible, setIsActionVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
@@ -96,18 +101,9 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const actionLength = existingConfig?.actions?.length ?? 0;
 
-    const guest = [
-        {name: 'true', value: 'true'},
-        {name: 'false', value: 'false'},
-    ];
-    const actionTypes = [
-        {name: 'button', value: 'button'},
-        {name: 'automatic', value: 'automatic'},
-    ];
-
     useEffect(() => {
         setShow(visible);
-        setConfigVisible(visible);
+        setIsConfigVisible(visible);
     }, [visible]);
 
     useEffect(() => {
@@ -134,7 +130,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     useEffect(() => {
         setTeamNameValid(teamName.trim() !== '');
         setTeamSelectionWarning(teamName.trim() !== '');
-        if (message.length === 0) {
+        if (!message.length) {
             setMessageValid(false);
         } else if (message.length === 1) {
             setMessageValid(message[0] !== '');
@@ -145,14 +141,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         setActionTypesValueValid(actionTypesValue !== '');
         setActionDisplayNameValid(actionDisplayName !== '');
         setActionNameValid(actionName !== '');
-        if (actionChannelsAddedTo.length === 0) {
+        if (!actionChannelsAddedTo.length) {
             setActionChannelsAddedToValid(false);
         } else if (actionChannelsAddedTo.length === 1) {
             setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
         } else {
             setActionChannelsAddedToValid(true);
         }
-        if (actionSuccessfullMessage.length === 0) {
+        if (!actionSuccessfullMessage.length) {
             setActionSuccessfullMessageValid(false);
         } else if (actionSuccessfullMessage.length === 1) {
             setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
@@ -162,7 +158,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
     const handlePrimary = () => {
-        if (actionVisible) {
+        if (isActionVisible) {
             if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid) {
                 if (configIndex !== null) {
                     if (actionIndex === null) {
@@ -186,8 +182,8 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                         structureActions();
                     }
                 }
-                setActionVisible(false);
-                setConfigVisible(true);
+                setIsActionVisible(false);
+                setIsConfigVisible(true);
                 setValidated(false);
                 onChange(config);
                 setActionClicked(false);
@@ -195,7 +191,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 setValidated(true);
             }
         }
-        if (configVisible) {
+        if (isConfigVisible) {
             if (teamNameValid && messageValid) {
                 if (configIndex === null) {
                     structureNewConfig();
@@ -210,7 +206,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 setValidated(true);
             }
         }
-        if (deleteVisible && actionIndex !== null) {
+        if (isDeleteVisible && actionIndex !== null) {
             const l = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
@@ -221,15 +217,15 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const handleSecondary = () => {
-        if (actionVisible) {
+        if (isActionVisible) {
             setValidated(false);
-            setActionVisible(false);
-            setConfigVisible(true);
+            setIsActionVisible(false);
+            setIsConfigVisible(true);
             setActionClicked(false);
-        } else if (deleteVisible) {
+        } else if (isDeleteVisible) {
             setValidated(false);
-            setDeleteVisible(false);
-            setConfigVisible(true);
+            setIsDeleteVisible(false);
+            setIsConfigVisible(true);
         } else {
             setValidated(false);
             setShow(false);
@@ -239,12 +235,12 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const handleEditAction = (i: number) => {
         setActionIndex(i);
-        setActionVisible(true);
-        setConfigVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
 
     const handleChannelSelect = (channels: MultiValue<OptionTypes>) => {
-        const selectedChannels = channels.map((option) => option.value);
+        const selectedChannels = channels.map((option: OptionTypes) => option.value);
         setActionChannelsAddedTo(selectedChannels);
     };
 
@@ -267,16 +263,16 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             resetActionElement();
             setActionIndex(null);
             preFillActions();
-            setActionVisible(true);
-            setConfigVisible(false);
+            setIsActionVisible(true);
+            setIsConfigVisible(false);
         }
     };
 
     const handleActionDelete = (index: number, action: string) => {
         setDeleteAction(action);
         setActionIndex(index);
-        setDeleteVisible(true);
-        setConfigVisible(false);
+        setIsDeleteVisible(true);
+        setIsConfigVisible(false);
     };
 
     const getTeamAndChannel = async () => {
@@ -294,6 +290,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             data: channel.team_name,
         }));
         setChannelOptionList(channelOptions);
+    };
+
+    const resetActionElement = () => {
+        actionElement.actionType = '';
+        actionElement.actionName = '';
+        actionElement.actionDisplayName = '';
+        actionElement.channelsAddedTo = [''];
+        actionElement.actionSuccessfullMessage = [''];
     };
 
     const preFillActions = () => {
@@ -364,7 +368,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='customModalBody'>
-                    {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isConfigVisible && <div className={isConfigVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             className='config-form'
                             noValidate={true}
@@ -396,7 +400,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             </div>
                             <div className={validated && !delayValid ? '' : 'warning'}>
                                 <Form.Group className='form-group'>
-                                    <Form.Label>{'Delay (in secs)*'}</Form.Label>
+                                    <Form.Label>{'Delay (in sec)*'}</Form.Label>
                                     <Form.Control
                                         type='number'
                                         placeholder='Enter the delay in seconds'
@@ -436,7 +440,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             </div>
                             <div className='gapping'>
                                 <Form.Group>
-                                    <Form.Label className='radio-form'>{'Include guests'}</Form.Label>
+                                    <Form.Label className='radio-form'>{'Include Guests'}</Form.Label>
                                     <ButtonGroup className='radio'>
                                         {guest.map((guests, index) => (
                                             <ToggleButton
@@ -466,12 +470,12 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     />
                                 </Form.Group>
                             </div>
-                            {(existingConfig?.actions && actionLength > 0) &&
+                            {(existingConfig?.actions && actionLength) &&
                             <Form.Group className='action-table'>
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
                         </Form>
-                        {existingConfig?.actions && actionLength > 0 ? (
+                        {existingConfig?.actions && actionLength ? (
                             <div className='listTable gapping'>
                                 <Table
                                     striped={true}
@@ -481,7 +485,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                             <th className='type'>{'Type'}</th>
                                             <th className='display-name'>{'Display Name'}</th>
                                             <th className='action-name'>{'Name'}</th>
-                                            <th className='channels-added'>{'Channels Added to'}</th>
+                                            <th className='channels-added'>{'Add to Channels'}</th>
                                             <th className='successfull-message'>{'Success Message'}</th>
                                             <th className='option-buttons'>{'Options'}</th>
                                         </tr>
@@ -552,18 +556,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                                             overlay={<Tooltip>{'Edit action'}</Tooltip>}
                                                         >
                                                             <Button onClick={() => handleEditAction(i)}>
-                                                                <svg
-                                                                    className='svg'
-                                                                    xmlns='http://www.w3.org/2000/svg'
-                                                                    width='16'
-                                                                    height='16'
-                                                                    viewBox='0 0 24 24'
-                                                                    fill='none'
-                                                                    stroke='#333'
-                                                                    strokeWidth='1.65'
-                                                                    strokeLinecap='round'
-                                                                    strokeLinejoin='round'
-                                                                ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
+                                                                <EditSvg/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                         <OverlayTrigger
@@ -571,31 +564,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                                             overlay={<Tooltip>{'Delete action'}</Tooltip>}
                                                         >
                                                             <Button onClick={() => handleActionDelete(i, val.actionName)}>
-                                                                <svg
-                                                                    className='svg'
-                                                                    xmlns='http://www.w3.org/2000/svg'
-                                                                    width='16'
-                                                                    height='16'
-                                                                    viewBox='0 0 24 24'
-                                                                    fill='none'
-                                                                    stroke='#333'
-                                                                    strokeWidth='1.65'
-                                                                    strokeLinecap='round'
-                                                                    strokeLinejoin='round'
-                                                                ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
-                                                                    <line
-                                                                        x1='10'
-                                                                        y1='11'
-                                                                        x2='10'
-                                                                        y2='17'
-                                                                    />
-                                                                    <line
-                                                                        x1='14'
-                                                                        y1='11'
-                                                                        x2='14'
-                                                                        y2='17'
-                                                                    />
-                                                                </svg>
+                                                                <DeleteSvg/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                     </ButtonGroup>
@@ -608,16 +577,16 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 </Table>
                             </div>
                         ) : (
-                            configIndex !== null && <p className='gapping'>{'No Action configured'}</p>
+                            configIndex !== null && <p className='gapping'>{'No action configured'}</p>
                         )
                         }
                     </div>}
 
-                    {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <div className={validated && !actionChannelsAddedToValid ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
-                                    <Form.Label>{'Channels Added to*'}</Form.Label>
+                                    <Form.Label>{'Add to Channels*'}</Form.Label>
                                     <Select
                                         closeMenuOnSelect={false}
                                         onChange={handleChannelSelect}
@@ -634,7 +603,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                         type='invalid'
                                         className='validation-warning'
                                     >
-                                        {'Please provide at least one channel name '}
+                                        {'Please provide at least one channel name'}
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
@@ -688,7 +657,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     <Form.Label>{'Action Name*'}</Form.Label>
                                     <Form.Control
                                         type='text'
-                                        placeholder='Enter the display name of your action'
+                                        placeholder='Enter the name of your action'
                                         value={actionName}
                                         onChange={(e) => setActionName(e.target.value)}
                                     />
@@ -721,15 +690,15 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             </div>
                         </Form>
                     </div>}
-                    {!deleteVisible && !actionVisible && <div className='add-action-button'>
+                    {!isDeleteVisible && !isActionVisible && <div className='add-action-button'>
                         <Button
                             className={actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
 
-                    {deleteVisible && <div className={deleteVisible ? 'fade-enter' : 'fade-exit'}>
-                        <p>{`Are you sure you would like to delete the action ${deleteAction} ?`}</p>
+                    {isDeleteVisible && <div className={isDeleteVisible ? 'fade-enter' : 'fade-exit'}>
+                        <p>{`Are you sure you would like to delete the action ${deleteAction}?`}</p>
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
