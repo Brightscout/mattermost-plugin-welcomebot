@@ -5,7 +5,6 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Col from 'react-bootstrap/Col';
 import './styles.css';
 
@@ -46,23 +45,17 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
 
     return (
         <div className='config'>
-            {
-                viewVisible &&
                     <ActionModal
                         visible={viewVisible}
                         setVisible={setViewVisible}
                         config={value}
                         configIndex={configIndex}
                     />
-            }
-            {deleteVisible &&
-                <DeleteModal
                     visible={deleteVisible}
                     setVis={setDeleteVisible}
                     config={value}
                     configIndex={configIndex}
                     onChange={onChange}
-                />
             }
             {editVisible &&
                 <ConfigModal
@@ -212,8 +205,14 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     >
                         {'Add Config'}
                     </Button>
+                    config={null}
+                />
+            }
+            <div className='name'>
+                {label}
+            </div>         
                 </div>
-            </FormGroup>
+            </div>
         </div>
     );
 };
