@@ -9,6 +9,7 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
 // eslint-disable-next-line import/no-unresolved
+
 import {Configs, Actions} from 'types/plugin/common';
 
 interface Props {
@@ -531,7 +532,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 </Modal.Footer>
             </Modal>
         </>
-
     );
 }
 
