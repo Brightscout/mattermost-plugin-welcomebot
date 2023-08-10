@@ -9,7 +9,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
-// eslint-disable-next-line import/no-unresolved
+
 import {Configs, Actions} from 'types/plugin/common';
 
 interface Props {
@@ -47,9 +47,11 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         actions: newAction,
     };
     const [show, setShow] = useState(true);
-    const [configVisible, setConfigVisible] = useState(true);
-    const [actionVisible, setActionVisible] = useState(false);
-    const [deleteVisible, setDeleteVisible] = useState(false);
+
+    const [configIsVisible, setConfigIsVisible] = useState(true);
+    const [actionIsVisible, setActionIsVisible] = useState(false);
+    const [deleteIsVisible, setDeleteIsVisible] = useState(false);
+
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
     const [teamName, setTeamName] = useState(existingConfig.teamName);
@@ -58,16 +60,16 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [attachmentMessage, setAttachmentMessage] = useState(existingConfig.attachmentMessage ?? ['']);
     const [guestValue, setGuestValue] = useState(existingConfig.includeGuests);
 
-    const [teamNameValid, setTeamNameValid] = useState(false);
-    const [messageValid, setMessageValid] = useState(false);
-    const [delayValid, setDelayValid] = useState(false);
     const [actionTypesValue, setActionTypesValue] = useState('');
     const [actionDisplayName, setActionDisplayName] = useState('');
     const [actionChannelsAddedTo, setActionChannelsAddedTo] = useState(['']);
     const [actionSuccessfullMessage, setActionSuccessfullMessage] = useState(['']);
     const [actionName, setActionName] = useState('');
-
     const [actionIndex, setActionIndex] = useState<number | null>(0);
+
+    const [teamNameValid, setTeamNameValid] = useState(false);
+    const [messageValid, setMessageValid] = useState(false);
+    const [delayValid, setDelayValid] = useState(false);
 
     const [actionTypesValueValid, setActionTypesValueValid] = useState(false);
     const [actionDisplayNameValid, setActionDisplayNameValid] = useState(false);
@@ -80,17 +82,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     const [deleteAction, setDeleteAction] = useState('');
 
     const actionLength = existingConfig?.actions?.length ?? 0;
-    const handleCloseButton = (
-        variant: string,
-        text: string,
-    ) => (
-        <Button
-            variant={variant}
-            onClick={handleClose}
-        >
-            {text}
-        </Button>
-    );
+
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -112,7 +104,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         setShow(visible);
-        setConfigVisible(visible);
+        setConfigIsVisible(visible);
     }, [visible]);
 
     useEffect(() => {
@@ -121,7 +113,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         setTeamNameValid(teamName.trim() !== '');
-        if (message.length === 0) {
+        if (!message.length) {
             setMessageValid(false);
         } else if (message.length === 1) {
             setMessageValid(message[0] !== '');
@@ -131,7 +123,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         setDelayValid(delay >= 0);
         setActionTypesValueValid(actionTypesValue !== '');
         setActionDisplayNameValid(actionDisplayName !== '');
-        if (actionChannelsAddedTo.length === 0) {
+        if (!actionChannelsAddedTo.length) {
             setActionChannelsAddedToValid(false);
         } else if (actionChannelsAddedTo.length === 1) {
             setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
@@ -145,7 +137,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 setAttachmentMessage(existingConfig?.attachmentMessage ?? []);
             }
 
-            if (actionSuccessfullMessage.length === 0) {
+            if (!actionSuccessfullMessage.length) {
                 setActionSuccessfullMessageValid(false);
             } else if (actionSuccessfullMessage.length === 1) {
                 setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
@@ -163,7 +155,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     const preFillActions = () => {
         if (existingConfig?.actions && actionIndex !== null) {
-            // if (actionIndex !== null) {
             const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.actionType);
             setActionDisplayName(action.actionDisplayName);
@@ -181,14 +172,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const handleClose = () => {
-        if (actionVisible) {
+        if (actionIsVisible) {
             setValidated(false);
-            setActionVisible(false);
-            setConfigVisible(true);
-        } else if (deleteVisible) {
+            setActionIsVisible(false);
+            setConfigIsVisible(true);
+        } else if (deleteIsVisible) {
             setValidated(false);
-            setDeleteVisible(false);
-            setConfigVisible(true);
+            setDeleteIsVisible(false);
+            setConfigIsVisible(true);
         } else {
             setValidated(false);
             setShow(false);
@@ -197,8 +188,8 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
     const handleEditAction = (i: number) => {
         setActionIndex(i);
-        setActionVisible(true);
-        setConfigVisible(false);
+        setActionIsVisible(true);
+        setConfigIsVisible(false);
     };
 
     const handleAddActions = () => {
@@ -206,14 +197,14 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         resetActionElement();
         setActionIndex(null);
         preFillActions();
-        setActionVisible(true);
-        setConfigVisible(false);
+        setActionIsVisible(true);
+        setConfigIsVisible(false);
     };
     const handleDelete = (index: number, action: string) => {
         setDeleteAction(action);
         setActionIndex(index);
-        setDeleteVisible(true);
-        setConfigVisible(false);
+        setDeleteIsVisible(true);
+        setConfigIsVisible(false);
     };
 
     const structureConfig = () => {
@@ -254,7 +245,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const handlePrimary = () => {
-        if (actionVisible) {
+        if (actionIsVisible) {
             if (configIndex) {
                 if (actionIndex === null) {
                     actionElement.actionDisplayName = actionDisplayName;
@@ -268,15 +259,15 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                         existingConfig!.actions = actions;
                     }
                 }
-                setActionVisible(false);
-                setConfigVisible(true);
+                setActionIsVisible(false);
+                setConfigIsVisible(true);
                 setValidated(false);
                 onChange(config);
             } else {
                 setValidated(true);
             }
         }
-        if (configVisible) {
+        if (configIsVisible) {
             if (teamNameValid && messageValid) {
                 if (configIndex === null) {
                     structureNewConfig();
@@ -291,7 +282,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 setValidated(true);
             }
         }
-        if (deleteVisible && actionIndex !== null) {
+        if (deleteIsVisible && actionIndex !== null) {
             const l = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
@@ -314,7 +305,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='configModalBody'>
-                    {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
+                    {configIsVisible && <div className={configIsVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             noValidate={true}
                             validated={validated}
@@ -405,7 +396,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
                         </Form>
-                        {existingConfig?.actions && actionLength > 0 ? (
+                        {existingConfig?.actions && actionLength ? (
                             <Table
                                 striped={true}
                                 className='listTable'
@@ -500,7 +491,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                         }
                     </div>}
 
-                    {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
+                    {actionIsVisible && <div className={actionIsVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
@@ -572,7 +563,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                     type='invalid'
                                     className='validation-warning'
                                 >
-                                    {'Please provide at least one channel name '}
+                                    {'Please provide at least one channel name'}
                                 </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
@@ -593,15 +584,15 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                             </Form.Group>
                         </Form>
                     </div>}
-                    {!deleteVisible && !actionVisible && <div>
+                    {!deleteIsVisible && !actionIsVisible && <div>
                         <Button
                             className={configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
 
-                    {deleteVisible && <div className={deleteVisible ? 'fade-enter' : 'fade-exit'}>
-                        <p>{`Are you sure you would like to delete the action ${deleteAction} ?`}</p>
+                    {deleteIsVisible && <div className={deleteIsVisible ? 'fade-enter' : 'fade-exit'}>
+                        <p>{`Are you sure you would like to delete the action ${deleteAction}?`}</p>
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
