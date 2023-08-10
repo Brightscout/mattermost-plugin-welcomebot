@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 
-import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-
+import FormGroup from 'react-bootstrap/FormGroup';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Col from 'react-bootstrap/Col';
 import './styles.css';
 
 // eslint-disable-next-line import/no-unresolved
@@ -41,23 +45,17 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
 
     return (
         <div className='config'>
-            {
-                viewVisible &&
                     <ActionModal
                         visible={viewVisible}
                         setVisible={setViewVisible}
                         config={value}
                         configIndex={configIndex}
                     />
-            }
-            {deleteVisible &&
-                <DeleteModal
                     visible={deleteVisible}
                     setVisible={setDeleteVisible}
                     config={value}
                     configIndex={configIndex}
                     onChange={onChange}
-                />
             }
             {editVisible &&
                 <ConfigModal
@@ -207,8 +205,14 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     >
                         {'Add Config'}
                     </Button>
+                    config={null}
+                />
+            }
+            <div className='name'>
+                {label}
+            </div>         
                 </div>
-            </FormGroup>
+            </div>
         </div>
     );
 };

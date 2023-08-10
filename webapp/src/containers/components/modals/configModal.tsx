@@ -611,7 +611,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                 </Modal.Footer>
             </Modal>
         </>
-
     );
 }
 
