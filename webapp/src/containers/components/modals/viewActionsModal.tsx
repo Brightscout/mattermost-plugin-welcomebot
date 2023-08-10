@@ -7,7 +7,7 @@ import './styles.css';
 
 interface Props {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function ViewActionsModal(props: Props) {
@@ -19,7 +19,7 @@ function ViewActionsModal(props: Props) {
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        props.setVisible(false);
     };
     return (
         <>
@@ -58,19 +58,19 @@ function ViewActionsModal(props: Props) {
                                 <td>{'Button'}</td>
                                 <td>{'Import'}</td>
                                 <td>{'channel1, channel2, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
+                                <td>{'Welcome to your new team mate!'}</td>
                             </tr>
                             <tr>
                                 <td>{'Automatic'}</td>
                                 <td>{'Export'}</td>
                                 <td>{'channel1, channel2'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
+                                <td>{'Welcome to your new team mate!'}</td>
                             </tr>
                             <tr>
                                 <td>{'Button'}</td>
                                 <td>{'Deport'}</td>
                                 <td>{'channel1, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
+                                <td>{'Welcome to your new team mate!'}</td>
                             </tr>
                         </tbody>
                     </Table>
