@@ -19,7 +19,6 @@ interface Props {
     config: Configs[];
     onChange: any;
     modalHeader: string;
-}
 
 function ConfigModal({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) {
     const actionElement: Actions = {
