@@ -11,7 +11,7 @@ type Props = {
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditActionsModal({visible, setVis}: Props) {
+const EditActionsModal = ({visible, setVis}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -99,6 +99,6 @@ function EditActionsModal({visible, setVis}: Props) {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default EditActionsModal;

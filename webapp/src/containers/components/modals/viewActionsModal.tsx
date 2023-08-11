@@ -10,7 +10,7 @@ interface Props {
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ViewActionsModal(props: Props) {
+const ViewActionsModal = (props: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -87,6 +87,6 @@ function ViewActionsModal(props: Props) {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default ViewActionsModal;
