@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 import './styles.css';
-import Form from 'react-bootstrap/Form';
 
 type Props = {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditActionsModal({visible, setVis}: Props) {
+const EditActionsModal = ({visible, setVis}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -98,6 +99,6 @@ function EditActionsModal({visible, setVis}: Props) {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default EditActionsModal;

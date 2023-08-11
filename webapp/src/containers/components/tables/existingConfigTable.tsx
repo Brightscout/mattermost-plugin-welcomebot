@@ -52,7 +52,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                 <DeleteConfigModal
                     visible={deleteVisible}
                     setVisibility={setDeleteVisible}
-                />
             )
             }
 
@@ -119,8 +118,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                            >{'Edit'}</Button>
-                                            <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
                                     </div>
                                 </td>
@@ -167,8 +164,6 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                                 {'View'}
                                             </Button>
                                             <Button
-                                                variant='primary'
-                                                onClick={handleView}
                                             >
                                                 {'Edit'}
                                             </Button>
