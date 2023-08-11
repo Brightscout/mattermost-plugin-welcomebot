@@ -66,7 +66,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {deleteVisible &&
                 <DeleteModal
                     visible={deleteVisible}
-                    setVis={setDeleteVisible}
+                    setVisibility={setDeleteVisible}
                     teamName='xyz'
                 />
             }

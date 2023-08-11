@@ -12,10 +12,10 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Config} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
-    config: Config
+    config: Config | null;
 }
 
 function ConfigModal(props: Props) {
