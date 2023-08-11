@@ -22,72 +22,70 @@ function ViewActionsModal(props: Props) {
         props.setVis(false);
     };
     return (
-        <>
-            <Modal
-                show={show}
-                onHide={handleClose}
-            >
-                <Modal.Header closeButton={false}>
-                    <Modal.Title>{'Actions'}</Modal.Title>
-                </Modal.Header>
+        <Modal
+            show={show}
+            onHide={handleClose}
+        >
+            <Modal.Header closeButton={false}>
+                <Modal.Title>{'Actions'}</Modal.Title>
+            </Modal.Header>
 
-                <Modal.Body>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>{'Attachment Message'}</Form.Label>
-                            <Form.Control
-                                type='long-text'
-                                readOnly={true}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>{'Actions'}</Form.Label>
-                        </Form.Group>
-                    </Form>
-                    <Table striped={true}>
-                        <thead>
-                            <tr>
-                                <th>{'Type'}</th>
-                                <th>{'Display Name'}</th>
-                                <th>{'Channels Added to'}</th>
-                                <th>{'Success Message'}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Import'}</td>
-                                <td>{'channel1, channel2, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Automatic'}</td>
-                                <td>{'Export'}</td>
-                                <td>{'channel1, channel2'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Deport'}</td>
-                                <td>{'channel1, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </Modal.Body>
+            <Modal.Body>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>{'Attachment Message'}</Form.Label>
+                        <Form.Control
+                            type='long-text'
+                            readOnly={true}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{'Actions'}</Form.Label>
+                    </Form.Group>
+                </Form>
+                <Table striped={true}>
+                    <thead>
+                        <tr>
+                            <th>{'Type'}</th>
+                            <th>{'Display Name'}</th>
+                            <th>{'Channels Added to'}</th>
+                            <th>{'Success Message'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{'Button'}</td>
+                            <td>{'Import'}</td>
+                            <td>{'channel1, channel2, channel3'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                        <tr>
+                            <td>{'Automatic'}</td>
+                            <td>{'Export'}</td>
+                            <td>{'channel1, channel2'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                        <tr>
+                            <td>{'Button'}</td>
+                            <td>{'Deport'}</td>
+                            <td>{'channel1, channel3'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </Modal.Body>
 
-                <Modal.Footer>
-                    <Button
-                        variant='secondary'
-                        onClick={handleClose}
-                    >{'Close'}</Button>
-                    <Button
-                        variant='primary'
-                        disabled={true}
-                    >{'Save changes'}</Button>
-                </Modal.Footer>
-            </Modal>
-        </>
+            <Modal.Footer>
+                <Button
+                    variant='secondary'
+                    onClick={handleClose}
+                >{'Close'}</Button>
+                <Button
+                    variant='primary'
+                    disabled={true}
+                >{'Save changes'}</Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
 
