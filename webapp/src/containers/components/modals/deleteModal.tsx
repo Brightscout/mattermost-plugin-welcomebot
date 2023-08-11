@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
 import './styles.css';
 
 interface Props {
     visible: boolean;
-    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
-    teamName: string;
+    setVis: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function DeleteModal(props: Props) {
+function DeleteConfigModal(props: Props) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -20,7 +17,7 @@ function DeleteModal(props: Props) {
 
     const handleClose = () => {
         setShow(false);
-        props.setVisibility(false);
+        props.setVis(false);
     };
     return (
         <>
@@ -33,7 +30,8 @@ function DeleteModal(props: Props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>{`Are you sure you would like to delete the configs for the team ${props.teamName}`}</p>
+                    {/* TODO: Add team name according to the team */}
+                    <p>{'Delete the configs for the team xyz'}</p>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -48,4 +46,4 @@ function DeleteModal(props: Props) {
     );
 }
 
-export default DeleteModal;
+export default DeleteConfigModal;

@@ -9,10 +9,10 @@ import './styles.css';
 
 interface Props {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ActionModal(props: Props) {
+const ViewActionsModal = (props: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -21,81 +21,79 @@ function ActionModal(props: Props) {
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        props.setVisible(false);
     };
     return (
-        <>
-            <Modal
-                show={show}
-                onHide={handleClose}
-            >
-                <Modal.Header closeButton={false}>
-                    <Modal.Title>{'Actions'}</Modal.Title>
-                </Modal.Header>
+        <Modal
+            show={show}
+            onHide={handleClose}
+        >
+            <Modal.Header closeButton={false}>
+                <Modal.Title>{'Actions'}</Modal.Title>
+            </Modal.Header>
 
-                <Modal.Body>
-                    <Form>
-                        <Form.Group className='form-group'>
-                            <Form.Label>{'Attachment Message'}</Form.Label>
-                            <Form.Control
-                                type='long-text'
-                                placeholder='This is a example attachment message'
-                                aria-label='Disabled input example'
-                                readOnly={true}
-                            />
-                        </Form.Group>
-                        <Form.Group className='action-group'>
-                            <Form.Label>{'Actions'}</Form.Label>
-                        </Form.Group>
-                    </Form>
-                    <Table
-                        striped={true}
-                        className='listTable'
-                    >
-                        <thead>
-                            <tr>
-                                <th>{'Type'}</th>
-                                <th>{'Display Name'}</th>
-                                <th>{'Channels Added to'}</th>
-                                <th>{'Success Message'}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Import'}</td>
-                                <td>{'channel1, channel2, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Automatic'}</td>
-                                <td>{'Export'}</td>
-                                <td>{'channel1, channel2'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                            <tr>
-                                <td>{'Button'}</td>
-                                <td>{'Deport'}</td>
-                                <td>{'channel1, channel3'}</td>
-                                <td>{'Welcome to your new team mate !'}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </Modal.Body>
+            <Modal.Body>
+                <Form>
+                    <Form.Group className='form-group'>
+                        <Form.Label>{'Attachment Message'}</Form.Label>
+                        <Form.Control
+                            type='long-text'
+                            placeholder='This is a example attachment message'
+                            aria-label='Disabled input example'
+                            readOnly={true}
+                        />
+                    </Form.Group>
+                    <Form.Group className='action-group'>
+                        <Form.Label>{'Actions'}</Form.Label>
+                    </Form.Group>
+                </Form>
+                <Table
+                    striped={true}
+                    className='listTable'
+                >
+                    <thead>
+                        <tr>
+                            <th>{'Type'}</th>
+                            <th>{'Display Name'}</th>
+                            <th>{'Channels Added to'}</th>
+                            <th>{'Success Message'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{'Button'}</td>
+                            <td>{'Import'}</td>
+                            <td>{'channel1, channel2, channel3'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                        <tr>
+                            <td>{'Automatic'}</td>
+                            <td>{'Export'}</td>
+                            <td>{'channel1, channel2'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                        <tr>
+                            <td>{'Button'}</td>
+                            <td>{'Deport'}</td>
+                            <td>{'channel1, channel3'}</td>
+                            <td>{'Welcome to your new team mate !'}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </Modal.Body>
 
-                <Modal.Footer>
-                    <Button
-                        variant='secondary'
-                        onClick={handleClose}
-                    >{'Close'}</Button>
-                    {/* <Button
+            <Modal.Footer>
+                <Button
+                    variant='secondary'
+                    onClick={handleClose}
+                >{'Close'}</Button>
+                {/* <Button
                         variant='primary'
                         disabled={true}
                     >{'Save changes'}</Button> */}
-                </Modal.Footer>
-            </Modal>
-        </>
+            </Modal.Footer>
+        </Modal>
     );
-}
+};
 
-export default ActionModal;
+export default ViewActionsModal;
