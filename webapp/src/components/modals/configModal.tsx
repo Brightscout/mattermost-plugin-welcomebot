@@ -24,7 +24,7 @@ type Props = {
     modalHeader: string;
 }
 
-function ConfigModal({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) {
+const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) => {
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -715,6 +715,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
         </div>
 
     );
-}
+};
 
 export default ConfigModal;

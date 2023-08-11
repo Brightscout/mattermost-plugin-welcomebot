@@ -52,6 +52,7 @@ const DeleteSvg = () => {
 
     );
 };
+
 const ViewSvg = () => {
     return (
         <svg

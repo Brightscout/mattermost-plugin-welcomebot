@@ -13,7 +13,7 @@ type Props = {
     onChange: any;
 }
 
-function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props) {
+const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -59,6 +59,6 @@ function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props
             </Modal>
         </>
     );
-}
+};
 
 export default DeleteModal;

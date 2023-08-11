@@ -16,7 +16,7 @@ type Props = {
     configIndex: number;
 }
 
-function ActionModal({visible, setVisible, config, configIndex}: Props) {
+const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
     const [show, setShow] = useState(false);
 
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
@@ -168,6 +168,6 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
             </Modal>
         </div>
     );
-}
+};
 
 export default ActionModal;
