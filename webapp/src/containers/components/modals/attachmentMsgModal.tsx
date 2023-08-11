@@ -10,31 +10,29 @@ const AttachmentMsgModal = () => {
         setShow(false);
     };
     return (
-        <>
-            <div
-                className='modal show'
-            >
-                <Modal show={show}>
-                    <Modal.Header>
-                        <Modal.Title>{'Attachment Message'}</Modal.Title>
-                    </Modal.Header>
+        <div
+            className='modal show'
+        >
+            <Modal show={show}>
+                <Modal.Header>
+                    <Modal.Title>{'Attachment Message'}</Modal.Title>
+                </Modal.Header>
 
-                    <Modal.Body>
-                        <p>{'Attachment message body text goes here.'}</p>
-                    </Modal.Body>
+                <Modal.Body>
+                    <p>{'Attachment message body text goes here.'}</p>
+                </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button
-                            variant='secondary'
-                            onClick={handleClose}
-                        >
-                            {'Close'}
-                        </Button>
-                        <Button variant='primary'>{'Save changes'}</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        </>
+                <Modal.Footer>
+                    <Button
+                        variant='secondary'
+                        onClick={handleClose}
+                    >
+                        {'Close'}
+                    </Button>
+                    <Button variant='primary'>{'Save changes'}</Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
     );
 };
 

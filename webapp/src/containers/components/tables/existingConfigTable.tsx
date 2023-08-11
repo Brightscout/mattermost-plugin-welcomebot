@@ -33,7 +33,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const handleView = () => {
         setVisible(true);
     };
-    const handleViews = () => {
+    const handleAction = () => {
         setVisible(false);
     };
     return (
@@ -41,7 +41,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {visible &&
                 <ViewActionsModal
                     visible={visible}
-                    setVis={setVisible}
+                    setVisible={setVisible}
                 />
             }
             <FormGroup>
@@ -80,7 +80,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
+                                                onClick={handleAction}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
@@ -105,7 +105,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
+                                                onClick={handleAction}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
@@ -131,7 +131,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
+                                                onClick={handleAction}
                                             >{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
@@ -156,7 +156,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
+                                                onClick={handleAction}
                                             >
                                                 {'Edit'}
                                             </Button>
