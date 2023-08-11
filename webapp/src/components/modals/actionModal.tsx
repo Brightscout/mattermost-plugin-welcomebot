@@ -9,8 +9,6 @@ import './styles.css';
 
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
-import {Configs} from 'types/plugin/common';
-
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;

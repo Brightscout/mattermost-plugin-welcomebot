@@ -4,8 +4,6 @@ import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 're
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';

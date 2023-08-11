@@ -1,4 +1,4 @@
-export type Actions = {
+type Actions = {
     actionType: string,
     actionName: string,
     actionDisplayName: string,
@@ -6,7 +6,7 @@ export type Actions = {
     actionSuccessfullMessage: string[]
 }
 
-export type Configs = {
+type Configs = {
     teamName: string,
     delayInSeconds: number,
     message: string[],
@@ -15,22 +15,22 @@ export type Configs = {
     actions: Actions[] | null
 }
 
-export type GroupTypes = {
+type GroupTypes = {
     label: string;
     value: string;
 };
 
-export type OptionTypes = {
+type OptionTypes = {
     value: string;
     label: string;
     data: string;
 };
 
-export type Teams = {
+type Teams = {
     display_name: string;
 };
 
-export type Channels = {
+type Channels = {
     display_name: string;
     team_name: string,
 };

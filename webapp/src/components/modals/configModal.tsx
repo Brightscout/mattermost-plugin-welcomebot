@@ -11,8 +11,6 @@ import Select, {MultiValue, SingleValue} from 'react-select';
 
 import './styles.css';
 
-import {Configs, Actions, OptionTypes, Teams, Channels, GroupTypes} from 'types/plugin/common';
-
 import {fetchChannelsAndTeams} from 'api/api_wrapper';
 
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
