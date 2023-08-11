@@ -39,9 +39,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const handleDelete = () => {
         setDeleteVisible(true);
     };
-    const handleViews = () => {
-        setVisible(false);
-    };
+
     return (
         <div>
             {viewVisible && (
@@ -53,7 +51,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {deleteVisible && (
                 <DeleteConfigModal
                     visible={deleteVisible}
-                    setVis={setDeleteVisible}
+                    setVisibility={setDeleteVisible}
                 />
             )
             }
@@ -170,7 +168,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             </Button>
                                             <Button
                                                 variant='primary'
-                                                onClick={handleViews}
+                                                onClick={handleView}
                                             >
                                                 {'Edit'}
                                             </Button>
