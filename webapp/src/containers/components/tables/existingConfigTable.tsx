@@ -52,7 +52,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                 <DeleteConfigModal
                     visible={deleteVisible}
                     setVisibility={setDeleteVisible}
-            )
+               />)
             }
 
             <FormGroup>
