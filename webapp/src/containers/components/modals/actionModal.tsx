@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 type Props = {
@@ -20,6 +19,7 @@ type Props = {
 const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
     const actionsLength = config[configIndex]?.actions?.length ?? 0;
     const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
+
     const [show, setShow] = useState(false);
 
     useEffect(() => {
