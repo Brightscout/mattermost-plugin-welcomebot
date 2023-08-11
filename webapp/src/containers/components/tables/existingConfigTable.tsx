@@ -3,16 +3,15 @@ import React, {useState} from 'react';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Col from 'react-bootstrap/Col';
+
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 import ActionModal from '../modals/actionModal';
-import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
 
 type Props = {
@@ -22,7 +21,6 @@ type Props = {
 
 const ExistingConfigTable = ({value, onChange}: Props) => {
     const [viewVisible, setViewVisible] = useState(false);
-    const [deleteVisible, setDeleteVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
     const [addVisible, setAddVisible] = useState(false);
     const [configIndex, setConfigIndex] = useState(0);
@@ -33,7 +31,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     };
     const handleDelete = (index: number) => {
         setConfigIndex(index);
-        setDeleteVisible(true);
     };
     const handleEdit = (index: number) => {
         setConfigIndex(index);
@@ -45,18 +42,12 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
 
     return (
         <div className='config'>
-                    <ActionModal
-                        visible={viewVisible}
-                        setVisible={setViewVisible}
-                        config={value}
-                        configIndex={configIndex}
-                    />
-                    visible={deleteVisible}
-                    setVisible={setDeleteVisible}
-                    config={value}
-                    configIndex={configIndex}
-                    onChange={onChange}
-            }
+            <ActionModal
+                visible={viewVisible}
+                setVisible={setViewVisible}
+                config={value}
+                configIndex={configIndex}
+            />
             {editVisible &&
                 <ConfigModal
                     visible={editVisible}
@@ -199,20 +190,17 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                             }
                         </tbody>
                     </Table>}
-                    <Button
-                        className='add-config-btn'
-                        variant='primary'
-                        onClick={handleAdd}
-                    >
-                        {'Add Config'}
-                    </Button>
-                    config={null}
-                />
-            }
-            <div className='name'>
-                {label}
-            </div>         
                 </div>
+            </FormGroup>
+            <Button
+                className='add-config-btn'
+                variant='primary'
+                onClick={handleAdd}
+            >
+                {'Add Config'}
+            </Button>
+            <div className='name'>
+                {'label'}
             </div>
         </div>
     );

@@ -6,13 +6,15 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    config: Configs[];
     configIndex: number;
     onChange: any;
+}
 
-function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props) {
+const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -23,9 +25,12 @@ function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props
         setShow(false);
         setVisible(false);
     };
+    const handleDelete = () => {
         config.splice(configIndex, 1);
         onChange(config);
         handleClose();
+    };
+
     return (
         <>
             <Modal
@@ -53,6 +58,6 @@ function DeleteModal({visible, setVisible, config, configIndex, onChange}: Props
             </Modal>
         </>
     );
-}
+};
 
-export default DeleteConfigModal;
+export default DeleteModal;
