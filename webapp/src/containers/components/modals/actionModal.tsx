@@ -13,14 +13,12 @@ import {Configs} from 'types/plugin/common';
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    config: Configs[];
     configIndex: number;
 }
 
 function ActionModal({visible, setVisible, config, configIndex}: Props) {
     const actionsLength = config[configIndex]?.actions?.length ?? 0;
     const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
-    const [show, setShow] = useState(false);
 
     useEffect(() => {
         setShow(visible);
@@ -31,14 +29,13 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
         setVisible(false);
     };
     return (
-        <>
-            <Modal
-                show={show}
-                onHide={handleClose}
-            >
-                <Modal.Header closeButton={false}>
-                    <Modal.Title>{'Actions'}</Modal.Title>
-                </Modal.Header>
+        <Modal
+            show={show}
+            onHide={handleClose}
+        >
+            <Modal.Header closeButton={false}>
+                <Modal.Title>{'Actions'}</Modal.Title>
+            </Modal.Header>
 
                 <Modal.Body>
                     {(config[configIndex].attachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.actions && actionsLength > 0) ? (<>
@@ -108,6 +105,6 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
             </Modal>
         </>
     );
-}
+};
 
-export default ActionModal;
+export default ViewActionsModal;
