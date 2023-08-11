@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -112,8 +111,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         getTeamAndChannel();
-
-        if (configIndex) {
+        if (configIndex !== null) {
             setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
             setDelay(existingConfig.delayInSeconds);
