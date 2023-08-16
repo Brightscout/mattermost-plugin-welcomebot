@@ -1,10 +1,11 @@
 import {Store, Action} from 'redux';
 import {GlobalState} from 'mattermost-redux/types/store';
 
-// eslint-disable-next-line import/no-unresolved
 import {PluginRegistry} from 'types/mattermostWebapp';
 
 import ExistingConfigTable from 'components/tables/existingConfigTable';
+
+import reducers from 'reducers';
 
 import {id} from './manifest';
 
@@ -13,6 +14,7 @@ export default class Plugin {
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
         // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
         registry.registerAdminConsoleCustomSetting('WelcomeMessages', ExistingConfigTable);
+        registry.registerReducer(reducers);
     }
 }
 

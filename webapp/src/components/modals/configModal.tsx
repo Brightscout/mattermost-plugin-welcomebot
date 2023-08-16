@@ -11,9 +11,13 @@ import Select, {MultiValue, SingleValue} from 'react-select';
 
 import './styles.css';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 import {fetchChannelsAndTeams} from 'api/api_wrapper';
 
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
+
+import {increment} from 'reducers/testReducer';
 
 type Props = {
     visible: boolean;
@@ -96,7 +100,15 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
     const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
 
+    const [dropdownDisabled, setDropdownDisabled] = useState(false);
+
     const actionLength = existingConfig?.actions?.length ?? 0;
+
+    const dispatch = useDispatch();
+
+    const count = useSelector((state: ReduxState) => state);
+
+    const dropdownDisabled = count['plugins-com.mattermost.welcomebot'].mySlice.count;
 
     useEffect(() => {
         setShow(visible);
@@ -108,7 +120,19 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     }, [config]);
 
     useEffect(() => {
+        console.log('1 ', dropdownDisabled);
+    }, [dropdownDisabled]);
+
+    useEffect(() => {
+        dispatch(increment());
         getTeamAndChannel();
+        setTimeout(() => {
+            console.log('Hello, World!');
+        }, 10000);
+        dispatch(increment());
+    }, []);
+
+    useEffect(() => {
         if (configIndex !== null) {
             setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
@@ -377,6 +401,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
                                     <Select
+                                        isDisabled={dropdownDisabled}
                                         closeMenuOnSelect={true}
                                         onChange={handleTeamSelect}
                                         isMulti={false}
