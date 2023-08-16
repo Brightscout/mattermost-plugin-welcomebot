@@ -12,13 +12,14 @@ import './styles.css';
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVis: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
+}
 
 function ConfigModal(props: Props) {
     const [show, setShow] = useState(false);
