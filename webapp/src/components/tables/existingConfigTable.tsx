@@ -4,14 +4,11 @@ import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 're
 
 import './styles.css';
 
-import {useDispatch, useSelector} from 'react-redux';
-
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
 
 import {DeleteSvg, EditSvg, ViewSvg} from '../svgIcons/svg';
-import {increment} from 'reducers/testReducer';
 
 type Props = {
     onChange: any
@@ -25,7 +22,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     const [isaddVisible, setIsAddVisible] = useState(false);
 
     const [configIndex, setConfigIndex] = useState(0);
-    const dispatch = useDispatch();
     const handleView = (index: number) => {
         setConfigIndex(index);
         setIsViewVisible(true);
@@ -41,15 +37,9 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     const handleAdd = () => {
         setIsAddVisible(true);
     };
-    const handleTest = () => {
-        dispatch(increment());
-    };
-
-    const count = useSelector((state: ReduxState) => state);
 
     return (
         <div className='config'>
-            {console.log(count['plugins-com.mattermost.welcomebot'].mySlice.count)}
             {
                 isviewVisible &&
                     <ActionModal
@@ -186,12 +176,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     >
                         {'Add Config'}
                     </Button>
-                    <Button
-                        onClick={handleTest}
-                    >
-                        {'testing'}
-                    </Button>
-                    {/* <p>{count}</p> */}
                 </div>
             </FormGroup>
         </div>
