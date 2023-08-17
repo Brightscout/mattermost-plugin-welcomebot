@@ -52,20 +52,14 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                         configIndex={configIndex}
                     />
                     visible={deleteVisible}
-                    setVis={setDeleteVisible}
-                    config={value}
                     configIndex={configIndex}
                     onChange={onChange}
-            }
-            {editVisible &&
-                <ConfigModal
                     visible={editVisible}
                     setVis={setEditVisible}
                     configIndex={configIndex}
                     config={value}
                     onChange={onChange}
                     modalHeader='Edit Config'
-                />
             }
             {addVisible &&
                 <ConfigModal
@@ -205,12 +199,10 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     >
                         {'Add Config'}
                     </Button>
-                    config={null}
                 />
             }
             <div className='name'>
                 {label}
-            </div>         
                 </div>
             </div>
         </div>

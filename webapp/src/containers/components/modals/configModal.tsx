@@ -61,7 +61,7 @@ function ConfigModal(props: Props) {
             setConfigVisible(true);
         } else {
             setShow(false);
-            props.setVis(false);
+            props.setVisibility(false);
         }
     };
     const handleActions = () => {
