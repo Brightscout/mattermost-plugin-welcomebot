@@ -1,11 +1,9 @@
 import {id} from 'manifest';
 
-const getBaseUrls = (): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
-    const url = new URL(window.location.href);
-    const baseUrl = `${url.protocol}//${url.host}`;
-    const pluginUrl = `${baseUrl}/plugins/${id}`;
+const getBaseUrls = (mmSiteUrl: string): {pluginApiBaseUrl: string; mattermostApiBaseUrl: string} => {
+    const pluginUrl = `${mmSiteUrl}/plugins/${id}`;
     const pluginApiBaseUrl = `${pluginUrl}/api/v1`;
-    const mattermostApiBaseUrl = `${baseUrl}/api/v4`;
+    const mattermostApiBaseUrl = `${mmSiteUrl}/api/v4`;
 
     return {pluginApiBaseUrl, mattermostApiBaseUrl};
 };
