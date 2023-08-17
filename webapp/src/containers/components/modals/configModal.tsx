@@ -11,6 +11,7 @@ import './styles.css';
 
 import {Configs, Actions} from 'types/plugin/common';
 
+
 type Props = {
 type Props = {
     visible: boolean;
