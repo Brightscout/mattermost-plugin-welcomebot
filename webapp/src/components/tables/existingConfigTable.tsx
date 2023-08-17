@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 
 import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 
-import './styles.css';
-
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
+
+import './styles.css';
 
 import {DeleteSvg, EditSvg, ViewSvg} from '../svgIcons/svg';
 
@@ -43,16 +43,16 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             {
                 isviewVisible &&
                     <ActionModal
-                        visible={isviewVisible}
-                        setVisible={setIsViewVisible}
+                        visibility={isviewVisible}
+                        setVisibility={setIsViewVisible}
                         config={value}
                         configIndex={configIndex}
                     />
             }
             {isdeleteVisible &&
                 <DeleteModal
-                    visible={isdeleteVisible}
-                    setVisible={setIsDeleteVisible}
+                    visibility={isdeleteVisible}
+                    setVisibility={setIsDeleteVisible}
                     config={value}
                     configIndex={configIndex}
                     onChange={onChange}
@@ -60,8 +60,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             }
             {iseditVisible &&
                 <ConfigModal
-                    visible={iseditVisible}
-                    setVisible={setIsEditVisible}
+                    visibility={iseditVisible}
+                    setVisibility={setIsEditVisible}
                     configIndex={configIndex}
                     config={value}
                     onChange={onChange}
@@ -70,8 +70,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
             }
             {isaddVisible &&
                 <ConfigModal
-                    visible={isaddVisible}
-                    setVisible={setIsAddVisible}
+                    visibility={isaddVisible}
+                    setVisibility={setIsAddVisible}
                     configIndex={null}
                     config={value}
                     onChange={onChange}

@@ -65,7 +65,7 @@
     margin-bottom: 1em;
 }
 
-.teamName {
+.team-name {
     max-width: 15%;
     overflow: hidden;
     text-overflow: ellipsis;

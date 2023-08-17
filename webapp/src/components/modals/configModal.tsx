@@ -20,15 +20,15 @@ import {fetchChannelsAndTeams} from 'api/api_wrapper';
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
 }
 
-const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) => {
+const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, modalHeader}: Props) => {
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
@@ -110,9 +110,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     const mmSiteUrl = reduxState?.entities?.general?.config?.SiteURL as string;
 
     useEffect(() => {
-        setShow(visible);
-        setIsConfigVisible(visible);
-    }, [visible]);
+        setShow(visibility);
+        setIsConfigVisible(visibility);
+    }, [visibility]);
 
     useEffect(() => {
         setExistingConfig(configIndex === null ? newConfig : config[configIndex]);
@@ -236,7 +236,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         } else {
             setValidated(false);
             setShow(false);
-            setVisible(false);
+            setVisibility(false);
             setApiCalled(false);
         }
     };

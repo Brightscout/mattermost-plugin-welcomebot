@@ -6,19 +6,19 @@ import Modal from 'react-bootstrap/Modal';
 import './styles.css';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
     onChange: any;
 }
 
-const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
+const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(visible);
-    }, [visible]);
+        setShow(visibility);
+    }, [visibility]);
 
     const handleDelete: () => void = () => {
         config.splice(configIndex, 1);
@@ -28,7 +28,7 @@ const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props
 
     const handleClose = () => {
         setShow(false);
-        setVisible(false);
+        setVisibility(false);
     };
 
     return (

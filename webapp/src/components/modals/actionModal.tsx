@@ -10,13 +10,13 @@ import './styles.css';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
 }
 
-const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
+const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) => {
     const [show, setShow] = useState(false);
 
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
@@ -35,12 +35,12 @@ const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
 
     useEffect(() => {
         checkAttachmentMessage();
-        setShow(visible);
-    }, [visible]);
+        setShow(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
         setShow(false);
-        setVisible(false);
+        setVisibility(false);
     };
     return (
         <div>
