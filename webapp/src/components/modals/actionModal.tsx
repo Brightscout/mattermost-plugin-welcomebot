@@ -21,15 +21,13 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
 
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
 
-    const actionsLength = config[configIndex]?.actions?.length ?? 0;
+    const actionsLength = config[configIndex]?.actions?.length;
 
     const checkAttachmentMessage = () => {
-        if (config[configIndex]?.attachmentMessage) {
-            if (config[configIndex]?.attachmentMessage?.length === 0) {
-                setAttachmentMessageAvailable(false);
-            } else {
-                setAttachmentMessageAvailable(config[configIndex]?.attachmentMessage?.[0] !== '');
-            }
+        if (config[configIndex]?.attachmentMessage?.length) {
+            setAttachmentMessageAvailable(Boolean(config[configIndex]?.attachmentMessage?.[0]));
+        } else {
+            setAttachmentMessageAvailable(false);
         }
     };
 
@@ -42,6 +40,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
         setShow(false);
         setVisibility(false);
     };
+
     return (
         <div>
             <Modal
@@ -54,7 +53,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                 </Modal.Header>
 
                 <Modal.Body className='customModalBody'>
-                    {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength > 0) ? (<>
+                    {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
                         {attachmentMessageAvailable ? (
                             <Form>
                                 <Form.Group className='form-group'>
@@ -70,7 +69,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                             </Form>
                         ) : (<p>{'No attachment message configured'}</p>)
                         }
-                        {config[configIndex]?.actions && actionsLength > 0 ? (
+                        {config[configIndex]?.actions && actionsLength ? (
                             <div>
                                 <Form>
                                     <Form.Group className='action-group'>
@@ -80,7 +79,6 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                 <div className='listTable'>
                                     <Table
                                         striped={true}
-                                        className='listTable'
                                     >
                                         <thead>
                                             <tr>
@@ -88,7 +86,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                                 <th className='display-name-action'>{'Display Name'}</th>
                                                 <th className='name-action'>{'Name'}</th>
                                                 <th className='channels-added-action'>{'Add to Channels'}</th>
-                                                <th className='successfull-message-action'>{'Success Message'}</th>
+                                                <th className='success-message-action'>{'Success Message'}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -136,7 +134,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
-                                                <td className='successfull-message-action'>
+                                                <td className='success-message-action'>
                                                     <OverlayTrigger
                                                         placement='top'
                                                         overlay={<Tooltip>{val.actionSuccessfullMessage}</Tooltip>}

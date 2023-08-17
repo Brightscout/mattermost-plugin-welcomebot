@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -15,7 +16,7 @@ import {GlobalState} from 'mattermost-redux/types/store';
 
 import './styles.css';
 
-import {fetchChannelsAndTeams} from 'api/api_wrapper';
+import {fetchChannels, fetchTeams} from 'api/api_wrapper';
 
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
 
@@ -45,8 +46,8 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         channelsAddedTo: [''],
         actionSuccessfullMessage: [''],
     };
-    const newAction: Actions[] = [
-    ];
+
+    const newAction: Actions[] = [];
 
     const newConfig: Configs = {
         teamName: '',
@@ -100,9 +101,13 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
     const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
 
-    const [dropdownDisabled, setDropdownDisabled] = useState(false);
-    const [apiCalled, setApiCalled] = useState(true);
-    const [apiError, setApiError] = useState('');
+    const [teamDropdownDisabled, setTeamDropdownDisabled] = useState(false);
+    const [teamApiCalled, setTeamApiCalled] = useState(true);
+    const [teamApiError, setTeamApiError] = useState('');
+
+    const [chanelDropdownDisabled, setChannelDropdownDisabled] = useState(false);
+    const [channelApiCalled, setChannelApiCalled] = useState(true);
+    const [channelApiError, setChannelApiError] = useState('');
 
     const actionLength = existingConfig?.actions?.length ?? 0;
 
@@ -119,7 +124,8 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     }, [config]);
 
     useEffect(() => {
-        getTeamAndChannel(mmSiteUrl);
+        getTeam(mmSiteUrl);
+        getChannel(mmSiteUrl);
         if (configIndex !== null) {
             setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
@@ -166,7 +172,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
     const handlePrimary = () => {
         if (isActionVisible) {
-            if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid) {
+            if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid && channelApiError === '') {
                 if (configIndex !== null) {
                     if (actionIndex === null) {
                         actionElement.actionDisplayName = actionDisplayName;
@@ -199,7 +205,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             }
         }
         if (isConfigVisible) {
-            if (teamNameValid && messageValid && apiError === '') {
+            if (teamNameValid && messageValid && teamApiError === '') {
                 if (configIndex === null) {
                     structureNewConfig();
                     config.push(existingConfig);
@@ -237,7 +243,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             setValidated(false);
             setShow(false);
             setVisibility(false);
-            setApiCalled(false);
+            setTeamApiCalled(false);
         }
     };
 
@@ -251,7 +257,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         setActionClicked(true);
         if (selectedTeam === '') {
             setTeamSelectionWarning(false);
-        } else if (apiError === '') {
+        } else if (teamApiError === '') {
             setTeamSelectionWarning(true);
             setValidated(false);
             resetActionElement();
@@ -281,18 +287,29 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             setSelectedTeam(teams.value);
         }
     };
-    const getTeamAndChannel = async (SiteUrl: string) => {
+
+    const getTeam = async (SiteUrl: string) => {
         try {
-            setDropdownDisabled(true);
-            setApiCalled(true);
-            const apiResponse = await fetchChannelsAndTeams(SiteUrl);
-            const teamData = apiResponse.teams;
-            const channelData = apiResponse.channels;
+            setTeamDropdownDisabled(true);
+            setTeamApiCalled(true);
+            const teamData = await fetchTeams(SiteUrl);
             const TeamOptions = teamData.map((team: Teams) => ({
                 value: team.display_name,
                 label: team.display_name,
             }));
             setTeamOptionList(TeamOptions);
+        } catch (error) {
+            setTeamApiError('Some error occured fetching the team list');
+        } finally {
+            setTeamDropdownDisabled(false);
+        }
+    };
+
+    const getChannel = async (SiteUrl: string) => {
+        try {
+            setChannelDropdownDisabled(true);
+            setChannelApiCalled(true);
+            const channelData = await fetchChannels(SiteUrl);
             const channelOptions = channelData.map((channel: Channels) => ({
                 value: channel.display_name,
                 label: channel.display_name,
@@ -300,9 +317,9 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             }));
             setChannelOptionList(channelOptions);
         } catch (error) {
-            setApiError('Some error occured fetching the team list');
+            setChannelApiError('Some error occured fetching the channel list');
         } finally {
-            setDropdownDisabled(false);
+            setChannelDropdownDisabled(false);
         }
     };
 
@@ -388,14 +405,14 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                             noValidate={true}
                             validated={validated}
                         >
-                            <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (apiCalled && apiError !== '')) ? '' : 'warning'}>
+                            <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (teamApiCalled && teamApiError !== '')) ? '' : 'warning'}>
                                 <Form.Group
                                     className='form-group teamName-dropdown'
                                     controlId='validationCustom02'
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
                                     <Select
-                                        isDisabled={dropdownDisabled}
+                                        isDisabled={teamDropdownDisabled}
                                         closeMenuOnSelect={true}
                                         onChange={handleTeamSelect}
                                         isMulti={false}
@@ -404,12 +421,12 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         options={teamOptionList}
                                         value={teamOptionList.find((option) => option.value === teamName)}
                                     />
-                                    {((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (apiCalled && apiError !== '')) &&
+                                    {((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (teamApiCalled && teamApiError !== '')) &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
                                     >
-                                        {apiError === '' ? 'Please provide a team name.' : apiError}
+                                        {teamApiError === '' ? 'Please provide a team name' : teamApiError}
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
@@ -596,13 +613,13 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         )
                         }
                     </div>}
-
                     {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
-                            <div className={validated && !actionChannelsAddedToValid ? '' : 'warnings'}>
+                            <div className={((validated && !actionChannelsAddedToValid) || (channelApiCalled && channelApiError !== '')) ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Add to Channels*'}</Form.Label>
                                     <Select
+                                        isDisabled={chanelDropdownDisabled}
                                         closeMenuOnSelect={false}
                                         onChange={handleChannelSelect}
                                         isMulti={true}
@@ -613,12 +630,12 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         )}
                                         value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
                                     />
-                                    {validated && !actionChannelsAddedToValid &&
+                                    {((validated && !actionChannelsAddedToValid) || (channelApiCalled && channelApiError !== '')) &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
                                     >
-                                        {'Please provide at least one channel name'}
+                                        {channelApiError === '' ? 'Please provide at least one channel name' : channelApiError}
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
@@ -711,7 +728,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
-
                     {isDeleteVisible && <div className={isDeleteVisible ? 'fade-enter' : 'fade-exit'}>
                         <p>{`Are you sure you would like to delete the action ${deleteAction}?`}</p>
                     </div>}
@@ -732,7 +748,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                 </Modal.Footer>
             </Modal>
         </div>
-
     );
 };
 
