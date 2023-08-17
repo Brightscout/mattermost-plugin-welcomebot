@@ -66,7 +66,7 @@ const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
                             </Form>
                             <Table
                                 striped={true}
-                                className='listTable'
+                                className='list-table'
                             >
                                 <thead>
                                     <tr>

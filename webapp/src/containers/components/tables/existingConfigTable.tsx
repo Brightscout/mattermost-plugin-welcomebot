@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 
-import FormGroup from 'react-bootstrap/FormGroup';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Col from 'react-bootstrap/Col';
 import './styles.css';
 
 // eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 import ActionModal from '../modals/actionModal';
-import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
 
 type Props = {
@@ -45,18 +43,12 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
 
     return (
         <div className='config'>
-                    <ActionModal
-                        visible={viewVisible}
-                        setVisible={setViewVisible}
-                        config={value}
-                        configIndex={configIndex}
-                    />
-                    visible={deleteVisible}
-                    setVisible={setDeleteVisible}
-                    config={value}
-                    configIndex={configIndex}
-                    onChange={onChange}
-            }
+            <ActionModal
+                visible={viewVisible}
+                setVisible={setViewVisible}
+                config={value}
+                configIndex={configIndex}
+            />
             {editVisible &&
                 <ConfigModal
                     visible={editVisible}
@@ -77,19 +69,18 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Add Config'
                 />
             }
-            <FormGroup>
-                <div className='name'>
-                    {'Existing Configs'}
-                </div>
-                <div>
-                    {value.length > 0 &&
+            <div className='name'>
+                {'Existing Configs'}
+            </div>
+            <div>
+                {value.length > 0 &&
                     <Table
                         striped={true}
                         className='existing-config-table'
                     >
                         <thead>
                             <tr>
-                                <th className='teamName'>{'Team Name'}</th>
+                                <th className='team-name'>{'Team Name'}</th>
                                 <th className='delay'>{'Delay (in sec)'}</th>
                                 <th className='message'>{'Message'}</th>
                                 <th className='includeGuests'>{'Include Guests'}</th>
@@ -198,19 +189,15 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                             }
                         </tbody>
                     </Table>}
-                    <Button
-                        className='add-config-btn'
-                        variant='primary'
-                        onClick={handleAdd}
-                    >
-                        {'Add Config'}
-                    </Button>
-                    config={null}
-                />
-            }
-            <div className='name'>
-                {label}
-            </div>         
+                <Button
+                    className='add-config-btn'
+                    variant='primary'
+                    onClick={handleAdd}
+                >
+                    {'Add Config'}
+                </Button>
+                <div className='name'>
+                    {'label'}
                 </div>
             </div>
         </div>

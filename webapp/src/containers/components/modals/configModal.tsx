@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -12,15 +11,16 @@ import './styles.css';
 
 import {Configs, Actions} from 'types/plugin/common';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
+}
 
-function ConfigModal({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) {
+const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) => {
     const actionElement: Actions = {
         actionType: '',
         actionName: '',
@@ -303,7 +303,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                         {modalHeader}
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='configModalBody'>
+                <Modal.Body className='config-modal-body'>
                     {configIsVisible && <div className={configIsVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             noValidate={true}
@@ -350,7 +350,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 <Form.Label>{'Message*'}</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    placeholder=' Enter a message to post to a new user'
+                                    placeholder='Enter a message to post to a new user'
                                     value={message}
                                     onChange={(e) => setMessage([e.target.value])}
                                 />
@@ -367,7 +367,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 <ButtonGroup className='radio'>
                                     {guest.map((guests, index) => (
                                         <ToggleButton
-                                            className='guestButton'
+                                            className='guest-button'
                                             key={index.toString()}
                                             type='radio'
                                             name='radio'
@@ -398,7 +398,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                         {existingConfig?.actions && actionLength ? (
                             <Table
                                 striped={true}
-                                className='listTable'
+                                className='list-table'
                             >
                                 <thead>
                                     <tr>
@@ -497,7 +497,7 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
                                 <ButtonGroup className='radio'>
                                     {actionTypes.map((radio, index) => (
                                         <ToggleButton
-                                            className='actionTypeButton'
+                                            className='action-type-button'
                                             key={index.toString()}
                                             type='radio'
                                             name='radio'
@@ -611,6 +611,6 @@ function ConfigModal({visible, setVisible, configIndex, config, onChange, modalH
             </Modal>
         </>
     );
-}
+};
 
 export default ConfigModal;

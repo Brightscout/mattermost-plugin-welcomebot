@@ -8,7 +8,7 @@
   overflow-y: hidden;
 }
 
-.configModalBody{
+.config-modal-body{
   height: 80%;
   overflow-y: auto;
 }
@@ -95,7 +95,7 @@ table.table thead {
   margin-bottom: 0;
 }
 
-.listTable {
+.list-table {
   margin-bottom: 0;
 }
 
@@ -107,16 +107,16 @@ table.table thead {
   color: red;
 }
 
-.listTable th {
+.list-table th {
   text-align: center;
 }
 
-.guestButton.active {
+.guest-button.active {
   box-shadow: none;
   outline: transparent;
 }
 
-.actionTypeButton.active {
+.action-type-button.active {
   box-shadow: none;
   outline: transparent;
 }
