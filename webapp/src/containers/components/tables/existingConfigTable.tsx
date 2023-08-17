@@ -66,20 +66,20 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {deleteVisible &&
                 <DeleteModal
                     visible={deleteVisible}
-                    setVis={setDeleteVisible}
+                    setVisibility={setDeleteVisible}
                 />
             }
             {editVisible &&
                 <ConfigModal
                     visible={editVisible}
-                    setVis={setEditVisible}
+                    setVisibility={setEditVisible}
                     config={myConfig}
                 />
             }
             {addVisible &&
                 <ConfigModal
                     visible={addVisible}
-                    setVis={setAddVisible}
+                    setVisibility={setAddVisible}
                     config={null}
                 />
             }

@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 import './styles.css';
 
-interface Props {
+type Props = {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function DeleteConfigModal(props: Props) {
@@ -17,7 +19,7 @@ function DeleteConfigModal(props: Props) {
 
     const handleClose = () => {
         setShow(false);
-        props.setVis(false);
+        props.setVisibility(false);
     };
     return (
         <>

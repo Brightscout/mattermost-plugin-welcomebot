@@ -14,7 +14,7 @@ import {Config} from 'types/plugin/common';
 
 type Props = {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Config | null;
 }
 
@@ -48,7 +48,7 @@ function ConfigModal(props: Props) {
             setConfigVisible(true);
         } else {
             setShow(false);
-            props.setVis(false);
+            props.setVisibility(false);
         }
     };
     const handleActions = () => {
