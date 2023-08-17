@@ -56,7 +56,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     config={value}
                     onChange={onChange}
                     modalHeader='Edit Config'
-                />
             }
             {addVisible &&
                 <ConfigModal

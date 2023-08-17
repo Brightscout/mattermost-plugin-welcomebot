@@ -139,7 +139,6 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         } else {
             setShow(false);
             setVisible(false);
-        }
     };
     const handleEditAction = (i: number) => {
         setActionIndex(i);
