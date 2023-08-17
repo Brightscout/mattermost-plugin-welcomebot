@@ -7,7 +7,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 import ActionModal from '../modals/actionModal';
@@ -20,7 +19,6 @@ type Props = {
 
 const ExistingConfigTable = ({value, onChange}: Props) => {
     const [viewVisible, setViewVisible] = useState(false);
-    const [deleteVisible, setDeleteVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
     const [addVisible, setAddVisible] = useState(false);
     const [configIndex, setConfigIndex] = useState(0);
@@ -31,7 +29,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     };
     const handleDelete = (index: number) => {
         setConfigIndex(index);
-        setDeleteVisible(true);
     };
     const handleEdit = (index: number) => {
         setConfigIndex(index);

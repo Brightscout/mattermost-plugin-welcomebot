@@ -12,6 +12,7 @@ import './styles.css';
 import {Configs, Actions} from 'types/plugin/common';
 
 type Props = {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
@@ -595,18 +596,53 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button
-                        variant='secondary'
-                        onClick={handleClose}
-                    >
-                        {'Close'}
-                    </Button>
-                    <Button
-                        variant='primary'
-                        onClick={handlePrimary}
-                    >
-                        {'Save changes'}
-                    </Button>
+                    {configVisible && handleCloseButton('primary', 'Save changes')}
+                    {actionVisible && handleCloseButton('primary', 'Add action')}
+                    {configVisible && handleCloseButton('secondary', 'Close')}
+                    {actionVisible && handleCloseButton('secondary', 'Cancel')}
+                    {deleteVisible && handleCloseButton('secondary', 'Cancel')}
+                    {deleteVisible && handleCloseButton('danger', 'Delete action')}
+                    {/* {configVisible &&
+                        <Button
+                            variant='secondary'
+                            onClick={handleClose}
+                        >
+                            {'Close'}
+                        </Button>}
+                    {actionVisible &&
+                        <Button
+                            variant='secondary'
+                            onClick={handleClose}
+                        >
+                            {'Cancel'}
+                        </Button>}
+                    {deleteVisible &&
+                        <Button
+                            variant='secondary'
+                            onClick={handleClose}
+                        >
+                            {'Cancel'}
+                        </Button>}
+                    {configVisible &&
+                        <Button
+                            variant='primary'
+                            onClick={handleClose}
+                        >
+                            {'Save changes'}
+                        </Button>}
+                    {actionVisible &&
+                        <Button
+                            variant='primary'
+                            onClick={handleClose}
+                        >{'Add action'}
+                        </Button>}
+                    {deleteVisible &&
+                        <Button
+                            variant='danger'
+                            onClick={handleClose}
+                        >
+                            {'Delete action'}
+                        </Button>} */}
                 </Modal.Footer>
             </Modal>
         </>
