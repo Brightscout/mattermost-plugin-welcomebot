@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Configs} from 'types/plugin/common';
 
 interface Props {
@@ -25,7 +26,6 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
         config.splice(configIndex, 1);
         onChange(config);
         handleClose();
-    return (
         <>
             <Modal
                 show={show}
@@ -52,6 +52,6 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
             </Modal>
         </>
     );
-}
+};
 
 export default DeleteConfigModal;
