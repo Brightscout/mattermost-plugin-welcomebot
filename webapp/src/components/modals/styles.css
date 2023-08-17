@@ -134,7 +134,7 @@
 }
 
 .warnings {
-  margin-bottom: 25.25px;
+  margin-bottom: 25.15px;
 }
 
 .warnings .form-group {
@@ -207,12 +207,6 @@
 .channels-added-action {
   width: 30%;
   display: flex;
-}
-
-.channels-added-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .name-action {
