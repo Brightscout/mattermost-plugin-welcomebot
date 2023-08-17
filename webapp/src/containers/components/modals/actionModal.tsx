@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 
 import './styles.css';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
