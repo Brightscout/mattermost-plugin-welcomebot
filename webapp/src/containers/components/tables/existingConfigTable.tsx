@@ -45,14 +45,16 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
             {viewVisible && (
                 <ViewActionsModal
                     visible={viewVisible}
-                    setVis={setViewVisible}
-                />)
+                    setVisible={setViewVisible}
+                />
+            )
             }
             {deleteVisible && (
                 <DeleteConfigModal
                     visible={deleteVisible}
                     setVisibility={setDeleteVisible}
-               />)
+                />
+            )
             }
 
             <FormGroup>
@@ -116,8 +118,9 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             >
                                                 {'View'}
                                             </Button>
-                                            <Button
-                                                variant='primary'
+                                            <Button variant='secondary'>
+                                                {'Close'}
+                                            </Button>
                                         </ButtonGroup>
                                     </div>
                                 </td>
@@ -163,8 +166,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                             >
                                                 {'View'}
                                             </Button>
-                                            <Button
-                                            >
+                                            <Button>
                                                 {'Edit'}
                                             </Button>
                                             <Button variant='danger'>

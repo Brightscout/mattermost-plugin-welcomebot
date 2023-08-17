@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+
 import './styles.css';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
