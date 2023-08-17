@@ -61,6 +61,7 @@
     "webpack-cli": "3.3.12"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.9.5",
     "core-js": "3.6.5",
     "js-cookie": "3.0.5",
     "mattermost-redux": "5.27.0",

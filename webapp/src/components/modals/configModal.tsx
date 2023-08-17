@@ -9,6 +9,10 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import Select, {MultiValue, SingleValue} from 'react-select';
 
+import {useSelector} from 'react-redux';
+
+import {GlobalState} from 'mattermost-redux/types/store';
+
 import './styles.css';
 
 import {fetchChannelsAndTeams} from 'api/api_wrapper';
@@ -102,6 +106,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
 
     const actionLength = existingConfig?.actions?.length ?? 0;
 
+    const reduxState = useSelector((state: GlobalState) => state);
+    const mmSiteUrl = reduxState?.entities?.general?.config?.SiteURL as string;
+
     useEffect(() => {
         setShow(visible);
         setIsConfigVisible(visible);
@@ -112,7 +119,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     }, [config]);
 
     useEffect(() => {
-        getTeamAndChannel();
+        getTeamAndChannel(mmSiteUrl);
         if (configIndex !== null) {
             setSelectedTeam(existingConfig.teamName);
             setTeamName(existingConfig.teamName);
@@ -274,11 +281,11 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             setSelectedTeam(teams.value);
         }
     };
-    const getTeamAndChannel = async () => {
+    const getTeamAndChannel = async (SiteUrl: string) => {
         try {
             setDropdownDisabled(true);
             setApiCalled(true);
-            const apiResponse = await fetchChannelsAndTeams();
+            const apiResponse = await fetchChannelsAndTeams(SiteUrl);
             const teamData = apiResponse.teams;
             const channelData = apiResponse.channels;
             const TeamOptions = teamData.map((team: Teams) => ({

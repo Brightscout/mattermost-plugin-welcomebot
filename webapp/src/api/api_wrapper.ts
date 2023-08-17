@@ -2,9 +2,9 @@ import Cookies from 'js-cookie';
 
 import Utils from 'utils';
 
-export const fetchChannels = async () => {
+export const fetchChannels = async (mmSiteUrl: string) => {
     const authToken = 'Bearer ' + Cookies.get('MMAUTHTOKEN') || '';
-    const url = Utils.getBaseUrls().mattermostApiBaseUrl + '/channels?exclude_default_channels=true';
+    const url = Utils.getBaseUrls(mmSiteUrl).mattermostApiBaseUrl + '/channels?exclude_default_channels=true';
     const response = await fetch(url, {
         method: 'GET',
         headers: {Authentication: authToken},
@@ -12,9 +12,9 @@ export const fetchChannels = async () => {
     return response.json();
 };
 
-export const fetchTeams = async () => {
+export const fetchTeams = async (mmSiteUrl: string) => {
     const authToken = 'Bearer ' + Cookies.get('MMAUTHTOKEN') || '';
-    const url = Utils.getBaseUrls().mattermostApiBaseUrl + '/teams';
+    const url = Utils.getBaseUrls(mmSiteUrl).mattermostApiBaseUrl + '/teams';
     const response = await fetch(url, {
         method: 'GET',
         headers: {Authentication: authToken},
@@ -22,8 +22,8 @@ export const fetchTeams = async () => {
     return response.json();
 };
 
-export const fetchChannelsAndTeams = async () => {
-    const channels = await fetchChannels();
-    const teams = await fetchTeams();
+export const fetchChannelsAndTeams = async (mmSiteUrl: string) => {
+    const channels = await fetchChannels(mmSiteUrl);
+    const teams = await fetchTeams(mmSiteUrl);
     return {channels, teams};
 };
