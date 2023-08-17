@@ -10,7 +10,7 @@ type Props = {
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function DeleteConfigModal(props: Props) {
+const DeleteConfigModal = (props: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -46,6 +46,6 @@ function DeleteConfigModal(props: Props) {
             </Modal>
         </>
     );
-}
+};
 
 export default DeleteConfigModal;

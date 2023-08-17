@@ -93,21 +93,21 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                 >
                     <thead>
                         <tr>
-                            <th className='teamName'>{'Team Name'}</th>
+                            <th className='team-name'>{'Team Name'}</th>
                             <th className='delay'>{'Delay (in sec)'}</th>
                             <th className='message'>{'Message'}</th>
-                            <th className='includeGuests'>{'Include Guests'}</th>
+                            <th className='include-guests'>{'Include Guests'}</th>
                             <th className='option'>{'Options'}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td className='teamName'>{'Standup'}</td>
+                            <td className='team-name'>{'Standup'}</td>
                             <td className='delay'>{'4'}</td>
                             <td className='message'>
                                 {'Hello to standup group sdhfvk.'}
                             </td>
-                            <td className='includeGuests'>
+                            <td className='include-guests'>
                                 {'True'}
                             </td>
                             <td className='option'>
@@ -203,10 +203,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className='teamName'>{'Overview'}</td>
+                            <td className='team-name'>{'Overview'}</td>
                             <td className='delay'>{'5'}</td>
                             <td className='message'>{'This group is to share overview'}</td>
-                            <td className='includeGuests'>
+                            <td className='include-guests'>
                                 {'True'}
                             </td>
                             <td className='option'>
@@ -297,10 +297,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className='teamName'>{'Result'}</td>
+                            <td className='team-name'>{'Result'}</td>
                             <td className='delay'>{'2'}</td>
                             <td className='message'>{'Share all your results here'}</td>
-                            <td className='includeGuests'>
+                            <td className='include-guests'>
                                 {'True'}
                             </td>
 
@@ -393,10 +393,10 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className='teamName'>{'Deploy'}</td>
+                            <td className='team-name'>{'Deploy'}</td>
                             <td className='delay'>{'6'}</td>
                             <td className='message'>{'Deployment details here'}</td>
-                            <td className='includeGuests'>
+                            <td className='include-guests'>
                                 {'True'}
                             </td>
                             <td className='option'>
