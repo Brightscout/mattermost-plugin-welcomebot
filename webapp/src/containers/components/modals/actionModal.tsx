@@ -13,7 +13,6 @@ type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
-    config: Configs[];
     configIndex: number;
 }
 
@@ -108,6 +107,6 @@ const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default ActionModal;
