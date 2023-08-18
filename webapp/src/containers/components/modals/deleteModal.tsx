@@ -9,11 +9,13 @@ import {Configs} from 'types/plugin/common';
 
 interface Props {
     visible: boolean;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
     onChange: any;
+}
 
-function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
+const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -21,11 +23,16 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
     }, [visible]);
 
     const handleClose = () => {
-        setVis(false);
+        setVisible(false);
+    };
+
     const handleDelete = () => {
         config.splice(configIndex, 1);
         onChange(config);
         handleClose();
+    };
+
+    return (
         <>
             <Modal
                 show={show}
@@ -54,4 +61,4 @@ function DeleteModal({visible, setVis, config, configIndex, onChange}: Props) {
     );
 };
 
-export default DeleteConfigModal;
+export default DeleteModal;
