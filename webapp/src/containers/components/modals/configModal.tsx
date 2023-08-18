@@ -48,9 +48,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     };
     const [show, setShow] = useState(true);
 
-    const [configIsVisible, setConfigIsVisible] = useState(true);
-    const [actionIsVisible, setActionIsVisible] = useState(false);
-    const [deleteIsVisible, setDeleteIsVisible] = useState(false);
+    const [isConfigVisible, setIsConfigVisible] = useState(true);
+    const [isActionVisible, setIsActionVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
@@ -104,7 +104,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
 
     useEffect(() => {
         setShow(visible);
-        setConfigIsVisible(visible);
+        setIsConfigVisible(visible);
     }, [visible]);
 
     useEffect(() => {
@@ -112,7 +112,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     }, [actionIndex]);
 
     useEffect(() => {
-        setTeamNameValid(teamName.trim() !== '');
+        setTeamNameValid(Boolean(teamName.trim()));
         if (!message.length) {
             setMessageValid(false);
         } else if (message.length === 1) {
@@ -172,14 +172,14 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const handleClose = () => {
-        if (actionIsVisible) {
+        if (isActionVisible) {
             setValidated(false);
-            setActionIsVisible(false);
-            setConfigIsVisible(true);
-        } else if (deleteIsVisible) {
+            setIsActionVisible(false);
+            setIsConfigVisible(true);
+        } else if (isDeleteVisible) {
             setValidated(false);
-            setDeleteIsVisible(false);
-            setConfigIsVisible(true);
+            setIsDeleteVisible(false);
+            setIsConfigVisible(true);
         } else {
             setValidated(false);
             setShow(false);
@@ -189,8 +189,8 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
 
     const handleEditAction = (i: number) => {
         setActionIndex(i);
-        setActionIsVisible(true);
-        setConfigIsVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
 
     const handleAddActions = () => {
@@ -198,14 +198,14 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         resetActionElement();
         setActionIndex(null);
         preFillActions();
-        setActionIsVisible(true);
-        setConfigIsVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
     const handleDelete = (index: number, action: string) => {
         setDeleteAction(action);
         setActionIndex(index);
-        setDeleteIsVisible(true);
-        setConfigIsVisible(false);
+        setIsDeleteVisible(true);
+        setIsConfigVisible(false);
     };
 
     const structureConfig = () => {
@@ -246,7 +246,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     };
 
     const handlePrimary = () => {
-        if (actionIsVisible) {
+        if (isActionVisible) {
             if (configIndex) {
                 if (actionIndex === null) {
                     actionElement.actionDisplayName = actionDisplayName;
@@ -260,15 +260,15 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                         existingConfig!.actions = actions;
                     }
                 }
-                setActionIsVisible(false);
-                setConfigIsVisible(true);
+                setIsActionVisible(false);
+                setIsConfigVisible(true);
                 setValidated(false);
                 onChange(config);
             } else {
                 setValidated(true);
             }
         }
-        if (configIsVisible) {
+        if (isConfigVisible) {
             if (teamNameValid && messageValid) {
                 if (configIndex === null) {
                     structureNewConfig();
@@ -283,7 +283,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                 setValidated(true);
             }
         }
-        if (deleteIsVisible && actionIndex !== null) {
+        if (isDeleteVisible && actionIndex !== null) {
             const l = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
@@ -306,7 +306,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='config-modal-body'>
-                    {configIsVisible && <div className={configIsVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isConfigVisible && <div className={isConfigVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             noValidate={true}
                             validated={validated}
@@ -493,7 +493,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                         }
                     </div>}
 
-                    {actionIsVisible && <div className={actionIsVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
@@ -586,14 +586,14 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                             </Form.Group>
                         </Form>
                     </div>}
-                    {!deleteIsVisible && !actionIsVisible && <div>
+                    {!isDeleteVisible && !isActionVisible && <div>
                         <Button
                             className={configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
 
-                    {deleteIsVisible && <div className={deleteIsVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isDeleteVisible && <div className={isDeleteVisible ? 'fade-enter' : 'fade-exit'}>
                         <p>{`Are you sure you would like to delete the action ${deleteAction}?`}</p>
                     </div>}
                 </Modal.Body>

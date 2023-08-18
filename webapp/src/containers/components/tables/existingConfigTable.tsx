@@ -18,40 +18,40 @@ type Props = {
 }
 
 const ExistingConfigTable = ({value, onChange}: Props) => {
-    const [viewVisible, setViewVisible] = useState(false);
-    const [editVisible, setEditVisible] = useState(false);
-    const [addVisible, setAddVisible] = useState(false);
+    const [isViewVisible, setIsViewVisible] = useState(false);
+    const [isEditVisible, setIsEditVisible] = useState(false);
+    const [isAddVisible, setIsAddVisible] = useState(false);
     const [configIndex, setConfigIndex] = useState(0);
 
     const handleView = (index: number) => {
         setConfigIndex(index);
-        setViewVisible(true);
+        setIsViewVisible(true);
     };
     const handleDelete = (index: number) => {
         setConfigIndex(index);
     };
     const handleEdit = (index: number) => {
         setConfigIndex(index);
-        setEditVisible(true);
+        setIsEditVisible(true);
     };
     const handleAdd = () => {
-        setAddVisible(true);
+        setIsAddVisible(true);
     };
 
     return (
         <div className='config'>
-            {addVisible &&
+            {isAddVisible &&
                 <ActionModal
-                    visible={viewVisible}
-                    setVisible={setViewVisible}
+                    visible={isViewVisible}
+                    setVisible={setIsViewVisible}
                     config={value}
                     configIndex={configIndex}
                 />
             }
-            {addVisible &&
+            {isAddVisible &&
                 <ConfigModal
-                    visible={addVisible}
-                    setVisible={setAddVisible}
+                    visible={isAddVisible}
+                    setVisible={setIsAddVisible}
                     configIndex={null}
                     config={value}
                     onChange={onChange}
