@@ -13,11 +13,11 @@ import {useSelector} from 'react-redux';
 
 import {GlobalState} from 'mattermost-redux/types/store';
 
-import './styles.css';
-
 import {fetchChannels, fetchTeams} from 'api/api_wrapper';
 
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
+
+import './styles.css';
 
 type Props = {
     visibility: boolean;
@@ -182,7 +182,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         const actions = existingConfig?.actions;
                         if (actions) {
                             actions.push(actionElement);
-                            existingConfig!.actions = actions;
+                            existingConfig.actions = actions;
                         }
                     } else {
                         structureActions();
@@ -373,7 +373,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             action.actionSuccessfullMessage = actionSuccessfullMessage;
             action.actionType = actionTypesValue;
             action.channelsAddedTo = actionChannelsAddedTo;
-            existingConfig!.actions = [...actions];
+            existingConfig.actions = [...actions];
         }
     };
     const structureNewActions = () => {

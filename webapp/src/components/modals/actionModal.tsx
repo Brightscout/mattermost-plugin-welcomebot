@@ -4,10 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import './styles.css';
-
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 type Props = {
     visibility: boolean;

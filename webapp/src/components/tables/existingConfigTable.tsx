@@ -6,9 +6,9 @@ import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
 
-import './styles.css';
-
 import {DeleteSvg, EditSvg, ViewSvg} from '../svgIcons/svg';
+
+import './styles.css';
 
 type Props = {
     onChange: (config: Configs[]) => void;
