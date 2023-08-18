@@ -50,15 +50,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     configIndex={configIndex}
                 />
             }
-            {editVisible &&
-                <ConfigModal
-                    visible={editVisible}
-                    setVisible={setEditVisible}
-                    configIndex={configIndex}
-                    config={value}
-                    onChange={onChange}
-                    modalHeader='Edit Config'
-            }
             {addVisible &&
                 <ConfigModal
                     visible={addVisible}
