@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -10,7 +11,6 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 import './styles.css';
 
 import {Configs, Actions} from 'types/plugin/common';
-
 
 type Props = {
     visible: boolean;
@@ -186,6 +186,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             setVisible(false);
         }
     };
+
     const handleEditAction = (i: number) => {
         setActionIndex(i);
         setActionIsVisible(true);
@@ -323,12 +324,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     required={true}
                                 />
                                 {validated && !teamNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a team name.'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a team name.'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Delay (in secs)*'}</Form.Label>
@@ -340,12 +341,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     required={true}
                                 />
                                 {validated && !delayValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a positive number'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a positive number'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Message*'}</Form.Label>
@@ -356,12 +357,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     onChange={(e) => setMessage([e.target.value])}
                                 />
                                 {validated && !messageValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a message'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a message'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Include guests'}</Form.Label>
@@ -392,9 +393,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                 />
                             </Form.Group>
                             {configIndex !== null &&
-                            <Form.Group className='action-table'>
-                                <Form.Label>{'Actions'}</Form.Label>
-                            </Form.Group>}
+                                <Form.Group className='action-table'>
+                                    <Form.Label>{'Actions'}</Form.Label>
+                                </Form.Group>}
                         </Form>
                         {existingConfig?.actions && actionLength ? (
                             <Table
@@ -511,12 +512,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     ))}
                                 </ButtonGroup>
                                 {validated && !actionTypesValueValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please select an action type'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please select an action type'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Action Display Name*'}</Form.Label>
@@ -527,12 +528,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     onChange={(e) => setActionDisplayName(e.target.value)}
                                 />
                                 {validated && !actionDisplayNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide the display name for your action'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide the display name for your action'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Action Name*'}</Form.Label>
@@ -543,12 +544,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     onChange={(e) => setActionName(e.target.value)}
                                 />
                                 {validated && !actionNameValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a name for your action'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a name for your action'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Add to Channels*'}</Form.Label>
@@ -559,12 +560,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     onChange={(e) => setActionChannelsAddedTo([e.target.value])}
                                 />
                                 {validated && !actionChannelsAddedToValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide at least one channel name'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide at least one channel name'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Action Successfull Message*'}</Form.Label>
@@ -575,12 +576,12 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     onChange={(e) => setActionSuccessfullMessage([e.target.value])}
                                 />
                                 {validated && !actionSuccessfullMessageValid &&
-                                <Form.Control.Feedback
-                                    type='invalid'
-                                    className='validation-warning'
-                                >
-                                    {'Please provide a message'}
-                                </Form.Control.Feedback>}
+                                    <Form.Control.Feedback
+                                        type='invalid'
+                                        className='validation-warning'
+                                    >
+                                        {'Please provide a message'}
+                                    </Form.Control.Feedback>}
                             </Form.Group>
                         </Form>
                     </div>}

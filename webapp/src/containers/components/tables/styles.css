@@ -78,7 +78,7 @@
     white-space: nowrap;
 }
 
-.includeGuests {
+.include-guests {
     width: 10%;
     overflow: hidden;
     text-overflow: ellipsis;
