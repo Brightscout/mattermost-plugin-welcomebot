@@ -116,10 +116,10 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                             <td className='message'>
                                                 <OverlayTrigger
                                                     placement='top'
-                                                    overlay={<Tooltip>{val.message}</Tooltip>}
+                                                    overlay={<Tooltip>{val.message.join(',')}</Tooltip>}
                                                 >
                                                     <p className='message-content'>
-                                                        {val.message}
+                                                        {val.message.join(',')}
                                                     </p>
                                                 </OverlayTrigger>
                                             </td>

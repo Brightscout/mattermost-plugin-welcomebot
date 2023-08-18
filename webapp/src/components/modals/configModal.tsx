@@ -411,7 +411,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
                                     <Select
-                                        isDisabled={teamDropdownDisabled}
+                                        isDisabled={teamDropdownDisabled || teamApiError !== ''}
                                         closeMenuOnSelect={true}
                                         onChange={handleTeamSelect}
                                         isMulti={false}
@@ -618,7 +618,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Add to Channels*'}</Form.Label>
                                     <Select
-                                        isDisabled={chanelDropdownDisabled}
+                                        isDisabled={chanelDropdownDisabled || channelApiError !== ''}
                                         closeMenuOnSelect={false}
                                         onChange={handleChannelSelect}
                                         isMulti={true}

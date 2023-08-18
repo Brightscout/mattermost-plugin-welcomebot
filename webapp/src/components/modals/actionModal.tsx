@@ -60,7 +60,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                     <Form.Label>{'Attachment Message'}</Form.Label>
                                     <Form.Control
                                         type='long-text'
-                                        value={config[configIndex].attachmentMessage ?? ''}
+                                        value={config[configIndex].attachmentMessage?.join(',') ?? ''}
                                         placeholder=''
                                         aria-label='Disabled input example'
                                         readOnly={true}
@@ -137,10 +137,10 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                                 <td className='success-message-action'>
                                                     <OverlayTrigger
                                                         placement='top'
-                                                        overlay={<Tooltip>{val.actionSuccessfullMessage}</Tooltip>}
+                                                        overlay={<Tooltip>{val.actionSuccessfullMessage.join(',')}</Tooltip>}
                                                     >
                                                         <p className='successfull-message-content'>
-                                                            {val.actionSuccessfullMessage}
+                                                            {val.actionSuccessfullMessage.join(',')}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
