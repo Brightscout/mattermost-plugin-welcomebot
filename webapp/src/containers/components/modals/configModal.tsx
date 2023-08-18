@@ -8,7 +8,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
-// eslint-disable-next-line import/no-unresolved
 
 import {Configs, Actions} from 'types/plugin/common';
 
@@ -111,7 +110,6 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
 
     const preFillActions = () => {
         if (existingConfig?.actions && actionIndex !== null) {
-            // if (actionIndex !== null) {
             const action = existingConfig?.actions?.[actionIndex] ?? actionElement;
             setActionTypesValue(action.actionType);
             setActionDisplayName(action.actionDisplayName);
@@ -314,9 +312,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                 />
                             </Form.Group>
                             {configIndex !== null &&
-                            <Form.Group className='action-table'>
-                                <Form.Label>{'Actions'}</Form.Label>
-                            </Form.Group>}
+                                <Form.Group className='action-table'>
+                                    <Form.Label>{'Actions'}</Form.Label>
+                                </Form.Group>}
                         </Form>
                         {existingConfig?.actions && actionLength > 0 ? (
                             <Table
@@ -335,75 +333,75 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                 </thead>
                                 <tbody>
                                     {
-                                    existingConfig?.actions?.map((val, i) =>
-                                        (
-                                            <tr key={i.toString()}>
-                                                <td>{val.actionType}</td>
-                                                <td>{val.actionDisplayName}</td>
-                                                <td>{val.actionName}</td>
-                                                <td>{val.channelsAddedTo}</td>
-                                                <td>{val.actionSuccessfullMessage}</td>
-                                                <td>
-                                                    <ButtonGroup
-                                                        aria-label='Basic example'
-                                                        className='options'
-                                                    >
-                                                        <OverlayTrigger
-                                                            placement='top'
-                                                            overlay={<Tooltip>{'Edit action'}</Tooltip>}
+                                        existingConfig?.actions?.map((val, i) =>
+                                            (
+                                                <tr key={i.toString()}>
+                                                    <td>{val.actionType}</td>
+                                                    <td>{val.actionDisplayName}</td>
+                                                    <td>{val.actionName}</td>
+                                                    <td>{val.channelsAddedTo}</td>
+                                                    <td>{val.actionSuccessfullMessage}</td>
+                                                    <td>
+                                                        <ButtonGroup
+                                                            aria-label='Basic example'
+                                                            className='options'
                                                         >
-                                                            <Button onClick={() => handleEditAction(i)}>
-                                                                <svg
-                                                                    className='svg'
-                                                                    xmlns='http://www.w3.org/2000/svg'
-                                                                    width='20'
-                                                                    height='20'
-                                                                    viewBox='0 0 24 24'
-                                                                    fill='none'
-                                                                    stroke='#333'
-                                                                    strokeWidth='1.65'
-                                                                    strokeLinecap='round'
-                                                                    strokeLinejoin='round'
-                                                                ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
-                                                            </Button>
-                                                        </OverlayTrigger>
-                                                        <OverlayTrigger
-                                                            placement='top'
-                                                            overlay={<Tooltip>{'Delete action'}</Tooltip>}
-                                                        >
-                                                            <Button onClick={() => handleDelete(i)}>
-                                                                <svg
-                                                                    className='svg'
-                                                                    xmlns='http://www.w3.org/2000/svg'
-                                                                    width='20'
-                                                                    height='20'
-                                                                    viewBox='0 0 24 24'
-                                                                    fill='none'
-                                                                    stroke='#333'
-                                                                    strokeWidth='1.65'
-                                                                    strokeLinecap='round'
-                                                                    strokeLinejoin='round'
-                                                                ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
-                                                                    <line
-                                                                        x1='10'
-                                                                        y1='11'
-                                                                        x2='10'
-                                                                        y2='17'
-                                                                    />
-                                                                    <line
-                                                                        x1='14'
-                                                                        y1='11'
-                                                                        x2='14'
-                                                                        y2='17'
-                                                                    />
-                                                                </svg>
-                                                            </Button>
-                                                        </OverlayTrigger>
-                                                    </ButtonGroup>
-                                                </td>
-                                            </tr>
-                                        ),
-                                    )
+                                                            <OverlayTrigger
+                                                                placement='top'
+                                                                overlay={<Tooltip>{'Edit action'}</Tooltip>}
+                                                            >
+                                                                <Button onClick={() => handleEditAction(i)}>
+                                                                    <svg
+                                                                        className='svg'
+                                                                        xmlns='http://www.w3.org/2000/svg'
+                                                                        width='20'
+                                                                        height='20'
+                                                                        viewBox='0 0 24 24'
+                                                                        fill='none'
+                                                                        stroke='#333'
+                                                                        strokeWidth='1.65'
+                                                                        strokeLinecap='round'
+                                                                        strokeLinejoin='round'
+                                                                    ><path d='M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34'/><polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/></svg>
+                                                                </Button>
+                                                            </OverlayTrigger>
+                                                            <OverlayTrigger
+                                                                placement='top'
+                                                                overlay={<Tooltip>{'Delete action'}</Tooltip>}
+                                                            >
+                                                                <Button onClick={() => handleDelete(i)}>
+                                                                    <svg
+                                                                        className='svg'
+                                                                        xmlns='http://www.w3.org/2000/svg'
+                                                                        width='20'
+                                                                        height='20'
+                                                                        viewBox='0 0 24 24'
+                                                                        fill='none'
+                                                                        stroke='#333'
+                                                                        strokeWidth='1.65'
+                                                                        strokeLinecap='round'
+                                                                        strokeLinejoin='round'
+                                                                    ><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/>
+                                                                        <line
+                                                                            x1='10'
+                                                                            y1='11'
+                                                                            x2='10'
+                                                                            y2='17'
+                                                                        />
+                                                                        <line
+                                                                            x1='14'
+                                                                            y1='11'
+                                                                            x2='14'
+                                                                            y2='17'
+                                                                        />
+                                                                    </svg>
+                                                                </Button>
+                                                            </OverlayTrigger>
+                                                        </ButtonGroup>
+                                                    </td>
+                                                </tr>
+                                            ),
+                                        )
                                     }
                                 </tbody>
                             </Table>

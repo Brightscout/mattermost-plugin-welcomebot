@@ -42,12 +42,14 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
 
     return (
         <div className='config'>
-            <ActionModal
-                visible={viewVisible}
-                setVisible={setViewVisible}
-                config={value}
-                configIndex={configIndex}
-            />
+            {viewVisible &&
+                <ActionModal
+                    visible={viewVisible}
+                    setVisible={setViewVisible}
+                    config={value}
+                    configIndex={configIndex}
+                />
+            }
             {editVisible &&
                 <ConfigModal
                     visible={editVisible}
@@ -68,7 +70,6 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Add Config'
                 />
             }
-
             <FormGroup>
                 <div className='name'>
                     {'Existing Configs'}
