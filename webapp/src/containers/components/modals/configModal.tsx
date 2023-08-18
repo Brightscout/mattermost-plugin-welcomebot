@@ -395,10 +395,8 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                             {configIndex !== null &&
                                 <Form.Group className='action-table'>
                                     <Form.Label>{'Actions'}</Form.Label>
-                                </Form.Group>}
-                                <Form.Group className='action-table'>
-                                    <Form.Label>{'Actions'}</Form.Label>
-                                </Form.Group>}
+                                </Form.Group>
+                            }
                         </Form>
                         {existingConfig?.actions && actionLength ? (
                             <Table
