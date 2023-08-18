@@ -10,7 +10,7 @@ type Props = {
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
-    onChange: any;
+    onChange: (config: Configs[]) => void;
 }
 
 const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {

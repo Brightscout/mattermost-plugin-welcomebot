@@ -24,7 +24,7 @@ type Props = {
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
-    onChange: any;
+    onChange: (config: Configs[]) => void;
     modalHeader: string;
 }
 
