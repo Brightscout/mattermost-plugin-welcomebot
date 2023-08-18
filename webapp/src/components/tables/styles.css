@@ -48,7 +48,7 @@
 
 .existing-config-table .btn-group.btn.btn-default:hover, .btn-group .btn.btn-default:focus {
     background: transparent;
-    color: #000000;
+    color: #000;
 }
 
 .add-config-btn {

@@ -68,7 +68,7 @@
 
 .btn-group .btn.btn-default:hover, .btn-group .btn.btn-default:focus {
   background: transparent;
-  color: #000000;
+  color: #000;
 }
 
 .radio.btn-group {
@@ -117,7 +117,7 @@
 
 .warning {
   margin-bottom: 27px;
-  color: #000000;
+  color: #000;
 }
 
 .gapping {
@@ -142,7 +142,7 @@
 }
 
 .form-label {
-  color: #000000;
+  color: #000;
 }
 
 .type {

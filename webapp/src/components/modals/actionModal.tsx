@@ -16,8 +16,6 @@ type Props = {
 }
 
 const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) => {
-    const [show, setShow] = useState(false);
-
     const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
 
     const actionsLength = config[configIndex]?.actions?.length;
@@ -32,11 +30,9 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
 
     useEffect(() => {
         checkAttachmentMessage();
-        setShow(visibility);
-    }, [visibility]);
+    }, []);
 
     const handleClose = () => {
-        setShow(false);
         setVisibility(false);
     };
 
@@ -44,7 +40,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
         <div>
             <Modal
                 className='customModal'
-                show={show}
+                show={visibility}
                 onHide={handleClose}
             >
                 <Modal.Header closeButton={false}>
