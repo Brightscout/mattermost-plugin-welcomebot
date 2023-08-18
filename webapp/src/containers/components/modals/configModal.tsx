@@ -11,6 +11,7 @@ import './styles.css';
 
 import {Configs, Actions} from 'types/plugin/common';
 
+
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -136,7 +137,6 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         } else {
             setShow(false);
             setVisible(false);
-        }
     };
     const handleEditAction = (i: number) => {
         setActionIndex(i);
