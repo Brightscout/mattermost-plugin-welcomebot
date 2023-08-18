@@ -11,6 +11,7 @@ import './styles.css';
 
 import {Configs, Actions} from 'types/plugin/common';
 
+
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
