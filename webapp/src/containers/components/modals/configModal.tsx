@@ -9,21 +9,20 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
 
-// eslint-disable-next-line import/no-unresolved
 import {Config} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
+    visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Config | null;
 }
 
-function ConfigModal(props: Props) {
+function ConfigModal({visibility, setVisibility, config}: Props) {
     const [show, setShow] = useState(false);
-    const [actionVisible, setActionVisible] = useState(false);
-    const [configVisible, setConfigVisible] = useState(false);
+    const [isActionVisible, setIsActionVisible] = useState(false);
+    const [isConfigVisible, setIsConfigVisible] = useState(false);
     const [radioValue, setRadioValue] = useState('');
-    const [deleteVisible, setDeleteVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
     const guest = [
         {name: 'true', value: 'true'},
@@ -35,30 +34,34 @@ function ConfigModal(props: Props) {
     ];
 
     useEffect(() => {
-        setShow(props.visible);
-        setConfigVisible(props.visible);
-    }, [props.visible]);
+        setShow(visibility);
+        setIsConfigVisible(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
-        if (actionVisible) {
-            setActionVisible(false);
-            setConfigVisible(true);
-        } else if (deleteVisible) {
-            setDeleteVisible(false);
-            setConfigVisible(true);
-        } else {
-            setShow(false);
-            props.setVisibility(false);
+        if (isActionVisible) {
+            setIsActionVisible(false);
+            setIsConfigVisible(true);
+            return;
+        } else if (isDeleteVisible) {
+            setIsDeleteVisible(false);
+            setIsConfigVisible(true);
+            return;
         }
+        setShow(false);
+        setVisibility(false);
     };
+
     const handleActions = () => {
-        setActionVisible(true);
-        setConfigVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
+
     const handleDelete = () => {
-        setDeleteVisible(true);
-        setConfigVisible(false);
+        setIsDeleteVisible(true);
+        setIsConfigVisible(false);
     };
+
     return (
         <>
             <Modal
@@ -68,12 +71,12 @@ function ConfigModal(props: Props) {
             >
                 <Modal.Header closeButton={false}>
                     <Modal.Title>
-                        {props.config ? (<p>{configVisible && <p>{'Edit config'}</p>}{actionVisible && <p>{'Edit actions'}</p>}{deleteVisible && <p>{'Delete Config'}</p>}</p>) : (<p>{configVisible && <p>{'Add config'}</p>}{actionVisible && <p>{'Add action'}</p>}</p>)}
+                        {config ? (<p>{isConfigVisible && <p>{'Edit config'}</p>}{isActionVisible && <p>{'Edit actions'}</p>}{isDeleteVisible && <p>{'Delete Config'}</p>}</p>) : (<p>{isConfigVisible && <p>{'Add config'}</p>}{isActionVisible && <p>{'Add action'}</p>}</p>)}
                     </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className='configModalBody'>
-                    {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isConfigVisible && <div className={isConfigVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Team name'}</Form.Label>
@@ -349,7 +352,7 @@ function ConfigModal(props: Props) {
                         </Table>
                     </div>}
 
-                    {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Action Type'}</Form.Label>
@@ -391,54 +394,54 @@ function ConfigModal(props: Props) {
                             </Form.Group>
                         </Form>
                     </div>}
-                    {!props.config && !actionVisible && <div>
+                    {!config && !isActionVisible && <div>
                         <Button
                             className='add-actions'
                             onClick={handleActions}
                         >{'Add actions'}</Button>
                     </div>}
 
-                    {deleteVisible && <div className={deleteVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isDeleteVisible && <div className={isDeleteVisible ? 'fade-enter' : 'fade-exit'}>
                         <p>{'Are you sure you would like to delete the action ?'}</p>
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    {configVisible &&
+                    {isConfigVisible &&
                     <Button
                         variant='secondary'
                         onClick={handleClose}
                     >
                         {'Close'}
                     </Button>}
-                    {actionVisible &&
+                    {isActionVisible &&
                     <Button
                         variant='secondary'
                         onClick={handleClose}
                     >
                         {'Cancel'}
                     </Button>}
-                    {deleteVisible &&
+                    {isDeleteVisible &&
                     <Button
                         variant='secondary'
                         onClick={handleClose}
                     >
                         {'Cancel'}
                     </Button>}
-                    {configVisible &&
+                    {isConfigVisible &&
                     <Button
                         variant='primary'
                         onClick={handleClose}
                     >
                         {'Save changes'}
                     </Button>}
-                    {actionVisible &&
+                    {isActionVisible &&
                     <Button
                         variant='primary'
                         onClick={handleClose}
                     >
                         {'Add action'}
                     </Button>}
-                    {deleteVisible &&
+                    {isDeleteVisible &&
                     <Button
                         variant='danger'
                         onClick={handleClose}

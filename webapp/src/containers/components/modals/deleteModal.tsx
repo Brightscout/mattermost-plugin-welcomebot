@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,25 +6,19 @@ import Modal from 'react-bootstrap/Modal';
 import './styles.css';
 
 type Props = {
-    visible: boolean;
+    visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DeleteConfigModal = (props: Props) => {
-    const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
-
+const DeleteConfigModal = ({visibility, setVisibility}: Props) => {
     const handleClose = () => {
-        setShow(false);
-        props.setVisibility(false);
+        setVisibility(false);
     };
+
     return (
         <>
             <Modal
-                show={show}
+                show={visibility}
                 onHide={handleClose}
             >
                 <Modal.Header closeButton={false}>

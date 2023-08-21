@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -8,24 +8,18 @@ import Form from 'react-bootstrap/Form';
 import './styles.css';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ViewActionsModal = (props: Props) => {
-    const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
-
+const ViewActionsModal = ({visibility, setVisibility}: Props) => {
     const handleClose = () => {
-        setShow(false);
-        props.setVisible(false);
+        setVisibility(false);
     };
+
     return (
         <Modal
-            show={show}
+            show={visibility}
             onHide={handleClose}
         >
             <Modal.Header closeButton={false}>
@@ -64,19 +58,19 @@ const ViewActionsModal = (props: Props) => {
                             <td>{'Button'}</td>
                             <td>{'Import'}</td>
                             <td>{'channel1, channel2, channel3'}</td>
-                            <td>{'Welcome to your new team mate !'}</td>
+                            <td>{'Welcome to your new team mate!'}</td>
                         </tr>
                         <tr>
                             <td>{'Automatic'}</td>
                             <td>{'Export'}</td>
                             <td>{'channel1, channel2'}</td>
-                            <td>{'Welcome to your new team mate !'}</td>
+                            <td>{'Welcome to your new team mate!'}</td>
                         </tr>
                         <tr>
                             <td>{'Button'}</td>
                             <td>{'Deport'}</td>
                             <td>{'channel1, channel3'}</td>
-                            <td>{'Welcome to your new team mate !'}</td>
+                            <td>{'Welcome to your new team mate!'}</td>
                         </tr>
                     </tbody>
                 </Table>
