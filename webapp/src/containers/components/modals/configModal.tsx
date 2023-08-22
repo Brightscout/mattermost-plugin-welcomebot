@@ -107,9 +107,9 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     }, []);
 
     useEffect(() => {
-        setShow(visible);
-        setIsConfigVisible(visible);
-    }, [visible]);
+        setShow(visibility);
+        setIsConfigVisible(visibility);
+    }, [visibility]);
 
     useEffect(() => {
         preFillActions();
@@ -191,7 +191,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
         setValidated(false);
         setShow(false);
-        setVisible(false);
+        setVisibility(false);
     };
 
     const handleEditAction = (i: number) => {
