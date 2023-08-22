@@ -13,15 +13,15 @@ import './styles.css';
 import {Configs, Actions} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
 }
 
-const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) => {
+const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, modalHeader}: Props) => {
     const actionElement: Actions = {
         actionType: '',
         actionName: '',
@@ -29,6 +29,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         channelsAddedTo: [''],
         actionSuccessfullMessage: [''],
     };
+
     const resetActionElement = () => {
         actionElement.actionType = '';
         actionElement.actionName = '';
@@ -36,8 +37,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         actionElement.channelsAddedTo = [''];
         actionElement.actionSuccessfullMessage = [''];
     };
-    const newAction: Actions[] = [
-    ];
+
+    const newAction: Actions[] = [];
+
     const newConfig: Configs = {
         teamName: '',
         delayInSeconds: 0,
@@ -46,6 +48,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         attachmentMessage: [''],
         actions: newAction,
     };
+
     const [show, setShow] = useState(true);
 
     const [isConfigVisible, setIsConfigVisible] = useState(true);
@@ -87,6 +90,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
     ];
+
     const actionTypes = [
         {name: 'button', value: 'button'},
         {name: 'automatic', value: 'automatic'},
@@ -236,19 +240,18 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
         actionElement.actionType = actionTypesValue;
         actionElement.channelsAddedTo = actionChannelsAddedTo;
-        const l = existingConfig.actions?.push(actionElement);
+        const _ = existingConfig.actions?.push(actionElement);
     };
 
     const structureActions = () => {
-        const actions = existingConfig?.actions;
-        if (actions && actionIndex !== null) {
-            const action = actions[actionIndex];
+        if (existingConfig?.actions && actionIndex !== null) {
+            const action = existingConfig.actions[actionIndex];
             action.actionDisplayName = actionDisplayName;
             action.actionName = actionName;
             action.actionSuccessfullMessage = actionSuccessfullMessage;
             action.actionType = actionTypesValue;
             action.channelsAddedTo = actionChannelsAddedTo;
-            existingConfig!.actions = [...actions];
+            existingConfig!.actions = [...existingConfig?.actions];
         }
     };
 
