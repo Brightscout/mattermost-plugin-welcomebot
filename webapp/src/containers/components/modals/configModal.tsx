@@ -12,15 +12,15 @@ import './styles.css';
 import {Configs, Actions} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
     config: Configs[];
     onChange: any;
     modalHeader: string;
 }
 
-const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalHeader}: Props) => {
+const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, modalHeader}: Props) => {
     const actionElement: Actions = {
         actionType: '',
         actionName: '',
@@ -28,6 +28,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         channelsAddedTo: [''],
         actionSuccessfullMessage: [''],
     };
+
     const resetActionElement = () => {
         actionElement.actionType = '';
         actionElement.actionName = '';
@@ -35,8 +36,9 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         actionElement.channelsAddedTo = [''];
         actionElement.actionSuccessfullMessage = [''];
     };
-    const newAction: Actions[] = [
-    ];
+
+    const newAction: Actions[] = [];
+
     const newConfig: Configs = {
         teamName: '',
         delayInSeconds: '',
@@ -45,6 +47,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         attachmentMessage: [''],
         actions: newAction,
     };
+
     const [show, setShow] = useState(true);
     const [actionVisible, setActionVisible] = useState(false);
     const [configVisible, setConfigVisible] = useState(true);
@@ -65,6 +68,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
     const [actionName, setActionName] = useState('');
 
     const actionLength = existingConfig?.actions?.length ?? 0;
+
     const handleCloseButton = (
         variant: string,
         text: string,
@@ -76,19 +80,21 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             {text}
         </Button>
     );
+
     const guest = [
         {name: 'true', value: 'true'},
         {name: 'false', value: 'false'},
     ];
+
     const actionTypes = [
         {name: 'button', value: 'button'},
         {name: 'automatic', value: 'automatic'},
     ];
 
     useEffect(() => {
-        setShow(visible);
-        setConfigVisible(visible);
-    }, [visible]);
+        setShow(visibility);
+        setConfigVisible(visibility);
+    }, [visibility]);
 
     useEffect(() => {
         preFillActions();
@@ -116,27 +122,30 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             setChannelsAddedTo(action.channelsAddedTo);
             setActionSuccessfullMessage(action.actionSuccessfullMessage);
             setActionName(action.actionName);
-        } else {
-            const action = actionElement;
-            setActionTypesValue(action.actionType);
-            setActionDisplayName(action.actionDisplayName);
-            setChannelsAddedTo(action.channelsAddedTo);
-            setActionSuccessfullMessage(action.actionSuccessfullMessage);
-            setActionName(action.actionName);
+            return;
         }
+
+        const action = actionElement;
+        setActionTypesValue(action.actionType);
+        setActionDisplayName(action.actionDisplayName);
+        setChannelsAddedTo(action.channelsAddedTo);
+        setActionSuccessfullMessage(action.actionSuccessfullMessage);
+        setActionName(action.actionName);
     };
 
     const handleClose = () => {
         if (actionVisible) {
             setActionVisible(false);
             setConfigVisible(true);
+            return;
         } else if (deleteVisible) {
             setDeleteVisible(false);
             setConfigVisible(true);
-        } else {
-            setShow(false);
-            setVisible(false);
+            return;
         }
+
+        setShow(false);
+        setVisibility(false);
     };
     const handleEditAction = (i: number) => {
         setActionIndex(i);
@@ -179,18 +188,17 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
         actionElement.actionType = actionTypesValue;
         actionElement.channelsAddedTo = actionChannelsAddedTo;
-        const l = existingConfig.actions?.push(actionElement);
+        const _ = existingConfig.actions?.push(actionElement);
     };
     const structureActions = () => {
-        const actions = existingConfig?.actions;
-        if (actions && actionIndex !== null) {
-            const action = actions[actionIndex];
+        if (existingConfig?.actions && actionIndex !== null) {
+            const action = existingConfig.actions[actionIndex];
             action.actionDisplayName = actionDisplayName;
             action.actionName = actionName;
             action.actionSuccessfullMessage = actionSuccessfullMessage;
             action.actionType = actionTypesValue;
             action.channelsAddedTo = actionChannelsAddedTo;
-            existingConfig!.actions = [...actions];
+            existingConfig!.actions = [...existingConfig?.actions];
         }
     };
 
@@ -233,7 +241,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             handleClose();
         }
         if (deleteVisible && actionIndex !== null) {
-            const l = existingConfig.actions?.splice(actionIndex, 1);
+            const _ = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
                 onChange(config);
@@ -316,7 +324,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
                                     <Form.Label>{'Actions'}</Form.Label>
                                 </Form.Group>}
                         </Form>
-                        {existingConfig?.actions && actionLength > 0 ? (
+                        {existingConfig?.actions && actionLength ? (
                             <Table
                                 striped={true}
                                 className='listTable'
