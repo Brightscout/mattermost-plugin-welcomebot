@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+
 import './styles.css';
 
 import {Configs} from 'types/plugin/common';
@@ -42,8 +42,8 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         <div className='config'>
             {isAddVisible &&
                 <ActionModal
-                    visible={isViewVisible}
-                    setVisible={setIsViewVisible}
+                    visibility={isViewVisible}
+                    setVisibility={setIsViewVisible}
                     config={value}
                     configIndex={configIndex}
                 />

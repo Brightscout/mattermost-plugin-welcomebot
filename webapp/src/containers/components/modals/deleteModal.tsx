@@ -8,23 +8,23 @@ import './styles.css';
 import {Configs} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
     onChange: any;
 }
 
-const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
+const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(visible);
-    }, [visible]);
+        setShow(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
         setShow(false);
-        setVisible(false);
+        setVisibility(false);
     };
     const handleDelete = () => {
         config.splice(configIndex, 1);

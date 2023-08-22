@@ -10,24 +10,24 @@ import './styles.css';
 import {Configs} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
 }
 
-const ActionModal = ({visible, setVisible, config, configIndex}: Props) => {
+const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) => {
     const actionsLength = config[configIndex]?.actions?.length ?? 0;
     const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
 
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setVisible(visible);
-    }, [visible]);
+        setVisibility(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
-        setVisible(false);
+        setVisibility(false);
     };
     return (
         <Modal

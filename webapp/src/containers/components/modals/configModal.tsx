@@ -161,14 +161,15 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             setActionChannelsAddedTo(action.channelsAddedTo);
             setActionSuccessfullMessage(action.actionSuccessfullMessage);
             setActionName(action.actionName);
-        } else {
-            const action = actionElement;
-            setActionTypesValue(action.actionType);
-            setActionDisplayName(action.actionDisplayName);
-            setActionChannelsAddedTo(action.channelsAddedTo);
-            setActionSuccessfullMessage(action.actionSuccessfullMessage);
-            setActionName(action.actionName);
+            return;
         }
+
+        const action = actionElement;
+        setActionTypesValue(action.actionType);
+        setActionDisplayName(action.actionDisplayName);
+        setActionChannelsAddedTo(action.channelsAddedTo);
+        setActionSuccessfullMessage(action.actionSuccessfullMessage);
+        setActionName(action.actionName);
     };
 
     const handleClose = () => {
@@ -176,15 +177,17 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             setValidated(false);
             setIsActionVisible(false);
             setIsConfigVisible(true);
+            return;
         } else if (isDeleteVisible) {
             setValidated(false);
             setIsDeleteVisible(false);
             setIsConfigVisible(true);
-        } else {
-            setValidated(false);
-            setShow(false);
-            setVisible(false);
+            return;
         }
+
+        setValidated(false);
+        setShow(false);
+        setVisible(false);
     };
 
     const handleEditAction = (i: number) => {
@@ -201,6 +204,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         setIsActionVisible(true);
         setIsConfigVisible(false);
     };
+
     const handleDelete = (index: number, action: string) => {
         setDeleteAction(action);
         setActionIndex(index);
@@ -217,6 +221,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
             config[configIndex].teamName = teamName;
         }
     };
+
     const structureNewConfig = () => {
         existingConfig.message = message;
         existingConfig.delayInSeconds = delay;
@@ -224,6 +229,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         existingConfig.attachmentMessage = attachmentMessage;
         existingConfig.teamName = teamName;
     };
+
     const structureNewActions = () => {
         actionElement.actionDisplayName = actionDisplayName;
         actionElement.actionName = actionName;
@@ -232,6 +238,7 @@ const ConfigModal = ({visible, setVisible, configIndex, config, onChange, modalH
         actionElement.channelsAddedTo = actionChannelsAddedTo;
         const l = existingConfig.actions?.push(actionElement);
     };
+
     const structureActions = () => {
         const actions = existingConfig?.actions;
         if (actions && actionIndex !== null) {
