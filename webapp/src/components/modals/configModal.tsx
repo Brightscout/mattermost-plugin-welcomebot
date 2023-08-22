@@ -140,32 +140,34 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     }, [actionIndex]);
 
     useEffect(() => {
-        setTeamNameValid(teamName.trim() !== '');
-        setTeamSelectionWarning(teamName.trim() !== '');
-        if (!message.length) {
+        setTeamNameValid(Boolean(teamName.trim()));
+
+        setTeamSelectionWarning(Boolean(teamName.trim()));
+
+        if (message.length) {
+            setMessageValid(Boolean(message[0].trim()));
+        } else {
             setMessageValid(false);
-        } else if (message.length === 1) {
-            setMessageValid(message[0] !== '');
-        } else {
-            setMessageValid(true);
         }
+
         setDelayValid(delay >= 0);
-        setActionTypesValueValid(actionTypesValue !== '');
-        setActionDisplayNameValid(actionDisplayName !== '');
-        setActionNameValid(actionName !== '');
-        if (!actionChannelsAddedTo.length) {
+
+        setActionTypesValueValid(Boolean(actionTypesValue));
+
+        setActionDisplayNameValid(Boolean(actionDisplayName.trim()));
+
+        setActionNameValid(Boolean(actionName.trim()));
+
+        if (actionChannelsAddedTo.length) {
+            setActionChannelsAddedToValid(Boolean(actionChannelsAddedTo[0]));
+        } else {
             setActionChannelsAddedToValid(false);
-        } else if (actionChannelsAddedTo.length === 1) {
-            setActionChannelsAddedToValid(actionChannelsAddedTo[0] !== '');
-        } else {
-            setActionChannelsAddedToValid(true);
         }
-        if (!actionSuccessfullMessage.length) {
-            setActionSuccessfullMessageValid(false);
-        } else if (actionSuccessfullMessage.length === 1) {
-            setActionSuccessfullMessageValid(actionSuccessfullMessage[0] !== '');
+
+        if (actionSuccessfullMessage.length) {
+            setActionSuccessfullMessageValid(Boolean(actionSuccessfullMessage[0].trim()));
         } else {
-            setActionSuccessfullMessageValid(true);
+            setActionSuccessfullMessageValid(false);
         }
     }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
@@ -234,16 +236,18 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             setIsActionVisible(false);
             setIsConfigVisible(true);
             setActionClicked(false);
+            return;
         } else if (isDeleteVisible) {
             setValidated(false);
             setIsDeleteVisible(false);
             setIsConfigVisible(true);
-        } else {
-            setValidated(false);
-            setShow(false);
-            setVisibility(false);
-            setTeamApiCalled(false);
+            return;
         }
+
+        setValidated(false);
+        setShow(false);
+        setVisibility(false);
+        setTeamApiCalled(false);
     };
 
     const handleEditAction = (i: number) => {
@@ -281,10 +285,11 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     const handleTeamSelect = (teams: SingleValue<GroupTypes>) => {
         if (teams === null) {
             setTeamName('');
-        } else {
-            setTeamName(teams.value);
-            setSelectedTeam(teams.value);
+            return;
         }
+
+        setTeamName(teams.value);
+        setSelectedTeam(teams.value);
     };
 
     const getTeam = async (SiteUrl: string) => {
@@ -338,13 +343,14 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             setActionChannelsAddedTo(action.channelsAddedTo);
             setActionSuccessfullMessage(action.actionSuccessfullMessage);
             setActionName(action.actionName);
-        } else {
-            setActionTypesValue(actionElement.actionType);
-            setActionDisplayName(actionElement.actionDisplayName);
-            setActionChannelsAddedTo(actionElement.channelsAddedTo);
-            setActionSuccessfullMessage(actionElement.actionSuccessfullMessage);
-            setActionName(actionElement.actionName);
+            return;
         }
+
+        setActionTypesValue(actionElement.actionType);
+        setActionDisplayName(actionElement.actionDisplayName);
+        setActionChannelsAddedTo(actionElement.channelsAddedTo);
+        setActionSuccessfullMessage(actionElement.actionSuccessfullMessage);
+        setActionName(actionElement.actionName);
     };
 
     const structureConfig = () => {
@@ -356,6 +362,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             config[configIndex].teamName = teamName;
         }
     };
+
     const structureNewConfig = () => {
         existingConfig.message = message;
         existingConfig.delayInSeconds = delay;
@@ -382,7 +389,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
         actionElement.actionType = actionTypesValue;
         actionElement.channelsAddedTo = actionChannelsAddedTo;
-        const l = existingConfig.actions?.push(actionElement);
+        const _ = existingConfig.actions?.push(actionElement);
     };
 
     return (

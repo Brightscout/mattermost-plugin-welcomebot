@@ -22,18 +22,22 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     const [isaddVisible, setIsAddVisible] = useState(false);
 
     const [configIndex, setConfigIndex] = useState(0);
+
     const handleView = (index: number) => {
         setConfigIndex(index);
         setIsViewVisible(true);
     };
+
     const handleDelete = (index: number) => {
         setConfigIndex(index);
         setIsDeleteVisible(true);
     };
+
     const handleEdit = (index: number) => {
         setConfigIndex(index);
         setIsEditVisible(true);
     };
+
     const handleAdd = () => {
         setIsAddVisible(true);
     };

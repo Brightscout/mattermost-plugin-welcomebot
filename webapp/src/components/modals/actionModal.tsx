@@ -23,9 +23,10 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
     const checkAttachmentMessage = () => {
         if (config[configIndex]?.attachmentMessage?.length) {
             setAttachmentMessageAvailable(Boolean(config[configIndex]?.attachmentMessage?.[0]));
-        } else {
-            setAttachmentMessageAvailable(false);
+            return;
         }
+
+        setAttachmentMessageAvailable(false);
     };
 
     useEffect(() => {
