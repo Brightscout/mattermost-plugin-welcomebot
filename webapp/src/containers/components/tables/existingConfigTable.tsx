@@ -28,12 +28,11 @@ type Props = {
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const [visible, setVisible] = useState(false);
-  
+
     const handleView = () => {
         setVisible(true);
     };
- 
-  
+
     const handleAction = () => {
         setVisible(false);
     };
@@ -180,7 +179,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     </div>
                 </Col>
             </FormGroup>
-        </>
+        </div>
     );
 };
 
