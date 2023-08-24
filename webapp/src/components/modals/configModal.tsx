@@ -577,10 +577,10 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                                 <td className='successfull-message'>
                                                     <OverlayTrigger
                                                         placement='top'
-                                                        overlay={<Tooltip>{val.actionSuccessfullMessage}</Tooltip>}
+                                                        overlay={<Tooltip>{val.actionSuccessfullMessage.join(',')}</Tooltip>}
                                                     >
                                                         <p className='successfull-message-content'>
-                                                            {val.actionSuccessfullMessage}
+                                                            {val.actionSuccessfullMessage.join(',')}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
