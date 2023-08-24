@@ -14,8 +14,6 @@ type HelpText = {
         isMarkdown: boolean;
         isTranslated: boolean;
         text: string;
-        textDefault?: string;
-        textValues?: string;
     }
 }
 
@@ -28,11 +26,10 @@ type Props = {
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const [visible, setVisible] = useState(false);
-    const handleView = () => {
-        setVisible(true);
-    };
+    const handleView = () => setVisible(true);
+
     return (
-        <div>
+        <>
             <FormGroup>
                 <Col sm={4}>
                     {label}
@@ -53,7 +50,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'Standup'}</td>
                                 <td>{'4'}</td>
                                 <td className='ellipsis'>
-                                    {'Hello to standup group sdhfvk.'}
+                                    {'Hello to standup group.'}
                                 </td>
                                 <td>
                                     <Button
@@ -106,12 +103,12 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                     </Button>
                                 </td>
                                 <td>
-                                    <div>
+                                    <>
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button variant='primary'>{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
-                                    </div>
+                                    </>
                                 </td>
                             </tr>
                             <tr>
@@ -127,12 +124,12 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                     </Button>
                                 </td>
                                 <td>
-                                    <div>
+                                    <>
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button variant='primary'>{'Edit'}</Button>
                                             <Button variant='danger'>{'Delete'}</Button>
                                         </ButtonGroup>
-                                    </div>
+                                    </>
                                 </td>
                             </tr>
                         </tbody>
@@ -144,7 +141,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     </div>
                 </Col>
             </FormGroup>
-        </div>
+        </>
     );
 };
 

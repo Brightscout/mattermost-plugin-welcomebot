@@ -25,10 +25,7 @@
         {
             "key": "ExistingConfigurationTable",
             "display_name": "Existing Configurations:",
-            "type": "custom",
-            "help_text": "",
-            "placeholder": "",
-            "default": ""
+            "type": "custom"
         }
     ]
   }
