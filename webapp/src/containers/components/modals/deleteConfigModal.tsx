@@ -31,7 +31,7 @@ const DeleteConfigModal = (props: Props) => {
             </Modal.Header>
 
             <Modal.Body>
-                {/* TODO: Add team name according to the team */}
+                {/*TODO: Add team name according to the team*/}
                 <p>{'Delete the configs for the team xyz'}</p>
             </Modal.Body>
 
