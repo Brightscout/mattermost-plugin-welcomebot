@@ -16,8 +16,6 @@ type HelpText = {
         isMarkdown: boolean;
         isTranslated: boolean;
         text: string;
-        textDefault?: string;
-        textValues?: string;
     }
 }
 
@@ -30,12 +28,16 @@ type Props = {
 
 const ExistingConfigTable = ({label, helpText}: Props) => {
     const [visible, setVisible] = useState(false);
+  
     const handleView = () => {
         setVisible(true);
     };
+ 
+  
     const handleAction = () => {
         setVisible(false);
     };
+
     return (
         <div>
             {visible &&
@@ -44,6 +46,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     setVisible={setVisible}
                 />
             }
+
             <FormGroup>
                 <Col sm={4}>
                     {label}
@@ -64,7 +67,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'Standup'}</td>
                                 <td>{'4'}</td>
                                 <td className='ellipsis'>
-                                    {'Hello to standup group sdhfvk.'}
+                                    {'Hello to standup group.'}
                                 </td>
                                 <td>
                                     {'True'}
@@ -147,6 +150,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 </td>
                                 <td>
                                     <div className='options'>
+
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button
                                                 variant='primary'
@@ -176,7 +180,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     </div>
                 </Col>
             </FormGroup>
-        </div>
+        </>
     );
 };
 

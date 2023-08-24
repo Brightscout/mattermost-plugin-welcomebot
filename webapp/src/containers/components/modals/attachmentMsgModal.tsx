@@ -4,11 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 
 import './styles.css';
 
-const AttachmentMsgModal = () => {
+const AttachmentMessageModal = () => {
     const [show, setShow] = useState(false);
-    const handleClose = () => {
-        setShow(false);
-    };
+    const handleClose = () => setShow(false);
+
     return (
         <div
             className='modal show'
@@ -36,4 +35,4 @@ const AttachmentMsgModal = () => {
     );
 };
 
-export default AttachmentMsgModal;
+export default AttachmentMessageModal;
