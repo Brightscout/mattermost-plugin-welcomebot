@@ -7,7 +7,7 @@
 table.table tbody tr td,
 table.table thead tr th,
 table.table thead {
-  border: 2px solid #ddd;
+  border: 2px solid #dddddd;
 }
   
 .table td {
@@ -22,6 +22,7 @@ table.table thead {
 table {
     width: 100%;
 }
+
 .table thead tr th td{
-    white-space:nowrap
+    white-space: nowrap
 }

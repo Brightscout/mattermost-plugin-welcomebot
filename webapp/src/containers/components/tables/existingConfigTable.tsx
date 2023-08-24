@@ -17,8 +17,6 @@ type HelpText = {
         isMarkdown: boolean;
         isTranslated: boolean;
         text: string;
-        textDefault?: string;
-        textValues?: string;
     }
 }
 
@@ -36,10 +34,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const handleView = () => {
         setViewVisible(true);
     };
+  
     const handleDelete = () => {
         setDeleteVisible(true);
     };
-
+  
     return (
         <div>
             {viewVisible && (
@@ -77,7 +76,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 <td>{'Standup'}</td>
                                 <td>{'4'}</td>
                                 <td className='ellipsis'>
-                                    {'Hello to standup group sdhfvk.'}
+                                    {'Hello to standup group.'}
                                 </td>
                                 <td>
                                     {'True'}
@@ -159,6 +158,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                                 </td>
                                 <td>
                                     <div className='options'>
+
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button
                                                 variant='primary'
@@ -185,7 +185,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     </div>
                 </Col>
             </FormGroup>
-        </div>
+        </>
     );
 };
 

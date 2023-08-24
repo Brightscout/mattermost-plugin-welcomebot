@@ -8,10 +8,10 @@ import './styles.css';
 
 type Props = {
     visible: boolean;
-    setVis: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditActionsModal = ({visible, setVis}: Props) => {
+const EditActionsModal = ({visible, setVisible}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const EditActionsModal = ({visible, setVis}: Props) => {
 
     const handleClose = () => {
         setShow(false);
-        setVis(false);
+        setVisible(false);
     };
     return (
         <Modal
