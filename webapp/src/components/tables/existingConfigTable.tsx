@@ -8,7 +8,7 @@ import ConfigModal from '../modals/configModal';
 
 import {DeleteSvg, EditSvg, ViewSvg} from '../svgIcons/svg';
 
-import './styles.css';
+import './styles.scss';
 
 type Props = {
     onChange: (config: Configs[]) => void;

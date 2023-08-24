@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
-import './styles.css';
+import './styles.scss';
 
 type Props = {
     visibility: boolean;

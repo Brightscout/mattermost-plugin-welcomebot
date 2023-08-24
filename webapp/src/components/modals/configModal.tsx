@@ -17,7 +17,7 @@ import {fetchChannels, fetchTeams} from 'api/api_wrapper';
 
 import {DeleteSvg, EditSvg} from '../svgIcons/svg';
 
-import './styles.css';
+import './styles.scss';
 
 type Props = {
     visibility: boolean;
