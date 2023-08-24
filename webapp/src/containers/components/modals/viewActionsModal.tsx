@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import './styles.css';
 
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -21,6 +21,7 @@ const ViewActionsModal = (props: Props) => {
         setShow(false);
         props.setVisible(false);
     };
+
     return (
         <Modal
             show={show}
