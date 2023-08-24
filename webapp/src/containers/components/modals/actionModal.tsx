@@ -32,7 +32,7 @@ const ViewActionsModal = ({visibility, setVisibility}: Props) => {
                         <Form.Label>{'Attachment Message'}</Form.Label>
                         <Form.Control
                             type='long-text'
-                            placeholder='This is a example attachment message'
+                            placeholder='This is an example attachment message'
                             aria-label='Disabled input example'
                             readOnly={true}
                         />
@@ -58,19 +58,19 @@ const ViewActionsModal = ({visibility, setVisibility}: Props) => {
                             <td>{'Button'}</td>
                             <td>{'Import'}</td>
                             <td>{'channel1, channel2, channel3'}</td>
-                            <td>{'Welcome to your new team mate!'}</td>
+                            <td>{'Welcome to your new team!'}</td>
                         </tr>
                         <tr>
                             <td>{'Automatic'}</td>
                             <td>{'Export'}</td>
                             <td>{'channel1, channel2'}</td>
-                            <td>{'Welcome to your new team mate!'}</td>
+                            <td>{'Welcome to your new team!'}</td>
                         </tr>
                         <tr>
                             <td>{'Button'}</td>
                             <td>{'Deport'}</td>
                             <td>{'channel1, channel3'}</td>
-                            <td>{'Welcome to your new team mate!'}</td>
+                            <td>{'Welcome to your new team!'}</td>
                         </tr>
                     </tbody>
                 </Table>

@@ -3,12 +3,9 @@ import React, {useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import './styles.css';
-
-import {Config} from '../../../types/plugin/common';
 
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
@@ -20,8 +17,6 @@ type HelpText = {
         isMarkdown: boolean;
         isTranslated: boolean;
         text: string;
-        textDefault?: string;
-        textValues?: string;
     }
 }
 
@@ -108,7 +103,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                             <td className='team-name'>{'Standup'}</td>
                             <td className='delay'>{'4'}</td>
                             <td className='message'>
-                                {'Hello to standup group sdhfvk.'}
+                                {'Hello to standup group'}
                             </td>
                             <td className='include-guests'>
                                 {'True'}

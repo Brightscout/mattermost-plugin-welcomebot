@@ -1,4 +1,4 @@
-export type Config = {
+type Config = {
     ConfigValues: boolean,
 }
 

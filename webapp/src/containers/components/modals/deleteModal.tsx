@@ -11,9 +11,7 @@ type Props = {
 }
 
 const DeleteConfigModal = ({visibility, setVisibility}: Props) => {
-    const handleClose = () => {
-        setVisibility(false);
-    };
+    const handleClose = () => setVisibility(false);
 
     return (
         <>
