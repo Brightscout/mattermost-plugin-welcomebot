@@ -6,11 +6,11 @@ import './styles.css';
 
 const AttachmentMessageModal = () => {
     const [show, setShow] = useState(false);
-  
+
     useEffect(() => {
         setShow(true);
     }, []);
-  
+
     const handleClose = () => {
         setShow(false);
     };

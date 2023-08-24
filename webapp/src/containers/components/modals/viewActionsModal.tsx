@@ -23,6 +23,7 @@ const ViewActionsModal = (props: Props) => {
         setShow(false);
         props.setVisible(false);
     };
+
     return (
         <Modal
             show={show}

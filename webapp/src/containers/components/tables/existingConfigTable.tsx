@@ -34,11 +34,11 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
     const handleView = () => {
         setViewVisible(true);
     };
-  
+
     const handleDelete = () => {
         setDeleteVisible(true);
     };
-  
+
     return (
         <div>
             {viewVisible && (
@@ -185,7 +185,7 @@ const ExistingConfigTable = ({label, helpText}: Props) => {
                     </div>
                 </Col>
             </FormGroup>
-        </>
+        </div>
     );
 };
 
