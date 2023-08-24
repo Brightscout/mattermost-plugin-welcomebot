@@ -7,7 +7,7 @@
 .existing-config-table.table.table tbody tr td,
 .existing-config-table.table.table thead tr th,
 .existing-config-table.table.table thead {
-  border: 2px solid #ddd;
+  border: 2px solid #dddddd;
   vertical-align: middle;
 }
   
@@ -32,6 +32,7 @@
 .existing-config-table.table-body {
     width: 100%;
 }
+
 .existing-config-table.table thead tr th td{
     white-space:nowrap
 }
@@ -48,7 +49,7 @@
 
 .existing-config-table .btn-group.btn.btn-default:hover, .btn-group .btn.btn-default:focus {
     background: transparent;
-    color: #000;
+    color: #000000;
 }
 
 .add-config-btn {
@@ -83,7 +84,7 @@
     width: 45%;
 }
 
-.includeGuests {
+.include-guests {
     width: 13%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -96,23 +97,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.guestValue {
-    text-align: center;
-    vertical-align: middle;
-}
-.delayValue {
-    text-align: center;
-    vertical-align: middle;
-}
-.teamNameValue {
-    text-align: center;
-    vertical-align: middle;
-}
 
 .existing-config-table.table .messageValue {
     text-align: left;
     vertical-align: middle;
 }
+
 .message-content {
     text-align: left;
     width: 100%;
@@ -120,8 +110,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.svg-buttons:focus,
-.svg-buttons:active {
+
+.svg-buttons:focus, .svg-buttons:active {
     outline: none;
     box-shadow: none;
 }

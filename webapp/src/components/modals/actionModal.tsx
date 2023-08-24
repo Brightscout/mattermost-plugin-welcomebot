@@ -48,7 +48,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                     <Modal.Title>{'Actions'}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body className='customModalBody'>
+                <Modal.Body className='custom-modal-body'>
                     {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
                         {attachmentMessageAvailable ? (
                             <Form>
@@ -72,7 +72,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                         <Form.Label>{'Actions'}</Form.Label>
                                     </Form.Group>
                                 </Form>
-                                <div className='listTable'>
+                                <div className='list-table'>
                                     <Table
                                         striped={true}
                                     >

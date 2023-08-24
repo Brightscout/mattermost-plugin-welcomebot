@@ -97,7 +97,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                 <th className='teamName'>{'Team Name'}</th>
                                 <th className='delay'>{'Delay (in sec)'}</th>
                                 <th className='message'>{'Message'}</th>
-                                <th className='includeGuests'>{'Include Guests'}</th>
+                                <th className='include-guests'>{'Include Guests'}</th>
                                 <th className='option'>{'Options'}</th>
                             </tr>
                         </thead>

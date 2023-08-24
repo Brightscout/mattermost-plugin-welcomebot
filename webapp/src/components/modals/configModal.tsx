@@ -404,7 +404,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         {modalHeader}
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='customModalBody'>
+                <Modal.Body className='custom-modal-body'>
                     {isConfigVisible && <div className={isConfigVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form
                             className='config-form'
@@ -413,7 +413,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         >
                             <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (teamApiCalled && teamApiError !== '')) ? '' : 'warning'}>
                                 <Form.Group
-                                    className='form-group teamName-dropdown'
+                                    className='form-group team-name-dropdown'
                                     controlId='validationCustom02'
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
@@ -482,7 +482,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     <ButtonGroup className='radio'>
                                         {guest.map((guests, index) => (
                                             <ToggleButton
-                                                className='guestButton'
+                                                className='guest-button'
                                                 key={index.toString()}
                                                 type='radio'
                                                 name='radio'
@@ -514,7 +514,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                             </Form.Group>}
                         </Form>
                         {existingConfig?.actions && actionLength > 0 ? (
-                            <div className='listTable gapping'>
+                            <div className='list-table gapping'>
                                 <Table
                                     striped={true}
                                 >
@@ -651,7 +651,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     <ButtonGroup className='radio'>
                                         {actionTypes.map((radio, index) => (
                                             <ToggleButton
-                                                className='actionTypeButton'
+                                                className='action-typeButton'
                                                 key={index.toString()}
                                                 type='radio'
                                                 name='radio'

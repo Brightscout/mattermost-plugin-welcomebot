@@ -22,7 +22,7 @@
   max-width: 615px;
 }
 
-.customModalBody {
+.custom-modal-body {
   height: 80%;
   overflow-y: auto;
 }
@@ -68,7 +68,7 @@
 
 .btn-group .btn.btn-default:hover, .btn-group .btn.btn-default:focus {
   background: transparent;
-  color: #000;
+  color: #000000;
 }
 
 .radio.btn-group {
@@ -93,7 +93,7 @@
 }
 
 .validation-warning {
-  color: red;
+  color: #FF0000;
   font-size: 12px;
 }
 
@@ -105,19 +105,19 @@
   display: block;
 }
 
-.guestButton.active {
+.guest-button.active {
   box-shadow: none;
   outline: transparent;
 }
 
-.actionTypeButton.active {
+.action-typeButton.active {
   box-shadow: none;
   outline: transparent;
 }
 
 .warning {
   margin-bottom: 27px;
-  color: #000;
+  color: #000000;
 }
 
 .gapping {
@@ -142,7 +142,7 @@
 }
 
 .form-label {
-  color: #000;
+  color: #000000;
 }
 
 .type {
@@ -233,52 +233,52 @@
   width: 17%;
 }
 
-.listTable .table tbody tr td,
-.listTable .table thead tr th,
-.listTable .table thead {
-  border: 1px solid #ddd;
+.list-table .table tbody tr td,
+.list-table .table thead tr th,
+.list-table .table thead {
+  border: 1px solid #dddddd;
   vertical-align: middle;
 }
   
-.listTable .table td {
+.list-table .table td {
   text-align: center;
   vertical-align: middle;
 }
 
-.listTable .table th {
+.list-table .table th {
   text-align: center;
   vertical-align: bottom;
 } 
 
-.listTable .table thead tr th td{
+.list-table .table thead tr th td{
   white-space:nowrap
 }
 
-.listTable .table {
+.list-table .table {
   width: 100%;
   margin-top: 0;
   margin-bottom: 0;
   table-layout: fixed;
 }
 
-.listTable .table thead {
+.list-table .table thead {
   width: 100%;
 }
 
-.listTable .table tr {
+.list-table .table tr {
   display: flex;
   width: 100%; 
 }
 
-.listTable th {
+.list-table th {
   text-align: center;
 }
 
-.teamName-dropdown {
-  color: black;
+.team-name-dropdown {
+  color: #000000;
 }
 
-.guestButton:focus {
+.guest-button:focus {
   outline: none;
   box-shadow: none 
 }
