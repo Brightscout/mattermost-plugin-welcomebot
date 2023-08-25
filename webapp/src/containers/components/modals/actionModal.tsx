@@ -7,8 +7,6 @@ import Form from 'react-bootstrap/Form';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,8 +35,8 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
             </Modal.Header>
 
             <Modal.Body>
-                {(config[configIndex].attachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.actions && actionsLength > 0) ? (<>
-                    {config[configIndex].attachmentMessage && attachmentMessageLength > 0 ? (
+                {(config[configIndex].attachmentMessage && attachmentMessageLength) || (config[configIndex]?.actions && actionsLength) ? (<>
+                    {config[configIndex].attachmentMessage && attachmentMessageLength ? (
                         <Form>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Attachment Message'}</Form.Label>
@@ -53,7 +51,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                         </Form>
                     ) : (<p>{'No Attachment message configured'}</p>)
                     }
-                    {config[configIndex]?.actions && actionsLength > 0 ? (
+                    {config[configIndex]?.actions && actionsLength ? (
                         <div>
                             <Form>
                                 <Form.Group className='action-group'>
@@ -74,8 +72,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                    config[configIndex].actions?.map((val, i) =>
+                                    {config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
                                                 <td>{val.actionType}</td>
@@ -85,8 +82,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                                                 <td>{val.actionSuccessfullMessage}</td>
                                             </tr>
                                         ),
-                                    )
-                                    }
+                                    )}
                                 </tbody>
                             </Table>
                         </div>

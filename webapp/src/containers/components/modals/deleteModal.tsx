@@ -5,9 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
-interface Props {
+type Props = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
