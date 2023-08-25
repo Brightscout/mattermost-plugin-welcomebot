@@ -1,19 +1,7 @@
-import React, {useEffect} from 'react';
-
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
-
-import './styles.css';
 
 import {Configs} from 'types/plugin/common';
 
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    config: Configs[]
-    configIndex: number;
 }
 
 function ActionModal({visible, setVisible, config, configIndex}: Props) {
@@ -26,13 +14,6 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
 
     const handleClose = () => {
         setVisible(false);
-    };
-    return (
-        <Modal
-            show={visible}
-            onHide={handleClose}
-        >
-            <Modal.Header closeButton={false}>
                 <Modal.Title>{'Actions'}</Modal.Title>
             </Modal.Header>
 
@@ -93,7 +74,6 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                     ) : (<p>{'No Action configured'}</p>)
                     }
                 </>) : (<p>{'No Attachment message or Action configured'}</p>)}
-            </Modal.Body>
 
             <Modal.Footer>
                 <Button

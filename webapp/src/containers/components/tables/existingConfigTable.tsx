@@ -7,10 +7,17 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 import ActionModal from '../modals/actionModal';
 import ConfigModal from '../modals/configModal';
+
+type HelpText = {
+    key: string | null;
+    props: {
+        isMarkdown: boolean;
+        isTranslated: boolean;
+        text: string;
+    }
+}
 
 type Props = {
     onChange: any
@@ -36,8 +43,9 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         setConfigIndex(index);
         setEditVisible(true);
     };
+
     const handleAdd = () => {
-        setAddVisible(true);
+        setIsAddVisible(true);
     };
 
     return (
@@ -50,7 +58,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     configIndex={configIndex}
                 />
             }
-            {editVisible &&
+            {isEditVisible &&
                 <ConfigModal
                     visible={editVisible}
                     setVis={setEditVisible}
@@ -60,7 +68,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Edit Config'
                 />
             }
-            {addVisible &&
+            {isAddVisible &&
                 <ConfigModal
                     visible={addVisible}
                     setVis={setAddVisible}

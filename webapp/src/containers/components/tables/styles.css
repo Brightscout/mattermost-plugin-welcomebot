@@ -7,7 +7,7 @@
 .existing-config-table.table.table tbody tr td,
 .existing-config-table.table.table thead tr th,
 .existing-config-table.table.table thead {
-  border: 2px solid #ddd;
+  border: 2px solid #dddddd;
   vertical-align: middle;
 }
   
@@ -40,11 +40,11 @@
 
 .existing-config-table .btn-group.btn.btn-default:hover, .btn-group .btn.btn-default:focus {
     background: transparent;
-    color: #000;
+    color: #000000;
 }
 
 .add-config-btn {
-    margin: 1em 0 0 0;
+    margin: 1px 0 0 0;
 }
 
 .config {
