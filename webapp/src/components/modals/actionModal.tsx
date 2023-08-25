@@ -40,7 +40,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
     return (
         <div>
             <Modal
-                className='customModal'
+                className='custom-modal'
                 show={visibility}
                 onHide={handleClose}
             >

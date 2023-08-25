@@ -33,7 +33,7 @@ const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}:
 
     return (
         <Modal
-            className='customModal'
+            className='custom-modal'
             show={show}
             onHide={handleClose}
         >

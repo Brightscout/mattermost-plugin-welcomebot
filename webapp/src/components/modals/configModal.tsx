@@ -395,7 +395,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     return (
         <div>
             <Modal
-                className='customModal'
+                className='custom-modal'
                 show={show}
                 onHide={handleSecondary}
             >

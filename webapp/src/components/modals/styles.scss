@@ -20,7 +20,7 @@ $border-color_1: transparent;
 	}
 }
 
-.modal {
+.custom-modal.modal {
 	opacity: 1;
 	padding-top: 12%;
 }
@@ -163,14 +163,12 @@ $border-color_1: transparent;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 
 .channels-added {
 	width: 19%;
 	display: flex;
+	justify-content: center;
 }
 
 .channels-added-content {
@@ -187,9 +185,6 @@ $border-color_1: transparent;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 
 .display-name {
@@ -197,9 +192,6 @@ $border-color_1: transparent;
 }
 
 .display-name-content {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
