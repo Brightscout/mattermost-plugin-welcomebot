@@ -7,8 +7,6 @@ import Form from 'react-bootstrap/Form';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 type Props = {
     visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,8 +38,8 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
             </Modal.Header>
 
             <Modal.Body>
-                {(config[configIndex].attachmentMessage && attachmentMessageLength > 0) || (config[configIndex]?.actions && actionsLength > 0) ? (<>
-                    {config[configIndex].attachmentMessage && attachmentMessageLength > 0 ? (
+                {(config[configIndex].attachmentMessage && attachmentMessageLength) || (config[configIndex]?.actions && actionsLength) ? (<>
+                    {config[configIndex].attachmentMessage && attachmentMessageLength ? (
                         <Form>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Attachment Message'}</Form.Label>
@@ -56,7 +54,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                         </Form>
                     ) : (<p>{'No Attachment message configured'}</p>)
                     }
-                    {config[configIndex]?.actions && actionsLength > 0 ? (
+                    {config[configIndex]?.actions && actionsLength ? (
                         <div>
                             <Form>
                                 <Form.Group className='action-group'>
@@ -77,8 +75,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                    config[configIndex].actions?.map((val, i) =>
+                                    {config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
                                                 <td>{val.actionType}</td>
@@ -88,8 +85,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                                 <td>{val.actionSuccessfullMessage}</td>
                                             </tr>
                                         ),
-                                    )
-                                    }
+                                    )}
                                 </tbody>
                             </Table>
                         </div>
@@ -97,7 +93,6 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                     }
                 </>) : (<p>{'No Attachment message or action configured'}</p>)}
             </Modal.Body>
-
             <Modal.Footer>
                 <Button
                     variant='secondary'

@@ -1,4 +1,4 @@
-export type Actions = {
+type Actions = {
     actionType: string,
     actionName: string,
     actionDisplayName: string,
@@ -6,7 +6,7 @@ export type Actions = {
     actionSuccessfullMessage: string[]
 }
 
-export type Configs = {
+type Configs = {
     teamName: string,
     delayInSeconds: number,
     message: string[],

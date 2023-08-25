@@ -7,10 +7,17 @@ import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 import ActionModal from '../modals/actionModal';
 import ConfigModal from '../modals/configModal';
+
+type HelpText = {
+    key: string | null;
+    props: {
+        isMarkdown: boolean;
+        isTranslated: boolean;
+        text: string;
+    }
+}
 
 type Props = {
     onChange: any
@@ -34,6 +41,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         setConfigIndex(index);
         setIsEditVisible(true);
     };
+
     const handleAdd = () => {
         setIsAddVisible(true);
     };
