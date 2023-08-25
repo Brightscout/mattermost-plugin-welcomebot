@@ -1,30 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 type Props = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     config: Configs[];
     configIndex: number;
     onChange: any;
 }
 
-const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props) => {
-    const [show, setShow] = useState(false);
-
+const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
     useEffect(() => {
-        setShow(visible);
-    }, [visible]);
+        setVisibility(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
-        setShow(false);
-        setVisible(false);
+        setVisibility(false);
     };
     const handleDelete = () => {
         config.splice(configIndex, 1);
@@ -36,7 +31,7 @@ const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props
 
         <>
             <Modal
-                show={show}
+                show={visibility}
                 onHide={handleClose}
             >
                 <Modal.Header closeButton={false}>

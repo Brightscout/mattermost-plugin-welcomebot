@@ -9,10 +9,17 @@ import FormGroup from 'react-bootstrap/FormGroup';
 
 import './styles.css';
 
-import {Configs} from 'types/plugin/common';
-
 import ActionModal from '../modals/actionModal';
 import ConfigModal from '../modals/configModal';
+
+type HelpText = {
+    key: string | null;
+    props: {
+        isMarkdown: boolean;
+        isTranslated: boolean;
+        text: string;
+    }
+}
 
 type Props = {
     onChange: any
@@ -36,6 +43,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         setConfigIndex(index);
         setEditVisible(true);
     };
+
     const handleAdd = () => {
         setAddVisible(true);
     };
@@ -44,16 +52,16 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         <div className='config'>
             {viewVisible &&
                 <ActionModal
-                    visible={viewVisible}
-                    setVisible={setViewVisible}
+                    visibility={viewVisible}
+                    setVisibility={setViewVisible}
                     config={value}
                     configIndex={configIndex}
                 />
             }
             {addVisible &&
                 <ConfigModal
-                    visible={addVisible}
-                    setVisible={setAddVisible}
+                    visibility={addVisible}
+                    setVisibility={setAddVisible}
                     configIndex={null}
                     config={value}
                     onChange={onChange}

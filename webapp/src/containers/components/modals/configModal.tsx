@@ -9,8 +9,6 @@ import {OverlayTrigger, Tooltip, ToggleButton} from 'react-bootstrap';
 
 import './styles.css';
 
-import {Configs, Actions} from 'types/plugin/common';
-
 type Props = {
     visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,9 +47,9 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     };
 
     const [show, setShow] = useState(true);
-    const [actionVisible, setActionVisible] = useState(false);
-    const [configVisible, setConfigVisible] = useState(true);
-    const [deleteVisible, setDeleteVisible] = useState(false);
+    const [isActionVisible, setIsActionVisible] = useState(false);
+    const [isConfigVisible, setIsConfigVisible] = useState(true);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
     const [existingConfig, setExistingConfig] = useState(configIndex === null ? newConfig : config[configIndex]);
 
     const [teamName, setTeamName] = useState(existingConfig.teamName);
@@ -93,7 +91,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
     useEffect(() => {
         setShow(visibility);
-        setConfigVisible(visibility);
+        setIsConfigVisible(visibility);
     }, [visibility]);
 
     useEffect(() => {
@@ -134,13 +132,13 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     };
 
     const handleClose = () => {
-        if (actionVisible) {
-            setActionVisible(false);
-            setConfigVisible(true);
+        if (isActionVisible) {
+            setIsActionVisible(false);
+            setIsConfigVisible(true);
             return;
-        } else if (deleteVisible) {
-            setDeleteVisible(false);
-            setConfigVisible(true);
+        } else if (isDeleteVisible) {
+            setIsDeleteVisible(false);
+            setIsConfigVisible(true);
             return;
         }
 
@@ -149,21 +147,21 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     };
     const handleEditAction = (i: number) => {
         setActionIndex(i);
-        setActionVisible(true);
-        setConfigVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
 
     const handleAddActions = () => {
         resetActionElement();
         setActionIndex(null);
         preFillActions();
-        setActionVisible(true);
-        setConfigVisible(false);
+        setIsActionVisible(true);
+        setIsConfigVisible(false);
     };
     const handleDelete = (index: number) => {
         setActionIndex(index);
-        setDeleteVisible(true);
-        setConfigVisible(false);
+        setIsDeleteVisible(true);
+        setIsConfigVisible(false);
     };
 
     const structureConfig = () => {
@@ -203,7 +201,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     };
 
     const handlePrimary = () => {
-        if (actionVisible) {
+        if (isActionVisible) {
             if (configIndex !== null) {
                 if (actionIndex === null) {
                     actionElement.actionDisplayName = actionDisplayName;
@@ -226,11 +224,11 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                     structureActions();
                 }
             }
-            setActionVisible(false);
-            setConfigVisible(true);
+            setIsActionVisible(false);
+            setIsConfigVisible(true);
             onChange(config);
         }
-        if (configVisible) {
+        if (isConfigVisible) {
             if (configIndex === null) {
                 structureNewConfig();
                 config.push(existingConfig);
@@ -240,7 +238,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             onChange(config);
             handleClose();
         }
-        if (deleteVisible && actionIndex !== null) {
+        if (isDeleteVisible && actionIndex !== null) {
             const _ = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
@@ -263,7 +261,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='configModalBody'>
-                    {configVisible && <div className={configVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isConfigVisible && <div className={isConfigVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Team name'}</Form.Label>
@@ -419,7 +417,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         }
                     </div>}
 
-                    {actionVisible && <div className={actionVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
                             <Form.Group>
                                 <Form.Label className='radio-form'>{'Action Type'}</Form.Label>
@@ -476,24 +474,24 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                             </Form.Group>
                         </Form>
                     </div>}
-                    {!deleteVisible && !actionVisible && <div>
+                    {!isDeleteVisible && !isActionVisible && <div>
                         <Button
                             className={configIndex !== null && actionLength > 0 ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}
 
-                    {deleteVisible && <div className={deleteVisible ? 'fade-enter' : 'fade-exit'}>
+                    {isDeleteVisible && <div className={isDeleteVisible ? 'fade-enter' : 'fade-exit'}>
                         <p>{'Are you sure you would like to delete the action ?'}</p>
                     </div>}
                 </Modal.Body>
                 <Modal.Footer>
-                    {configVisible && handleCloseButton('primary', 'Save changes')}
-                    {actionVisible && handleCloseButton('primary', 'Add action')}
-                    {configVisible && handleCloseButton('secondary', 'Close')}
-                    {actionVisible && handleCloseButton('secondary', 'Cancel')}
-                    {deleteVisible && handleCloseButton('secondary', 'Cancel')}
-                    {deleteVisible && handleCloseButton('danger', 'Delete action')}
+                    {isConfigVisible && handleCloseButton('primary', 'Save changes')}
+                    {isActionVisible && handleCloseButton('primary', 'Add action')}
+                    {isConfigVisible && handleCloseButton('secondary', 'Close')}
+                    {isActionVisible && handleCloseButton('secondary', 'Cancel')}
+                    {isDeleteVisible && handleCloseButton('secondary', 'Cancel')}
+                    {isDeleteVisible && handleCloseButton('danger', 'Delete action')}
                 </Modal.Footer>
             </Modal>
         </>
