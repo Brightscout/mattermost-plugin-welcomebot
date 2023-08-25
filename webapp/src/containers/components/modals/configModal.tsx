@@ -48,9 +48,9 @@ function ConfigModal({visibility, setVisibility, config}: Props) {
     ];
 
     useEffect(() => {
-        setShow(props.visibility);
-        setIsConfigVisible(props.visibility);
-    }, [props.visibility]);
+        setShow(visibility);
+        setIsConfigVisible(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
         if (isActionVisible) {
@@ -61,7 +61,7 @@ function ConfigModal({visibility, setVisibility, config}: Props) {
             setIsConfigVisible(true);
         } else {
             setShow(false);
-            props.setVisibility(false);
+            setVisibility(false);
         }
         setShow(false);
         setVisibility(false);
@@ -86,7 +86,7 @@ function ConfigModal({visibility, setVisibility, config}: Props) {
             >
                 <Modal.Header closeButton={false}>
                     <Modal.Title>
-                        {props.config ? (<p>{isConfigVisible && <p>{'Edit config'}</p>}{isActionVisible && <p>{'Edit actions'}</p>}{isDeleteVisible && <p>{'Delete Config'}</p>}</p>) : (<p>{isConfigVisible && <p>{'Add config'}</p>}{isActionVisible && <p>{'Add action'}</p>}</p>)}
+                        {config ? (<p>{isConfigVisible && <p>{'Edit config'}</p>}{isActionVisible && <p>{'Edit actions'}</p>}{isDeleteVisible && <p>{'Delete Config'}</p>}</p>) : (<p>{isConfigVisible && <p>{'Add config'}</p>}{isActionVisible && <p>{'Add action'}</p>}</p>)}
                     </Modal.Title>
                 </Modal.Header>
 
@@ -405,7 +405,7 @@ function ConfigModal({visibility, setVisibility, config}: Props) {
                             </Form.Group>
                         </Form>
                     </div>}
-                    {!props.config && !isActionVisible && <div>
+                    {!config && !isActionVisible && <div>
                         <Button
                             className='add-actions'
                             onClick={handleActions}

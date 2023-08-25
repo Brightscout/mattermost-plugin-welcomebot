@@ -1,17 +1,33 @@
+import React, {useEffect} from 'react';
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+
+import './styles.css';
 
 type Props = {
+    visibility: boolean;
+    setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+    config: Configs[];
+    configIndex: number;
 }
 
-function ActionModal({visible, setVisible, config, configIndex}: Props) {
+function ActionModal({visibility, setVisibility, config, configIndex}: Props) {
     const actionsLength = config[configIndex]?.actions?.length ?? 0;
     const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length ?? 0;
 
     useEffect(() => {
-        setVisible(visible);
-    }, [visible]);
+        setVisibility(visibility);
+    }, [visibility]);
 
     const handleClose = () => {
-        setVisible(false);
+        setVisibility(false);
+    };
+    return (
+        <Modal>
+            <Modal.Header>
                 <Modal.Title>{'Actions'}</Modal.Title>
             </Modal.Header>
 
@@ -70,7 +86,7 @@ function ActionModal({visible, setVisible, config, configIndex}: Props) {
                     ) : (<p>{'No Action configured'}</p>)
                     }
                 </>) : (<p>{'No Attachment message or Action configured'}</p>)}
-
+            </Modal.Body>
             <Modal.Footer>
                 <Button
                     variant='secondary'
