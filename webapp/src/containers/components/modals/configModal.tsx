@@ -18,7 +18,7 @@ type Props = {
     modalHeader: string;
 }
 
-function ConfigModal(props: Props) {
+function ConfigModal({visibility, setVisibility, config}: Props) {
     const [show, setShow] = useState(false);
     const [isActionVisible, setIsActionVisible] = useState(false);
     const [isConfigVisible, setIsConfigVisible] = useState(false);
@@ -63,6 +63,8 @@ function ConfigModal(props: Props) {
             setShow(false);
             props.setVisibility(false);
         }
+        setShow(false);
+        setVisibility(false);
     };
 
     const handleActions = () => {

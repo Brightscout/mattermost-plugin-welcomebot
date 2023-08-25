@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -33,7 +33,7 @@ const DeleteModal = ({visible, setVisible, config, configIndex, onChange}: Props
     return (
         <>
             <Modal
-                show={show}
+                show={visibility}
                 onHide={handleClose}
             >
                 <Modal.Header closeButton={false}>

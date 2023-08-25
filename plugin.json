@@ -26,7 +26,6 @@
             "key": "WelcomeMessages",
             "type": "custom",
             "default": []
-        }
     ]
   }
 }
