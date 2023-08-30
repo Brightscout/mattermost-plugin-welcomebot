@@ -4,7 +4,7 @@ type Actions = {
     actionDisplayName: string,
     channelsAddedTo: string[],
     actionSuccessfullMessage: string[]
-}
+};
 
 type Configs = {
     teamName: string,
@@ -13,7 +13,7 @@ type Configs = {
     includeGuests: string | null,
     attachmentMessage: string[] | null,
     actions: Actions[] | null
-}
+};
 
 type GroupTypes = {
     label: string;
