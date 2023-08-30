@@ -33,9 +33,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
         checkAttachmentMessage();
     }, []);
 
-    const handleClose = () => {
-        setVisibility(false);
-    };
+    const handleClose = () => setVisibility(false);
 
     return (
         <div>
