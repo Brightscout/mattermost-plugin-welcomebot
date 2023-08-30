@@ -1,8 +1,7 @@
 import React from 'react';
 
-const EditSvg = () => {
-    return (
-        <svg
+const EditSvg = () => (
+      <svg
             className='svg'
             xmlns='http://www.w3.org/2000/svg'
             width='16'
@@ -18,7 +17,6 @@ const EditSvg = () => {
             <polygon points='18 2 22 6 12 16 8 16 8 12 18 2'/>
         </svg>
     );
-};
 
 const DeleteSvg = () => {
     return (
