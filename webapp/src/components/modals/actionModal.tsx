@@ -36,55 +36,54 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
     const handleClose = () => setVisibility(false);
 
     return (
-        <div>
-            <Modal
-                className='custom-modal'
-                show={visibility}
-                onHide={handleClose}
-            >
-                <Modal.Header closeButton={false}>
-                    <Modal.Title>{'Actions'}</Modal.Title>
-                </Modal.Header>
+        <Modal
+            className='custom-modal'
+            show={visibility}
+            onHide={handleClose}
+        >
+            <Modal.Header closeButton={false}>
+                <Modal.Title>{'Actions'}</Modal.Title>
+            </Modal.Header>
 
-                <Modal.Body className='custom-modal-body'>
-                    {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
-                        {attachmentMessageAvailable ? (
+            <Modal.Body className='custom-modal-body'>
+                {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
+                    {attachmentMessageAvailable ? (
+                        <Form>
+                            <Form.Group className='form-group'>
+                                <Form.Label>{'Attachment Message'}</Form.Label>
+                                <Form.Control
+                                    type='long-text'
+                                    value={config[configIndex].attachmentMessage?.join(',') ?? ''}
+                                    placeholder=''
+                                    aria-label='Disabled input example'
+                                    readOnly={true}
+                                />
+                            </Form.Group>
+                        </Form>
+                    ) : (<p>{'No attachment message configured'}</p>)
+                    }
+                    {config[configIndex]?.actions && actionsLength ? (
+                        <div>
                             <Form>
-                                <Form.Group className='form-group'>
-                                    <Form.Label>{'Attachment Message'}</Form.Label>
-                                    <Form.Control
-                                        type='long-text'
-                                        value={config[configIndex].attachmentMessage?.join(',') ?? ''}
-                                        placeholder=''
-                                        aria-label='Disabled input example'
-                                        readOnly={true}
-                                    />
+                                <Form.Group className='action-group'>
+                                    <Form.Label>{'Actions'}</Form.Label>
                                 </Form.Group>
                             </Form>
-                        ) : (<p>{'No attachment message configured'}</p>)
-                        }
-                        {config[configIndex]?.actions && actionsLength ? (
-                            <div>
-                                <Form>
-                                    <Form.Group className='action-group'>
-                                        <Form.Label>{'Actions'}</Form.Label>
-                                    </Form.Group>
-                                </Form>
-                                <div className='list-table'>
-                                    <Table
-                                        striped={true}
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th className='type-action'>{'Type'}</th>
-                                                <th className='display-name-action'>{'Display Name'}</th>
-                                                <th className='name-action'>{'Name'}</th>
-                                                <th className='channels-added-action'>{'Add to Channels'}</th>
-                                                <th className='success-message-action'>{'Success Message'}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
+                            <div className='list-table'>
+                                <Table
+                                    striped={true}
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th className='type-action'>{'Type'}</th>
+                                            <th className='display-name-action'>{'Display Name'}</th>
+                                            <th className='name-action'>{'Name'}</th>
+                                            <th className='channels-added-action'>{'Add to Channels'}</th>
+                                            <th className='success-message-action'>{'Success Message'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
                                     config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
@@ -141,24 +140,23 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                             </tr>
                                         ),
                                     )
-                                            }
-                                        </tbody>
-                                    </Table>
-                                </div>
+                                        }
+                                    </tbody>
+                                </Table>
                             </div>
-                        ) : (<p>{'No action configured'}</p>)
-                        }
-                    </>) : (<p>{'No attachment message or action configured'}</p>)}
-                </Modal.Body>
+                        </div>
+                    ) : (<p>{'No action configured'}</p>)
+                    }
+                </>) : (<p>{'No attachment message or action configured'}</p>)}
+            </Modal.Body>
 
-                <Modal.Footer>
-                    <Button
-                        variant='secondary'
-                        onClick={handleClose}
-                    >{'Close'}</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+            <Modal.Footer>
+                <Button
+                    variant='secondary'
+                    onClick={handleClose}
+                >{'Close'}</Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
 
