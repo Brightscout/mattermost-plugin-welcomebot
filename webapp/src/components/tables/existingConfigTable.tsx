@@ -38,7 +38,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
         setIsEditVisible(true);
     };
 
-    const handleAdd = () =>  setIsAddVisible(true);
+    const handleAdd = () => setIsAddVisible(true);
 
     return (
         <div className='config'>
