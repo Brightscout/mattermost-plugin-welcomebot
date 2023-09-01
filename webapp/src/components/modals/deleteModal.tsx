@@ -3,26 +3,37 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import './styles.css';
+import './styles.scss';
 
 type Props = {
-    visible: boolean;
+    visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+    config: Configs[];
+    configIndex: number;
+    onChange: (config: Configs[]) => void;
 }
 
-const DeleteConfigModal = (props: Props) => {
+const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShow(props.visible);
-    }, [props.visible]);
+        setShow(visibility);
+    }, [visibility]);
+
+    const handleDelete: () => void = () => {
+        config.splice(configIndex, 1);
+        onChange(config);
+        handleClose();
+    };
 
     const handleClose = () => {
         setShow(false);
-        props.setVisibility(false);
+        setVisibility(false);
     };
+
     return (
         <Modal
+            className='custom-modal'
             show={show}
             onHide={handleClose}
         >
@@ -31,8 +42,7 @@ const DeleteConfigModal = (props: Props) => {
             </Modal.Header>
 
             <Modal.Body>
-                {/*TODO: Add team name according to the team*/}
-                <p>{'Delete the configs for the team xyz'}</p>
+                <p>{`Are you sure you would like to delete the configs for team ${config[configIndex].teamName}?`}</p>
             </Modal.Body>
 
             <Modal.Footer>
@@ -40,10 +50,13 @@ const DeleteConfigModal = (props: Props) => {
                     variant='secondary'
                     onClick={handleClose}
                 >{'Close'}</Button>
-                <Button variant='danger'>{'Delete'}</Button>
+                <Button
+                    variant='danger'
+                    onClick={handleDelete}
+                >{'Delete'}</Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
-export default DeleteConfigModal;
+export default DeleteModal;
