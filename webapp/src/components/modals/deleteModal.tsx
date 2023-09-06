@@ -14,11 +14,11 @@ type Props = {
 }
 
 const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-    useEffect(() => {
-        setShow(visibility);
-    }, [visibility]);
+    // useEffect(() => {
+    //     setShow(visibility);
+    // }, [visibility]);
 
     const handleDelete: () => void = () => {
         config.splice(configIndex, 1);
@@ -27,14 +27,14 @@ const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}:
     };
 
     const handleClose = () => {
-        setShow(false);
+        // setShow(false);
         setVisibility(false);
     };
 
     return (
         <Modal
             className='custom-modal'
-            show={show}
+            show={visibility}
             onHide={handleClose}
         >
             <Modal.Header closeButton={false}>

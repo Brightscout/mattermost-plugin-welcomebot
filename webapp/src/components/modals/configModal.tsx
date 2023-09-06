@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -57,7 +58,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         actions: newAction,
     };
 
-    const [show, setShow] = useState(true);
+    // const [show, setShow] = useState(true);
     const [isConfigVisible, setIsConfigVisible] = useState(true);
     const [isActionVisible, setIsActionVisible] = useState(false);
     const [isDeleteVisible, setIsDeleteVisible] = useState(false);
@@ -77,35 +78,35 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     const [actionName, setActionName] = useState('');
     const [actionIndex, setActionIndex] = useState<number | null>(0);
 
-    const [teamNameValid, setTeamNameValid] = useState(false);
-    const [messageValid, setMessageValid] = useState(false);
-    const [delayValid, setDelayValid] = useState(false);
+    const [isTeamNameValid, setIsTeamNameValid] = useState(false);
+    const [isMessageValid, setIsMessageValid] = useState(false);
+    const [isDelayValid, setIsDelayValid] = useState(false);
 
-    const [actionTypesValueValid, setActionTypesValueValid] = useState(false);
-    const [actionDisplayNameValid, setActionDisplayNameValid] = useState(false);
-    const [actionChannelsAddedToValid, setActionChannelsAddedToValid] = useState(false);
-    const [actionSuccessfullMessageValid, setActionSuccessfullMessageValid] = useState(false);
-    const [actionNameValid, setActionNameValid] = useState(false);
+    const [isActionTypesValueValid, setIsActionTypesValueValid] = useState(false);
+    const [isActionDisplayNameValid, setIsActionDisplayNameValid] = useState(false);
+    const [isActionChannelsAddedToValid, setIsActionChannelsAddedToValid] = useState(false);
+    const [isActionSuccessfullMessageValid, setIsActionSuccessfullMessageValid] = useState(false);
+    const [isActionNameValid, setIsActionNameValid] = useState(false);
 
-    const [validated, setValidated] = useState(false);
+    const [isFormValidated, setIsFormValidated] = useState(false);
 
     const [deleteAction, setDeleteAction] = useState('');
 
     const [selectedTeam, setSelectedTeam] = useState('');
 
-    const [teamSelectionWarning, setTeamSelectionWarning] = useState(false);
+    const [isTeamSelectionWarningVisible, setIsTeamSelectionWarningVisible] = useState(false);
 
-    const [actionClicked, setActionClicked] = useState(false);
+    const [isActionClicked, setIsActionClicked] = useState(false);
 
     const [teamOptionList, setTeamOptionList] = useState<GroupTypes[]>([]);
     const [channelOptionList, setChannelOptionList] = useState<OptionTypes[]>([]);
 
-    const [teamDropdownDisabled, setTeamDropdownDisabled] = useState(false);
-    const [teamApiCalled, setTeamApiCalled] = useState(true);
+    const [isTeamDropdownDisabled, setIsTeamDropdownDisabled] = useState(false);
+    const [isTeamApiCalled, setIsTeamApiCalled] = useState(true);
     const [teamApiError, setTeamApiError] = useState('');
 
-    const [chanelDropdownDisabled, setChannelDropdownDisabled] = useState(false);
-    const [channelApiCalled, setChannelApiCalled] = useState(true);
+    const [isChanelDropdownDisabled, setIsChannelDropdownDisabled] = useState(false);
+    const [isChannelApiCalled, setIsChannelApiCalled] = useState(true);
     const [channelApiError, setChannelApiError] = useState('');
 
     const actionLength = existingConfig?.actions?.length ?? 0;
@@ -114,7 +115,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     const mmSiteUrl = reduxState?.entities?.general?.config?.SiteURL as string;
 
     useEffect(() => {
-        setShow(visibility);
+        // setShow(visibility);
         setIsConfigVisible(visibility);
     }, [visibility]);
 
@@ -140,73 +141,68 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     }, [actionIndex]);
 
     useEffect(() => {
-        setTeamNameValid(Boolean(teamName.trim()));
+        setIsTeamNameValid(Boolean(teamName.trim()));
 
-        setTeamSelectionWarning(Boolean(teamName.trim()));
+        setIsTeamSelectionWarningVisible(Boolean(teamName.trim()));
 
         if (message.length) {
-            setMessageValid(Boolean(message[0].trim()));
+            setIsMessageValid(Boolean(message[0].trim()));
         } else {
-            setMessageValid(false);
+            setIsMessageValid(false);
         }
 
-        setDelayValid(delay >= 0);
+        setIsDelayValid(delay >= 0);
 
-        setActionTypesValueValid(Boolean(actionTypesValue));
+        setIsActionTypesValueValid(Boolean(actionTypesValue));
 
-        setActionDisplayNameValid(Boolean(actionDisplayName.trim()));
+        setIsActionDisplayNameValid(Boolean(actionDisplayName.trim()));
 
-        setActionNameValid(Boolean(actionName.trim()));
+        setIsActionNameValid(Boolean(actionName.trim()));
 
         if (actionChannelsAddedTo.length) {
-            setActionChannelsAddedToValid(Boolean(actionChannelsAddedTo[0]));
+            setIsActionChannelsAddedToValid(Boolean(actionChannelsAddedTo[0]));
         } else {
-            setActionChannelsAddedToValid(false);
+            setIsActionChannelsAddedToValid(false);
         }
 
         if (actionSuccessfullMessage.length) {
-            setActionSuccessfullMessageValid(Boolean(actionSuccessfullMessage[0].trim()));
+            setIsActionSuccessfullMessageValid(Boolean(actionSuccessfullMessage[0].trim()));
         } else {
-            setActionSuccessfullMessageValid(false);
+            setIsActionSuccessfullMessageValid(false);
         }
     }, [teamName, delay, message, attachmentMessage, actionTypesValue, actionDisplayName, actionChannelsAddedTo, actionSuccessfullMessage, actionName]);
 
     const handlePrimary = () => {
         if (isActionVisible) {
-            if (actionChannelsAddedToValid && actionDisplayNameValid && actionSuccessfullMessageValid && actionTypesValueValid && actionNameValid && channelApiError === '') {
-                if (configIndex !== null) {
-                    if (actionIndex === null) {
-                        actionElement.actionDisplayName = actionDisplayName;
-                        actionElement.actionName = actionName;
-                        actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
-                        actionElement.actionType = actionTypesValue;
-                        actionElement.channelsAddedTo = actionChannelsAddedTo;
-                        const actions = existingConfig?.actions;
-                        if (actions) {
-                            actions.push(actionElement);
-                            existingConfig.actions = actions;
-                        }
-                    } else {
-                        structureActions();
+            if (isActionChannelsAddedToValid && isActionDisplayNameValid && isActionSuccessfullMessageValid && isActionTypesValueValid && isActionNameValid && channelApiError === '') {
+                if (configIndex !== null && actionIndex === null) {
+                    actionElement.actionDisplayName = actionDisplayName;
+                    actionElement.actionName = actionName;
+                    actionElement.actionSuccessfullMessage = actionSuccessfullMessage;
+                    actionElement.actionType = actionTypesValue;
+                    actionElement.channelsAddedTo = actionChannelsAddedTo;
+                    const actions = existingConfig?.actions;
+                    if (actions) {
+                        actions.push(actionElement);
+                        existingConfig.actions = actions;
                     }
-                } else if (configIndex === null) {
-                    if (actionIndex === null) {
-                        structureNewActions();
-                    } else {
-                        structureActions();
-                    }
+                } else if (configIndex === null && actionIndex === null) {
+                    structureNewActions();
+                } else {
+                    structureActions();
                 }
                 setIsActionVisible(false);
                 setIsConfigVisible(true);
-                setValidated(false);
+                setIsFormValidated(false);
                 onChange(config);
-                setActionClicked(false);
+                setIsActionClicked(false);
             } else {
-                setValidated(true);
+                setIsFormValidated(true);
             }
         }
+
         if (isConfigVisible) {
-            if (teamNameValid && messageValid && teamApiError === '') {
+            if (isTeamNameValid && isMessageValid && teamApiError === '') {
                 if (configIndex === null) {
                     structureNewConfig();
                     config.push(existingConfig);
@@ -214,14 +210,15 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                     structureConfig();
                 }
                 onChange(config);
-                setValidated(false);
+                setIsFormValidated(false);
                 handleSecondary();
             } else {
-                setValidated(true);
+                setIsFormValidated(true);
             }
         }
+
         if (isDeleteVisible && actionIndex !== null) {
-            const l = existingConfig.actions?.splice(actionIndex, 1);
+            const _ = existingConfig.actions?.splice(actionIndex, 1);
             if (configIndex !== null) {
                 config[configIndex] = existingConfig;
                 onChange(config);
@@ -232,37 +229,38 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
     const handleSecondary = () => {
         if (isActionVisible) {
-            setValidated(false);
+            setIsFormValidated(false);
             setIsActionVisible(false);
             setIsConfigVisible(true);
-            setActionClicked(false);
+            setIsActionClicked(false);
             return;
         } else if (isDeleteVisible) {
-            setValidated(false);
+            setIsFormValidated(false);
             setIsDeleteVisible(false);
             setIsConfigVisible(true);
             return;
         }
 
-        setValidated(false);
-        setShow(false);
+        setIsFormValidated(false);
+
+        // setShow(false);
         setVisibility(false);
-        setTeamApiCalled(false);
+        setIsTeamApiCalled(false);
     };
 
-    const handleEditAction = (i: number) => {
-        setActionIndex(i);
+    const handleEditAction = (index: number) => {
+        setActionIndex(index);
         setIsActionVisible(true);
         setIsConfigVisible(false);
     };
 
     const handleAddActions = () => {
-        setActionClicked(true);
+        setIsActionClicked(true);
         if (selectedTeam === '') {
-            setTeamSelectionWarning(false);
+            setIsTeamSelectionWarningVisible(false);
         } else if (teamApiError === '') {
-            setTeamSelectionWarning(true);
-            setValidated(false);
+            setIsTeamSelectionWarningVisible(true);
+            setIsFormValidated(false);
             resetActionElement();
             setActionIndex(null);
             preFillActions();
@@ -292,28 +290,28 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         setSelectedTeam(teams.value);
     };
 
-    const getTeam = async (SiteUrl: string) => {
+    const getTeam = async (siteUrl: string) => {
         try {
-            setTeamDropdownDisabled(true);
-            setTeamApiCalled(true);
-            const teamData = await fetchTeams(SiteUrl);
+            setIsTeamDropdownDisabled(true);
+            setIsTeamApiCalled(true);
+            const teamData = await fetchTeams(siteUrl);
             const TeamOptions = teamData.map((team: Teams) => ({
                 value: team.display_name,
                 label: team.display_name,
             }));
             setTeamOptionList(TeamOptions);
         } catch (error) {
-            setTeamApiError('Some error occured fetching the team list');
+            setTeamApiError('Some error occured while fetching the team list');
         } finally {
-            setTeamDropdownDisabled(false);
+            setIsTeamDropdownDisabled(false);
         }
     };
 
-    const getChannel = async (SiteUrl: string) => {
+    const getChannel = async (siteUrl: string) => {
         try {
-            setChannelDropdownDisabled(true);
-            setChannelApiCalled(true);
-            const channelData = await fetchChannels(SiteUrl);
+            setIsChannelDropdownDisabled(true);
+            setIsChannelApiCalled(true);
+            const channelData = await fetchChannels(siteUrl);
             const channelOptions = channelData.map((channel: Channels) => ({
                 value: channel.display_name,
                 label: channel.display_name,
@@ -323,7 +321,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         } catch (error) {
             setChannelApiError('Some error occured fetching the channel list');
         } finally {
-            setChannelDropdownDisabled(false);
+            setIsChannelDropdownDisabled(false);
         }
     };
 
@@ -396,7 +394,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         <div>
             <Modal
                 className='custom-modal'
-                show={show}
+                show={visibility}
                 onHide={handleSecondary}
             >
                 <Modal.Header closeButton={false}>
@@ -409,16 +407,16 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                         <Form
                             className='config-form'
                             noValidate={true}
-                            validated={validated}
+                            validated={isFormValidated}
                         >
-                            <div className={((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (teamApiCalled && teamApiError !== '')) ? '' : 'warning'}>
+                            <div className={((isFormValidated && !isTeamNameValid) || (isActionClicked && !isTeamSelectionWarningVisible) || (isTeamApiCalled && teamApiError !== '')) ? '' : 'warning'}>
                                 <Form.Group
                                     className='form-group team-name-dropdown'
                                     controlId='validationCustom02'
                                 >
                                     <Form.Label>{'TeamName*'}</Form.Label>
                                     <Select
-                                        isDisabled={teamDropdownDisabled || teamApiError !== ''}
+                                        isDisabled={isTeamDropdownDisabled || teamApiError !== ''}
                                         closeMenuOnSelect={true}
                                         onChange={handleTeamSelect}
                                         isMulti={false}
@@ -427,7 +425,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         options={teamOptionList}
                                         value={teamOptionList.find((option) => option.value === teamName)}
                                     />
-                                    {((validated && !teamNameValid) || (actionClicked && !teamSelectionWarning) || (teamApiCalled && teamApiError !== '')) &&
+                                    {((isFormValidated && !isTeamNameValid) || (isActionClicked && !isTeamSelectionWarningVisible) || (isTeamApiCalled && teamApiError !== '')) &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -436,7 +434,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !delayValid ? '' : 'warning'}>
+                            <div className={isFormValidated && !isDelayValid ? '' : 'warning'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Delay (in sec)*'}</Form.Label>
                                     <Form.Control
@@ -446,7 +444,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         onChange={(e) => setDelay(parseInt(e.target.value, 10))}
                                         required={true}
                                     />
-                                    {validated && !delayValid &&
+                                    {isFormValidated && !isDelayValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -455,19 +453,16 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !messageValid ? '' : 'warning'}>
+                            <div className={isFormValidated && !isMessageValid ? '' : 'warning'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Message*'}</Form.Label>
                                     <Form.Control
                                         type='text'
                                         placeholder=' Enter a message to post to a new user'
                                         value={message}
-                                        onChange={(e) => {
-                                            setMessage([e.target.value]);
-                                        }
-                                        }
+                                        onChange={(e) => setMessage([e.target.value])}
                                     />
-                                    {validated && !messageValid &&
+                                    {isFormValidated && !isMessageValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -513,7 +508,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                 <Form.Label>{'Actions'}</Form.Label>
                             </Form.Group>}
                         </Form>
-                        {existingConfig?.actions && actionLength > 0 ? (
+                        {existingConfig?.actions && actionLength ? (
                             <div className='list-table gapping'>
                                 <Table
                                     striped={true}
@@ -533,7 +528,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     existingConfig?.actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-
                                                 <td className='type'>
                                                     <OverlayTrigger
                                                         placement='top'
@@ -621,11 +615,11 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                     </div>}
                     {isActionVisible && <div className={isActionVisible ? 'fade-enter' : 'fade-exit'}>
                         <Form>
-                            <div className={((validated && !actionChannelsAddedToValid) || (channelApiCalled && channelApiError !== '')) ? '' : 'warnings'}>
+                            <div className={((isFormValidated && !isActionChannelsAddedToValid) || (isChannelApiCalled && channelApiError !== '')) ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Add to Channels*'}</Form.Label>
                                     <Select
-                                        isDisabled={chanelDropdownDisabled || channelApiError !== ''}
+                                        isDisabled={isChanelDropdownDisabled || channelApiError !== ''}
                                         closeMenuOnSelect={false}
                                         onChange={handleChannelSelect}
                                         isMulti={true}
@@ -636,7 +630,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         )}
                                         value={channelOptionList.filter((option) => actionChannelsAddedTo.includes(option.value))}
                                     />
-                                    {((validated && !actionChannelsAddedToValid) || (channelApiCalled && channelApiError !== '')) &&
+                                    {((isFormValidated && !isActionChannelsAddedToValid) || (isChannelApiCalled && channelApiError !== '')) &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -645,7 +639,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !actionTypesValueValid ? '' : 'warnings'}>
+                            <div className={isFormValidated && !isActionTypesValueValid ? '' : 'warnings'}>
                                 <Form.Group>
                                     <Form.Label className='radio-form'>{'Action Type*'}</Form.Label>
                                     <ButtonGroup className='radio'>
@@ -663,7 +657,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                             </ToggleButton>
                                         ))}
                                     </ButtonGroup>
-                                    {validated && !actionTypesValueValid &&
+                                    {isFormValidated && !isActionTypesValueValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -672,7 +666,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !actionDisplayNameValid ? '' : 'warnings'}>
+                            <div className={isFormValidated && !isActionDisplayNameValid ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Action Display Name*'}</Form.Label>
                                     <Form.Control
@@ -681,7 +675,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         value={actionDisplayName}
                                         onChange={(e) => setActionDisplayName(e.target.value)}
                                     />
-                                    {validated && !actionDisplayNameValid &&
+                                    {isFormValidated && !isActionDisplayNameValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -690,7 +684,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !actionNameValid ? '' : 'warnings'}>
+                            <div className={isFormValidated && !isActionNameValid ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Action Name*'}</Form.Label>
                                     <Form.Control
@@ -699,7 +693,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         value={actionName}
                                         onChange={(e) => setActionName(e.target.value)}
                                     />
-                                    {validated && !actionNameValid &&
+                                    {isFormValidated && !isActionNameValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -708,7 +702,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={validated && !actionSuccessfullMessageValid ? '' : 'warnings'}>
+                            <div className={isFormValidated && !isActionSuccessfullMessageValid ? '' : 'warnings'}>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Action Successfull Message*'}</Form.Label>
                                     <Form.Control
@@ -717,7 +711,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                         value={actionSuccessfullMessage}
                                         onChange={(e) => setActionSuccessfullMessage([e.target.value])}
                                     />
-                                    {validated && !actionSuccessfullMessageValid &&
+                                    {isFormValidated && !isActionSuccessfullMessageValid &&
                                     <Form.Control.Feedback
                                         type='invalid'
                                         className='validation-warning'
@@ -730,7 +724,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                     </div>}
                     {!isDeleteVisible && !isActionVisible && <div className='add-action-button'>
                         <Button
-                            className={actionLength > 0 ? 'add-actions' : ''}
+                            className={actionLength ? 'add-actions' : ''}
                             onClick={handleAddActions}
                         >{'Add actions'}</Button>
                     </div>}

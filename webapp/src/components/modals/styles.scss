@@ -1,7 +1,3 @@
-$color_1: #000000;
-$color_2: #FF0000;
-$border-color_1: transparent;
-
 @keyframes fade-in {
 	from {
 		opacity: 0;
@@ -64,15 +60,15 @@ $border-color_1: transparent;
 	justify-content: space-between;
 	.btn.btn-default {
 		background: none;
-		border-color: $border-color_1;
+		border-color: transparent;
 		border: transparent;
 		&:hover {
 			background: transparent;
-			color: $color_1;
+			color: #000000;
 		}
 		&:focus {
 			background: transparent;
-			color: $color_1;
+			color: #000000;
 		}
 	}
 }
@@ -101,7 +97,7 @@ $border-color_1: transparent;
 }
 
 .validation-warning {
-	color: $color_2;
+	color: #FF0000;
 	font-size: 12px;
 }
 
@@ -125,7 +121,7 @@ $border-color_1: transparent;
 
 .warning {
 	margin-bottom: 27px;
-	color: $color_1;
+	color: #000000;
 	.form-group {
 		position: relative;
 	}
@@ -148,7 +144,7 @@ $border-color_1: transparent;
 }
 
 .form-label {
-	color: $color_1;
+	color: #000000;
 }
 
 .type {
@@ -272,7 +268,7 @@ $border-color_1: transparent;
 }
 
 .team-name-dropdown {
-	color: $color_1;
+	color: #000000;
 }
 
 .guest-button {

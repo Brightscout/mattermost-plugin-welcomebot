@@ -16,17 +16,17 @@ type Props = {
 }
 
 const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) => {
-    const [attachmentMessageAvailable, setAttachmentMessageAvailable] = useState(false);
+    const [isAttachmentMessageAvailable, setIsAttachmentMessageAvailable] = useState(false);
 
     const actionsLength = config[configIndex]?.actions?.length;
 
     const checkAttachmentMessage = () => {
         if (config[configIndex]?.attachmentMessage?.length) {
-            setAttachmentMessageAvailable(Boolean(config[configIndex]?.attachmentMessage?.[0]));
+            setIsAttachmentMessageAvailable(Boolean(config[configIndex]?.attachmentMessage?.[0]));
             return;
         }
 
-        setAttachmentMessageAvailable(false);
+        setIsAttachmentMessageAvailable(false);
     };
 
     useEffect(() => {
@@ -46,8 +46,8 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
             </Modal.Header>
 
             <Modal.Body className='custom-modal-body'>
-                {attachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
-                    {attachmentMessageAvailable ? (
+                {isAttachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
+                    {isAttachmentMessageAvailable ? (
                         <Form>
                             <Form.Group className='form-group'>
                                 <Form.Label>{'Attachment Message'}</Form.Label>

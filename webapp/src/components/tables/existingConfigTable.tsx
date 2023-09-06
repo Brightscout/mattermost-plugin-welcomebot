@@ -16,10 +16,10 @@ type Props = {
 }
 
 const ExistingConfigTable = ({value, onChange}: Props) => {
-    const [isviewVisible, setIsViewVisible] = useState(false);
-    const [isdeleteVisible, setIsDeleteVisible] = useState(false);
-    const [iseditVisible, setIsEditVisible] = useState(false);
-    const [isaddVisible, setIsAddVisible] = useState(false);
+    const [isViewVisible, setIsViewVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+    const [isEditVisible, setIsEditVisible] = useState(false);
+    const [isAddVisible, setIsAddVisible] = useState(false);
 
     const [configIndex, setConfigIndex] = useState(0);
 
@@ -43,26 +43,26 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     return (
         <div className='config'>
             {
-                isviewVisible &&
+                isViewVisible &&
                     <ActionModal
-                        visibility={isviewVisible}
+                        visibility={isViewVisible}
                         setVisibility={setIsViewVisible}
                         config={value}
                         configIndex={configIndex}
                     />
             }
-            {isdeleteVisible &&
+            {isDeleteVisible &&
                 <DeleteModal
-                    visibility={isdeleteVisible}
+                    visibility={isDeleteVisible}
                     setVisibility={setIsDeleteVisible}
                     config={value}
                     configIndex={configIndex}
                     onChange={onChange}
                 />
             }
-            {iseditVisible &&
+            {isEditVisible &&
                 <ConfigModal
-                    visibility={iseditVisible}
+                    visibility={isEditVisible}
                     setVisibility={setIsEditVisible}
                     configIndex={configIndex}
                     config={value}
@@ -70,9 +70,9 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Edit Config'
                 />
             }
-            {isaddVisible &&
+            {isAddVisible &&
                 <ConfigModal
-                    visibility={isaddVisible}
+                    visibility={isAddVisible}
                     setVisibility={setIsAddVisible}
                     configIndex={null}
                     config={value}
