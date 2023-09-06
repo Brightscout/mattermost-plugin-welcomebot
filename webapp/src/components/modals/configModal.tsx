@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {useEffect, useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -58,7 +57,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         actions: newAction,
     };
 
-    // const [show, setShow] = useState(true);
     const [isConfigVisible, setIsConfigVisible] = useState(true);
     const [isActionVisible, setIsActionVisible] = useState(false);
     const [isDeleteVisible, setIsDeleteVisible] = useState(false);
@@ -115,7 +113,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
     const mmSiteUrl = reduxState?.entities?.general?.config?.SiteURL as string;
 
     useEffect(() => {
-        // setShow(visibility);
         setIsConfigVisible(visibility);
     }, [visibility]);
 

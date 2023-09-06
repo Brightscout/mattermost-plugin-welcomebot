@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -14,12 +14,6 @@ type Props = {
 }
 
 const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}: Props) => {
-    // const [show, setShow] = useState(false);
-
-    // useEffect(() => {
-    //     setShow(visibility);
-    // }, [visibility]);
-
     const handleDelete: () => void = () => {
         config.splice(configIndex, 1);
         onChange(config);
@@ -27,7 +21,6 @@ const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}:
     };
 
     const handleClose = () => {
-        // setShow(false);
         setVisibility(false);
     };
 
