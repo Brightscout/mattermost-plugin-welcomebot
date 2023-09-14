@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EditSvg = () => (
+const EditIcon = () => (
     <svg
         className='svg'
         xmlns='http://www.w3.org/2000/svg'
@@ -18,7 +18,7 @@ const EditSvg = () => (
     </svg>
 );
 
-const DeleteSvg = () => (
+const DeleteIcon = () => (
     <svg
         className='svg'
         xmlns='http://www.w3.org/2000/svg'
@@ -48,7 +48,7 @@ const DeleteSvg = () => (
     </svg>
 );
 
-const ViewSvg = () => (
+const ViewIcon = () => (
     <svg
         xmlns='http://www.w3.org/2000/svg'
         width='16'
@@ -69,4 +69,4 @@ const ViewSvg = () => (
     </svg>
 );
 
-export {EditSvg, DeleteSvg, ViewSvg};
+export {EditIcon, DeleteIcon, ViewIcon};

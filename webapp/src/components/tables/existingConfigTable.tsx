@@ -6,7 +6,7 @@ import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
 import ConfigModal from '../modals/configModal';
 
-import {DeleteSvg, EditSvg, ViewSvg} from '../svgIcons/svg';
+import {DeleteIcon, EditIcon, ViewIcon} from '../svgIcons/svg';
 
 import './styles.scss';
 
@@ -80,6 +80,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Add Config'
                 />
             }
+
             <FormGroup>
                 <div className='name'>
                     {'Existing Configs'}
@@ -137,7 +138,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                                 className='svg-buttons'
                                                                 onClick={() => handleView(i)}
                                                             >
-                                                                <ViewSvg/>
+                                                                <ViewIcon/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                         <OverlayTrigger
@@ -148,7 +149,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                                 className='svg-buttons'
                                                                 onClick={() => handleEdit(i)}
                                                             >
-                                                                <EditSvg/>
+                                                                <EditIcon/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                         <OverlayTrigger
@@ -159,7 +160,7 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                                                                 className='svg-buttons'
                                                                 onClick={() => handleDelete(i)}
                                                             >
-                                                                <DeleteSvg/>
+                                                                <DeleteIcon/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                     </ButtonGroup>

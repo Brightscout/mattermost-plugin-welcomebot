@@ -15,7 +15,7 @@ import {GlobalState} from 'mattermost-redux/types/store';
 
 import {fetchChannels, fetchTeams} from 'api/api_wrapper';
 
-import {DeleteSvg, EditSvg} from '../svgIcons/svg';
+import {DeleteIcon, EditIcon} from '../svgIcons/svg';
 
 import './styles.scss';
 
@@ -585,7 +585,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                                             overlay={<Tooltip>{'Edit action'}</Tooltip>}
                                                         >
                                                             <Button onClick={() => handleEditAction(i)}>
-                                                                <EditSvg/>
+                                                                <EditIcon/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                         <OverlayTrigger
@@ -593,7 +593,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                                             overlay={<Tooltip>{'Delete action'}</Tooltip>}
                                                         >
                                                             <Button onClick={() => handleActionDelete(i, val.actionName)}>
-                                                                <DeleteSvg/>
+                                                                <DeleteIcon/>
                                                             </Button>
                                                         </OverlayTrigger>
                                                     </ButtonGroup>

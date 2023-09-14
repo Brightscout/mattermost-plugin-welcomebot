@@ -32,10 +32,12 @@
 	.modal-header {
 		display: flex;
 	}
+
 	.modal-body {
 		display: flex;
 		flex-direction: column;
 	}
+
 	width: 615px;
 	max-width: 615px;
 }
@@ -58,14 +60,17 @@
 .btn-group {
 	display: flex;
 	justify-content: space-between;
+
 	.btn.btn-default {
 		background: none;
 		border-color: transparent;
 		border: transparent;
+	
 		&:hover {
 			background: transparent;
 			color: #000000;
 		}
+
 		&:focus {
 			background: transparent;
 			color: #000000;
@@ -89,7 +94,7 @@
 }
 
 .radio-form {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .add-actions {
@@ -122,6 +127,7 @@
 .warning {
 	margin-bottom: 27px;
 	color: #000000;
+
 	.form-group {
 		position: relative;
 	}
@@ -138,6 +144,7 @@
 
 .warnings {
 	margin-bottom: 25px;
+
 	.form-group {
 		position: relative;
 	}
@@ -231,6 +238,7 @@
 				}
 			}
 		}
+
 		thead {
 			tr {
 				th {
@@ -241,27 +249,33 @@
 					}
 				}
 			}
+
 			border: 1px solid #dddddd;
 			vertical-align: middle;
 			width: 100%;
 		}
+
 		td {
 			text-align: center;
 			vertical-align: middle;
 		}
+
 		th {
 			text-align: center;
 			vertical-align: bottom;
 		}
+
 		width: 100%;
 		margin-top: 0;
 		margin-bottom: 0;
 		table-layout: fixed;
+
 		tr {
 			display: flex;
 			width: 100%;
 		}
 	}
+
 	th {
 		text-align: center;
 	}

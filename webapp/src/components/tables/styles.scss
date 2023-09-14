@@ -3,6 +3,7 @@
 	justify-content: space-between;
 	gap: 10px;
 	gap: 1px;
+
 	.btn.btn-default {
 		background: none;
 		border-color: transparent;
@@ -19,6 +20,7 @@
 			}
 		}
 	}
+
 	thead {
 		tr {
 			th {
@@ -39,12 +41,15 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+
 	th {
 		text-align: center;
 		vertical-align: bottom;
 	}
+
 	width: 100%;
 	table-layout: fixed;
+
 	thead {
 		tr {
 			th {
@@ -54,6 +59,7 @@
 			}
 		}
 	}
+
 	.messageValue {
 		text-align: left;
 		vertical-align: middle;
@@ -88,7 +94,7 @@
 
 .config {
 	.form-group {
-		margin-left: 0px;
+		margin-left: 0;
 	}
 }
 
@@ -143,6 +149,7 @@
 		outline: none;
 		box-shadow: none;
 	}
+
 	&:active {
 		outline: none;
 		box-shadow: none;
