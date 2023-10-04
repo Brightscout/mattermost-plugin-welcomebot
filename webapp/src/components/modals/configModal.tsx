@@ -239,8 +239,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
         }
 
         setIsFormValidated(false);
-
-        // setShow(false);
         setVisibility(false);
         setIsTeamApiCalled(false);
     };
