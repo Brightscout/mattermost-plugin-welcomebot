@@ -11,7 +11,7 @@ import './styles.scss';
 type Props = {
     visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
-    config: Configs[];
+    config: Config[];
     configIndex: number;
 }
 

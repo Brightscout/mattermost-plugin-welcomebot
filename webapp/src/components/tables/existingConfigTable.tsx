@@ -11,8 +11,8 @@ import {DeleteIcon, EditIcon, ViewIcon} from '../svgIcons/svg';
 import './styles.scss';
 
 type Props = {
-    onChange: (config: Configs[]) => void;
-    value: Configs[];
+    onChange: (config: Config[]) => void;
+    value: Config[];
 }
 
 const ExistingConfigTable = ({value, onChange}: Props) => {

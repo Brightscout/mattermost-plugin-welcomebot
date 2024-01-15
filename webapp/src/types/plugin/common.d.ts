@@ -6,7 +6,7 @@ type Actions = {
     actionSuccessfullMessage: string[]
 };
 
-type Configs = {
+type Config = {
     teamName: string,
     delayInSeconds: number,
     message: string[],
@@ -32,5 +32,5 @@ type Teams = {
 
 type Channels = {
     display_name: string;
-    team_name: string,
+    team_display_name: string,
 };

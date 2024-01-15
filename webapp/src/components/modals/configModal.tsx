@@ -23,8 +23,8 @@ type Props = {
     visibility: boolean;
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
     configIndex: number | null;
-    config: Configs[];
-    onChange: (config: Configs[]) => void;
+    config: Config[];
+    onChange: (config: Config[]) => void;
     modalHeader: string;
 }
 
@@ -48,7 +48,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
     const newAction: Actions[] = [];
 
-    const newConfig: Configs = {
+    const newConfig: Config = {
         teamName: '',
         delayInSeconds: 0,
         message: [''],
@@ -78,7 +78,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
 
     const [isTeamNameValid, setIsTeamNameValid] = useState(false);
     const [isMessageValid, setIsMessageValid] = useState(false);
-    const [isDelayValid, setIsDelayValid] = useState(false);
 
     const [isActionTypesValueValid, setIsActionTypesValueValid] = useState(false);
     const [isActionDisplayNameValid, setIsActionDisplayNameValid] = useState(false);
@@ -148,8 +147,6 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             setIsMessageValid(false);
         }
 
-        setIsDelayValid(delay >= 0);
-
         setIsActionTypesValueValid(Boolean(actionTypesValue));
 
         setIsActionDisplayNameValid(Boolean(actionDisplayName.trim()));
@@ -202,10 +199,11 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             if (isTeamNameValid && isMessageValid && teamApiError === '') {
                 if (configIndex === null) {
                     structureNewConfig();
-                    config.push(existingConfig);
+                    config = [...config, existingConfig];
                 } else {
                     structureConfig();
                 }
+
                 onChange(config);
                 setIsFormValidated(false);
                 handleSecondary();
@@ -310,7 +308,7 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
             const channelOptions = channelData.map((channel: Channels) => ({
                 value: channel.display_name,
                 label: channel.display_name,
-                data: channel.team_name,
+                data: channel.team_display_name,
             }));
             setChannelOptionList(channelOptions);
         } catch (error) {
@@ -429,23 +427,17 @@ const ConfigModal = ({visibility, setVisibility, configIndex, config, onChange, 
                                     </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
-                            <div className={isFormValidated && !isDelayValid ? '' : 'warning'}>
+                            <div>
                                 <Form.Group className='form-group'>
                                     <Form.Label>{'Delay (in sec)*'}</Form.Label>
                                     <Form.Control
                                         type='number'
+                                        min={0}
                                         placeholder='Enter the delay in seconds'
                                         value={delay}
                                         onChange={(e) => setDelay(parseInt(e.target.value, 10))}
                                         required={true}
                                     />
-                                    {isFormValidated && !isDelayValid &&
-                                    <Form.Control.Feedback
-                                        type='invalid'
-                                        className='validation-warning'
-                                    >
-                                        {'Please provide a positive number'}
-                                    </Form.Control.Feedback>}
                                 </Form.Group>
                             </div>
                             <div className={isFormValidated && !isMessageValid ? '' : 'warning'}>
