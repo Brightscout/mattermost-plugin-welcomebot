@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {FormGroup, Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {Table, ButtonGroup, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import ActionModal from '../modals/actionModal';
 import DeleteModal from '../modals/deleteModal';
@@ -41,15 +41,14 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
     const handleAdd = () => setIsAddVisible(true);
 
     return (
-        <div className='config'>
-            {
-                isViewVisible &&
-                    <ActionModal
-                        visibility={isViewVisible}
-                        setVisibility={setIsViewVisible}
-                        config={value}
-                        configIndex={configIndex}
-                    />
+        <>
+            {isViewVisible &&
+                <ActionModal
+                    visibility={isViewVisible}
+                    setVisibility={setIsViewVisible}
+                    config={value}
+                    configIndex={configIndex}
+                />
             }
             {isDeleteVisible &&
                 <DeleteModal
@@ -80,108 +79,117 @@ const ExistingConfigTable = ({value, onChange}: Props) => {
                     modalHeader='Add Config'
                 />
             }
-
-            <FormGroup>
-                <div className='name'>
-                    {'Existing Configs'}
-                </div>
-                <div>
-                    {value.length > 0 &&
-                    <Table
-                        striped={true}
-                        className='existing-config-table'
-                    >
-                        <thead>
-                            <tr>
-                                <th className='teamName'>{'Team Name'}</th>
-                                <th className='delay'>{'Delay (in sec)'}</th>
-                                <th className='message'>{'Message'}</th>
-                                <th className='include-guests'>{'Include Guests'}</th>
-                                <th className='option'>{'Options'}</th>
+            <div className='custom-config'>
+                {'Existing Configs:'}
+            </div>
+            {value.length && (
+                <Table
+                    striped={true}
+                    bordered={true}
+                    hover={true}
+                >
+                    <thead>
+                        <tr>
+                            <th>{'Team Name'}</th>
+                            <th>{'Delay (in sec)'}</th>
+                            <th>{'Message'}</th>
+                            <th>{'Include Guests'}</th>
+                            <th>{'Options'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {value.map((val, i) => (
+                            <tr key={i.toString()}>
+                                <td>
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={<Tooltip>{val.teamName}</Tooltip>}
+                                    >
+                                        <div className='custom-config__tooltip'>
+                                            {val.teamName}
+                                        </div>
+                                    </OverlayTrigger>
+                                </td>
+                                <td>
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={<Tooltip>{val.delayInSeconds}</Tooltip>}
+                                    >
+                                        <div className='custom-config__tooltip'>
+                                            {val.delayInSeconds}
+                                        </div>
+                                    </OverlayTrigger>
+                                </td>
+                                <td>
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={<Tooltip>{val.message.join(',')}</Tooltip>}
+                                    >
+                                        <div className='custom-config__tooltip'>
+                                            {val.message.join(',')}
+                                        </div>
+                                    </OverlayTrigger>
+                                </td>
+                                <td>
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={<Tooltip>{val.includeGuests ? val.includeGuests : '-'}</Tooltip>}
+                                    >
+                                        <div className='custom-config__tooltip'>
+                                            {val.includeGuests ? val.includeGuests : '-'}
+                                        </div>
+                                    </OverlayTrigger>
+                                </td>
+                                <td>
+                                    <ButtonGroup
+                                        aria-label='action update buttons'
+                                        className='custom-config__buttons'
+                                    >
+                                        <OverlayTrigger
+                                            placement='top'
+                                            overlay={<Tooltip>{'View actions'}</Tooltip>}
+                                        >
+                                            <Button
+                                                onClick={() => handleView(i)}
+                                            >
+                                                <ViewIcon/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                        <OverlayTrigger
+                                            placement='top'
+                                            overlay={<Tooltip>{'Edit config'}</Tooltip>}
+                                        >
+                                            <Button
+                                                onClick={() => handleEdit(i)}
+                                            >
+                                                <EditIcon/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                        <OverlayTrigger
+                                            placement='top'
+                                            overlay={<Tooltip>{'Delete Config'}</Tooltip>}
+                                        >
+                                            <Button
+                                                onClick={() => handleDelete(i)}
+                                            >
+                                                <DeleteIcon/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </ButtonGroup>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody className='table-body'>
-                            {
-                                value.map((val, i) =>
-                                    (
-                                        <tr key={i.toString()}>
-                                            <td>
-                                                <OverlayTrigger
-                                                    placement='top'
-                                                    overlay={<Tooltip>{val.teamName}</Tooltip>}
-                                                >
-                                                    <p>
-                                                        {val.teamName}
-                                                    </p>
-                                                </OverlayTrigger>
-                                            </td>
-                                            <td>{val.delayInSeconds}</td>
-                                            <td className='message'>
-                                                <OverlayTrigger
-                                                    placement='top'
-                                                    overlay={<Tooltip>{val.message.join(',')}</Tooltip>}
-                                                >
-                                                    <p className='message-content'>
-                                                        {val.message.join(',')}
-                                                    </p>
-                                                </OverlayTrigger>
-                                            </td>
-                                            <td>{val.includeGuests ? val.includeGuests : '-'}</td>
-                                            <td className='option'>
-                                                <div>
-                                                    <ButtonGroup aria-label='Basic example'>
-                                                        <OverlayTrigger
-                                                            placement='top'
-                                                            overlay={<Tooltip>{'View actions'}</Tooltip>}
-                                                        >
-                                                            <Button
-                                                                className='svg-buttons'
-                                                                onClick={() => handleView(i)}
-                                                            >
-                                                                <ViewIcon/>
-                                                            </Button>
-                                                        </OverlayTrigger>
-                                                        <OverlayTrigger
-                                                            placement='top'
-                                                            overlay={<Tooltip>{'Edit config'}</Tooltip>}
-                                                        >
-                                                            <Button
-                                                                className='svg-buttons'
-                                                                onClick={() => handleEdit(i)}
-                                                            >
-                                                                <EditIcon/>
-                                                            </Button>
-                                                        </OverlayTrigger>
-                                                        <OverlayTrigger
-                                                            placement='top'
-                                                            overlay={<Tooltip>{'Delete Config'}</Tooltip>}
-                                                        >
-                                                            <Button
-                                                                className='svg-buttons'
-                                                                onClick={() => handleDelete(i)}
-                                                            >
-                                                                <DeleteIcon/>
-                                                            </Button>
-                                                        </OverlayTrigger>
-                                                    </ButtonGroup>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ),
-                                )
-                            }
-                        </tbody>
-                    </Table>}
-                    <Button
-                        className='add-config-btn'
-                        variant='primary'
-                        onClick={handleAdd}
-                    >
-                        {'Add Config'}
-                    </Button>
-                </div>
-            </FormGroup>
-        </div>
+                        ))}
+                    </tbody>
+                </Table>
+            )}
+            <Button
+                className='custom-config__add-button'
+                variant='primary'
+                onClick={handleAdd}
+            >
+                {'Add Config'}
+            </Button>
+        </>
     );
 };
 

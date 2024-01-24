@@ -3,7 +3,7 @@ type Actions = {
     actionName: string,
     actionDisplayName: string,
     channelsAddedTo: string[],
-    actionSuccessfullMessage: string[]
+    actionSuccessfulMessage: string[]
 };
 
 type Config = {

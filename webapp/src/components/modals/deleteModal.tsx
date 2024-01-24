@@ -26,27 +26,29 @@ const DeleteModal = ({visibility, setVisibility, config, configIndex, onChange}:
 
     return (
         <Modal
-            className='custom-modal'
+            className='delete-modal'
             show={visibility}
             onHide={handleClose}
         >
             <Modal.Header closeButton={false}>
                 <Modal.Title>{'Delete Config'}</Modal.Title>
             </Modal.Header>
-
             <Modal.Body>
                 <p>{`Are you sure you would like to delete the configs for team ${config[configIndex].teamName}?`}</p>
             </Modal.Body>
-
             <Modal.Footer>
                 <Button
                     variant='secondary'
                     onClick={handleClose}
-                >{'Close'}</Button>
+                >
+                    {'Cancel'}
+                </Button>
                 <Button
                     variant='danger'
                     onClick={handleDelete}
-                >{'Delete'}</Button>
+                >
+                    {'Delete'}
+                </Button>
             </Modal.Footer>
         </Modal>
     );

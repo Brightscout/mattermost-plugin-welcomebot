@@ -37,7 +37,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
 
     return (
         <Modal
-            className='custom-modal'
+            className='action-modal'
             show={visibility}
             onHide={handleClose}
         >
@@ -45,41 +45,45 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                 <Modal.Title>{'Actions'}</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body className='custom-modal-body'>
+            <Modal.Body className='action-modal__body'>
                 {isAttachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
                     {isAttachmentMessageAvailable ? (
-                        <Form>
-                            <Form.Group className='form-group'>
+                        <Form className='action-modal__attachment-body'>
+                            <Form.Group>
                                 <Form.Label>{'Attachment Message'}</Form.Label>
                                 <Form.Control
                                     type='long-text'
                                     value={config[configIndex].attachmentMessage?.join(',') ?? ''}
                                     placeholder=''
-                                    aria-label='Disabled input example'
+                                    aria-label='attachment message'
                                     readOnly={true}
                                 />
                             </Form.Group>
                         </Form>
-                    ) : (<p>{'No attachment message configured'}</p>)
-                    }
+                    ) : (
+                        <p>{'No attachment message configured'}</p>
+                    )}
                     {config[configIndex]?.actions && actionsLength ? (
-                        <div>
+                        <div className='action-modal__action-body'>
                             <Form>
-                                <Form.Group className='action-group'>
+                                <Form.Group>
                                     <Form.Label>{'Actions'}</Form.Label>
                                 </Form.Group>
                             </Form>
-                            <div className='list-table'>
+                            <div>
                                 <Table
                                     striped={true}
+                                    bordered={true}
+                                    hover={true}
+                                    className='margin-bottom-0'
                                 >
                                     <thead>
                                         <tr>
-                                            <th className='type-action'>{'Type'}</th>
-                                            <th className='display-name-action'>{'Display Name'}</th>
-                                            <th className='name-action'>{'Name'}</th>
-                                            <th className='channels-added-action'>{'Add to Channels'}</th>
-                                            <th className='success-message-action'>{'Success Message'}</th>
+                                            <th>{'Type'}</th>
+                                            <th>{'Display Name'}</th>
+                                            <th>{'Name'}</th>
+                                            <th>{'Add to Channels'}</th>
+                                            <th>{'Success Message'}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,53 +91,53 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                     config[configIndex].actions?.map((val, i) =>
                                         (
                                             <tr key={i.toString()}>
-                                                <td className='type-action'>
+                                                <td>
                                                     <OverlayTrigger
                                                         placement='top'
                                                         overlay={<Tooltip>{val.actionType}</Tooltip>}
                                                     >
-                                                        <p>
+                                                        <p className='action-modal__tooltip'>
                                                             {val.actionType}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
-                                                <td className='display-name-action'>
+                                                <td>
                                                     <OverlayTrigger
                                                         placement='top'
                                                         overlay={<Tooltip>{val.actionDisplayName}</Tooltip>}
                                                     >
-                                                        <p className='display-name-content'>
+                                                        <p className='action-modal__tooltip'>
                                                             {val.actionDisplayName}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
-                                                <td className='name-action'>
+                                                <td>
                                                     <OverlayTrigger
                                                         placement='top'
                                                         overlay={<Tooltip>{val.actionName}</Tooltip>}
                                                     >
-                                                        <p className='action-name-content'>
+                                                        <p className='action-modal__tooltip'>
                                                             {val.actionName}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
-                                                <td className='channels-added-action'>
+                                                <td>
                                                     <OverlayTrigger
                                                         placement='top'
                                                         overlay={<Tooltip>{val.channelsAddedTo.join(', ')}</Tooltip>}
                                                     >
-                                                        <p className='channels-added-content'>
+                                                        <p className='action-modal__tooltip'>
                                                             {val.channelsAddedTo.join(', ')}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
-                                                <td className='success-message-action'>
+                                                <td>
                                                     <OverlayTrigger
                                                         placement='top'
-                                                        overlay={<Tooltip>{val.actionSuccessfullMessage.join(',')}</Tooltip>}
+                                                        overlay={<Tooltip>{val.actionSuccessfulMessage.join(',')}</Tooltip>}
                                                     >
-                                                        <p className='successfull-message-content'>
-                                                            {val.actionSuccessfullMessage.join(',')}
+                                                        <p className='action-modal__tooltipt'>
+                                                            {val.actionSuccessfulMessage.join(',')}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
@@ -145,9 +149,13 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                 </Table>
                             </div>
                         </div>
-                    ) : (<p>{'No action configured'}</p>)
-                    }
-                </>) : (<p>{'No attachment message or action configured'}</p>)}
+                    ) : (
+                        <div className='action-modal__no-action'>{'No action configured'}</div>
+                    )}
+                </>
+                ) : (
+                    <>{'No attachment message or action configured'}</>
+                )}
             </Modal.Body>
 
             <Modal.Footer>
