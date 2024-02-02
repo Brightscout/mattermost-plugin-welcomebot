@@ -19,9 +19,10 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
     const [isAttachmentMessageAvailable, setIsAttachmentMessageAvailable] = useState(false);
 
     const actionsLength = config[configIndex]?.actions?.length;
+    const attachmentMessageLength = config[configIndex]?.attachmentMessage?.length;
 
     const checkAttachmentMessage = () => {
-        if (config[configIndex]?.attachmentMessage?.length) {
+        if (attachmentMessageLength) {
             setIsAttachmentMessageAvailable(Boolean(config[configIndex]?.attachmentMessage?.[0]));
             return;
         }
@@ -44,9 +45,9 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
             <Modal.Header closeButton={false}>
                 <Modal.Title>{'Actions'}</Modal.Title>
             </Modal.Header>
-
             <Modal.Body className='action-modal__body'>
-                {isAttachmentMessageAvailable || (config[configIndex]?.actions && actionsLength) ? (<>
+                {isAttachmentMessageAvailable || actionsLength ? (
+                    <>
                     {isAttachmentMessageAvailable ? (
                         <Form className='action-modal__attachment-body'>
                             <Form.Group>
@@ -63,7 +64,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                     ) : (
                         <p>{'No attachment message configured'}</p>
                     )}
-                    {config[configIndex]?.actions && actionsLength ? (
+                    {actionsLength ? (
                         <div className='action-modal__action-body'>
                             <Form>
                                 <Form.Group>
@@ -87,9 +88,7 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                    config[configIndex].actions?.map((val, i) =>
-                                        (
+                                        {config[configIndex].actions?.map((val, i) => (
                                             <tr key={i.toString()}>
                                                 <td>
                                                     <OverlayTrigger
@@ -136,15 +135,13 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                                                         placement='top'
                                                         overlay={<Tooltip>{val.actionSuccessfulMessage.join(',')}</Tooltip>}
                                                     >
-                                                        <p className='action-modal__tooltipt'>
+                                                        <p className='action-modal__tooltip'>
                                                             {val.actionSuccessfulMessage.join(',')}
                                                         </p>
                                                     </OverlayTrigger>
                                                 </td>
                                             </tr>
-                                        ),
-                                    )
-                                        }
+                                        ))}
                                     </tbody>
                                 </Table>
                             </div>
@@ -152,12 +149,11 @@ const ActionModal = ({visibility, setVisibility, config, configIndex}: Props) =>
                     ) : (
                         <div className='action-modal__no-action'>{'No action configured'}</div>
                     )}
-                </>
+                    </>
                 ) : (
                     <>{'No attachment message or action configured'}</>
                 )}
             </Modal.Body>
-
             <Modal.Footer>
                 <Button
                     variant='secondary'
