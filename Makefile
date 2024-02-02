@@ -63,6 +63,7 @@ ifneq ($(HAS_SERVER),)
 endif
 
 ## Ensures NPM dependencies are installed without having to run this all the time.
+.PHONY: webapp/.npminstall
 webapp/.npminstall:
 ifneq ($(HAS_WEBAPP),)
 	cd webapp && $(NPM) install

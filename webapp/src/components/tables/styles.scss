@@ -1,0 +1,26 @@
+.custom-config {
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 16px;
+
+	&__tooltip {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__add-button {
+		margin-top: 15px;
+	}
+
+	&__buttons {
+		display: flex;
+		.btn {
+			background: transparent !important;
+		}
+
+		.btn:hover {
+			background: transparent !important;
+		}
+	}
+}
