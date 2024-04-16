@@ -17,22 +17,48 @@ func (p *Plugin) UserHasJoinedTeam(c *plugin.Context, teamMember *model.TeamMemb
 		return
 	}
 
-	for _, message := range p.getWelcomeMessages() {
-		if data.User.IsGuest() && !message.IncludeGuests {
-			continue
-		}
+	teamMessage, appErr := p.GetTeamWelcomeMessageFromKV(teamMember.TeamId)
+	if appErr != nil {
+		mlog.Error(
+			"error occurred while retrieving the welcome message",
+			mlog.String("teamId", teamMember.TeamId),
+			mlog.Err(appErr),
+		)
+		return
+	}
 
-		if message.TeamName == data.Team.Name {
-			go p.processWelcomeMessage(*data, *message)
+	if teamMessage == nil {
+		// No dynamic welcome message for the given team, so we check if one has been set in the config.json
+		for _, message := range p.getWelcomeMessages() {
+			if message.TeamName == data.Team.Name {
+				go p.processWelcomeMessage(*data, *message)
+			}
 		}
+		return
+	}
+
+	// We send a DM and an opportunistic ephemeral message to the channel. See
+	// the discussion at the link below for more details:
+	// https://github.com/mattermost/mattermost-plugin-welcomebot/pull/31#issuecomment-611691023
+	postDM := &model.Post{
+		UserId:    p.botUserID,
+		ChannelId: data.DirectMessage.Id,
+		Message:   string(teamMessage),
+	}
+	if _, appErr := p.API.CreatePost(postDM); appErr != nil {
+		mlog.Error("failed to post welcome message to the channel",
+			mlog.String("channelId", data.DirectMessage.Id),
+			mlog.Err(appErr),
+		)
 	}
 }
 
 // UserHasJoinedChannel is invoked after the membership has been committed to
 // the database. If actor is not nil, the user was invited to the channel by
 // the actor.
-func (p *Plugin) UserHasJoinedChannel(c *plugin.Context, channelMember *model.ChannelMember, _ *model.User) {
-	if channelInfo, appErr := p.API.GetChannel(channelMember.ChannelId); appErr != nil {
+func (p *Plugin) UserHasJoinedChannel(c *plugin.Context, channelMember *model.ChannelMember, actor *model.User) {
+	channelInfo, appErr := p.API.GetChannel(channelMember.ChannelId)
+	if appErr != nil {
 		mlog.Error(
 			"error occurred while checking the type of the chanel",
 			mlog.String("channelId", channelMember.ChannelId),
